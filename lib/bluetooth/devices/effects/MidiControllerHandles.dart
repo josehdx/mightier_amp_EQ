@@ -83,7 +83,18 @@ enum ControllerHandleId {
 
   modRate,
   modDepth,
-  modIntensity
+  modIntensity,
+  
+  eqBand1,
+  eqBand2,
+  eqBand3,
+  eqBand4,
+  eqBand5,
+  eqBand6,
+  eqBand7,
+  eqBand8,
+  eqBand9,
+  eqBand10
 }
 
 class MidiControllerHandle {
@@ -261,4 +272,25 @@ class MidiControllerHandles {
       MidiControllerHandle("Depth/Width", ControllerHandleId.modDepth);
   static const MidiControllerHandle modIntensity =
       MidiControllerHandle("Intensity/Mix", ControllerHandleId.modIntensity);
+      
+  static const MidiControllerHandle eqBand1 =
+      MidiControllerHandle("EQ Band 1", ControllerHandleId.eqBand1);
+  static const MidiControllerHandle eqBand2 =
+      MidiControllerHandle("EQ Band 2", ControllerHandleId.eqBand2);
+  static const MidiControllerHandle eqBand3 =
+      MidiControllerHandle("EQ Band 3", ControllerHandleId.eqBand3);
+  static const MidiControllerHandle eqBand4 =
+      MidiControllerHandle("EQ Band 4", ControllerHandleId.eqBand4);
+  static const MidiControllerHandle eqBand5 =
+      MidiControllerHandle("EQ Band 5", ControllerHandleId.eqBand5);
+  static const MidiControllerHandle eqBand6 =
+      MidiControllerHandle("EQ Band 6", ControllerHandleId.eqBand6);
+  static const MidiControllerHandle eqBand7 =
+      MidiControllerHandle("EQ Band 7", ControllerHandleId.eqBand7);
+  static const MidiControllerHandle eqBand8 =
+      MidiControllerHandle("EQ Band 8", ControllerHandleId.eqBand8);
+  static const MidiControllerHandle eqBand9 =
+      MidiControllerHandle("EQ Band 9", ControllerHandleId.eqBand9);
+  static const MidiControllerHandle eqBand10 =
+      MidiControllerHandle("EQ Band 10", ControllerHandleId.eqBand10);
 }

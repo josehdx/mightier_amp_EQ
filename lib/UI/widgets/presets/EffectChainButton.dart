@@ -1,5 +1,7 @@
-import 'package:flutter/material.dart';
+// (c) 2020-2021 Dian Iliev (Tuntorius)
+// This code is licensed under MIT license (see LICENSE.md for details)
 
+import 'package:flutter/material.dart';
 import '../../../bluetooth/devices/effects/Processor.dart';
 
 class EffectChainButton extends StatelessWidget {
@@ -12,17 +14,17 @@ class EffectChainButton extends StatelessWidget {
   final GestureTapCallback? onDoubleTap;
   final int index;
 
-  const EffectChainButton(
-      {Key? key,
-      required this.effectInfo,
-      required this.enabled,
-      required this.selected,
-      required this.color,
-      this.onTap,
-      this.onDoubleTap,
-      required this.index,
-      required this.reorderable})
-      : super(key: key);
+  const EffectChainButton({
+    Key? key,
+    required this.effectInfo,
+    required this.enabled,
+    required this.selected,
+    required this.color,
+    this.onTap,
+    this.onDoubleTap,
+    required this.index,
+    required this.reorderable,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -52,17 +54,16 @@ class EffectChainButton extends StatelessWidget {
                       padding: const EdgeInsets.all(3),
                       decoration: BoxDecoration(
                           color: selected
-                              ? color
+                              ? buttonColor
                               : Theme.of(context).scaffoldBackgroundColor,
                           border: Border.all(
-                            color: color,
+                            color: buttonColor,
                           ),
                           borderRadius:
                               const BorderRadius.all(Radius.circular(3))),
                       child: Icon(
                         effectInfo.icon,
-                        //size: 30,
-                        color: selected ? Colors.black : color,
+                        color: selected ? Colors.black : buttonColor,
                       ),
                     ),
                     ExcludeSemantics(

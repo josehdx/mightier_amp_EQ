@@ -2,8 +2,7 @@ import 'dart:math';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:mighty_plug_manager/bluetooth/devices/NuxDevice.dart';
-
+import '../../../bluetooth/devices/NuxDevice.dart';
 import '../../../bluetooth/devices/presets/Preset.dart';
 import 'EffectChainButton.dart';
 
@@ -18,16 +17,16 @@ class EffectChainBar extends StatelessWidget {
   final void Function(int) onDoubleTap;
   final ReorderCallback onReorder;
 
-  const EffectChainBar(
-      {Key? key,
-      required this.maxHeight,
-      required this.device,
-      required this.preset,
-      required this.onTap,
-      required this.onDoubleTap,
-      required this.onReorder,
-      required this.reorderable})
-      : super(key: key);
+  const EffectChainBar({
+    Key? key,
+    required this.maxHeight,
+    required this.device,
+    required this.preset,
+    required this.onTap,
+    required this.onDoubleTap,
+    required this.onReorder,
+    required this.reorderable,
+  }) : super(key: key);
 
   EffectChainButton buildItem(context, index) {
     var proc = preset.getFXIDFromSlot(index);
@@ -35,15 +34,16 @@ class EffectChainBar extends StatelessWidget {
     bool selected = index == device.selectedSlot;
 
     return EffectChainButton(
-        index: index,
-        effectInfo: effect!,
-        color: preset.effectColor(index),
-        enabled: preset.slotEnabled(index),
-        selected: selected,
-        reorderable: reorderable,
-        key: Key(index.toString()),
-        onTap: () => onTap(index),
-        onDoubleTap: () => onDoubleTap(index));
+      index: index,
+      effectInfo: effect!,
+      color: preset.effectColor(index),
+      enabled: preset.slotEnabled(index),
+      selected: selected,
+      reorderable: reorderable,
+      key: Key(index.toString()),
+      onTap: () => onTap(index),
+      onDoubleTap: () => onDoubleTap(index),
+    );
   }
 
   @override

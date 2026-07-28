@@ -37,6 +37,7 @@ class ControllerHotkey {
   NuxDevice? _cachedDevice;
   int? _cachedSlot;
   int? _cachedFX;
+  int? _cachedChannel;
   int? _cachedParameter;
 
   ControllerHotkey(
@@ -242,6 +243,9 @@ class ControllerHotkey {
       case HotkeyControl.NextPresetCategory:
         _changeToAdjacentPreset(device, false, PresetChangeDirection.next);
         break;
+      case HotkeyControl.ToggleTuner:
+        onHotkeyReceived(control);
+        break;
       default:
         onHotkeyReceived(control);
     }
@@ -309,11 +313,18 @@ class ControllerHotkey {
   void _hotkeyParameterSet(int? value, NuxDevice device) {
     var p = _getEffectCached(device);
 
-    if (_cachedSlot == null || _cachedSlot! >= device.effectsChainLength) {
+    if (_cachedSlot == null || 
+        _cachedSlot! >= device.effectsChainLength || 
+        _cachedParameter == null) {
       return;
     }
+    
     var selectedFX = p.getSelectedEffectForSlot(_cachedSlot!);
     var effect = p.getEffectsForSlot(_cachedSlot!)[selectedFX];
+
+    if (_cachedParameter! >= effect.parameters.length) {
+      return;
+    }
 
     double val = midiToPercentage(value);
 
@@ -333,12 +344,16 @@ class ControllerHotkey {
     ControllerHandleId id = ControllerHandleId.values[index];
 
     bool deviceChanged = device != _cachedDevice;
+    bool channelChanged = device.selectedChannel != _cachedChannel;
+    
     _cachedDevice = device;
+    _cachedChannel = device.selectedChannel;
 
     var p = device.getPreset(device.selectedChannel);
 
     //find slot and cache it
     if (deviceChanged ||
+        channelChanged ||
         _cachedSlot == null ||
         _cachedFX != p.getSelectedEffectForSlot(_cachedSlot!)) {
       _cachedSlot = null;

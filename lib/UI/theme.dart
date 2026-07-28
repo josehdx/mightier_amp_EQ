@@ -26,15 +26,13 @@ ThemeData getTheme() {
       onSecondary: Colors.grey,
       error: Colors.red,
       onError: Colors.white,
-      surface: Colors.grey[700]!, //appbar
+      surface: Colors.grey[900]!, // Keeps surface elements slightly visible against true black
       onSurface: Colors.white, //titlebar text
     ),
-    //canvasColor: Colors.white,
-    scaffoldBackgroundColor: Colors.grey[900],
-
-    //primary color is AppBar bg color
-    primaryColor: Colors.grey[800],
-    //accentColor: Colors.white,
+    
+    // --- TRUE BLACK BACKGROUNDS ---
+    scaffoldBackgroundColor: Colors.black, // Main app background
+    primaryColor: Colors.black,            // AppBar background
 
     //unselected labels
     hintColor: Colors.blue[300],
@@ -47,15 +45,18 @@ ThemeData getTheme() {
             borderSide: BorderSide(color: Colors.white)),
         enabledBorder: UnderlineInputBorder(
             borderSide: BorderSide(color: Colors.grey[600]!))),
+            
     checkboxTheme:
         CheckboxThemeData(fillColor: WidgetStateColor.resolveWith((states) {
       return Colors.white;
     }), checkColor: WidgetStateColor.resolveWith((states) {
       return Colors.black;
     })),
+    
+    // --- TRUE BLACK BOTTOM NAV BAR ---
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
       type: BottomNavigationBarType.fixed,
-      backgroundColor: Colors.grey[800],
+      backgroundColor: Colors.black, // Darken the bottom bar
       selectedItemColor: Colors.white,
       unselectedItemColor: Colors.grey[500],
       selectedIconTheme: const IconThemeData(
@@ -65,6 +66,7 @@ ThemeData getTheme() {
         size: 30,
       ),
     ),
+    
     textButtonTheme: TextButtonThemeData(style:
         ButtonStyle(foregroundColor: WidgetStateColor.resolveWith((states) {
       if (states.contains(WidgetState.disabled)) return Colors.grey[700]!;
@@ -85,10 +87,9 @@ ThemeData getTheme() {
 
     dialogTheme: DialogThemeData(
       contentTextStyle: const TextStyle(color: Colors.white),
-      backgroundColor: Colors.grey[800],
-      //shape: RoundedRectangleBorder(
-      //    borderRadius: BorderRadius.all(Radius.circular(10))),
+      backgroundColor: Colors.grey[900], // Slightly lighter than black to stand out
     ),
+    
     toggleButtonsTheme: ToggleButtonsThemeData(
       color: Colors.grey[600],
       selectedColor: Colors.white,
@@ -98,7 +99,8 @@ ThemeData getTheme() {
       borderWidth: 2,
       borderRadius: const BorderRadius.all(Radius.circular(12)),
     ),
-    popupMenuTheme: PopupMenuThemeData(color: Colors.grey[700]),
+    
+    popupMenuTheme: PopupMenuThemeData(color: Colors.grey[900]),
     dividerTheme:
         const DividerThemeData(color: Colors.grey, indent: 15, endIndent: 15),
   );

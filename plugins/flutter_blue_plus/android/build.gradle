@@ -5,8 +5,10 @@ apply plugin: 'com.android.library'
 apply plugin: 'com.google.protobuf'
 
 android {
+    compileSdk 34
     compileSdkVersion 34
     namespace 'com.boskokg.flutter_blue_plus'
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_17
         targetCompatibility JavaVersion.VERSION_17
@@ -15,6 +17,7 @@ android {
     defaultConfig {
         minSdkVersion 24
     }
+
     sourceSets {
         main {
             proto {

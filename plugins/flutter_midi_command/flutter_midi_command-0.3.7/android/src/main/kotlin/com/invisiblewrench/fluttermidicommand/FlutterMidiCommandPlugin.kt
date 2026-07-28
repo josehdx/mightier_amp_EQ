@@ -7,7 +7,6 @@ import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
-import io.flutter.plugin.common.PluginRegistry.Registrar
 import io.flutter.plugin.common.EventChannel
 
 import android.app.Activity
@@ -80,17 +79,6 @@ public class FlutterMidiCommandPlugin : FlutterPlugin, ActivityAware, MethodCall
   override fun onDetachedFromActivity() {
     print("onDetachedFromActivity")
     activity = null
-  }
-
-  companion object {
-    @JvmStatic
-    fun registerWith(registrar: Registrar) {
-      var instance = FlutterMidiCommandPlugin()
-      instance.messenger = registrar.messenger()
-      registrar.activeContext()?.let { instance.context = it }
-      instance.activity = registrar.activity()
-      instance.setup()
-    }
   }
 
   private inner class MidiDeviceOpenedListener : MidiManager.OnDeviceOpenedListener {
@@ -244,9 +232,7 @@ public class FlutterMidiCommandPlugin : FlutterPlugin, ActivityAware, MethodCall
         bluetoothScanner = adapter.bluetoothLeScanner
 
         if (bluetoothScanner != null) {
-          // Listen for changes in Bluetooth state
           context.registerReceiver(broadcastReceiver, IntentFilter(BluetoothAdapter.ACTION_STATE_CHANGED))
-
           startScanningLeDevices()
         } else {
           Log.d("FlutterMIDICommand", "bluetoothScanner is null")

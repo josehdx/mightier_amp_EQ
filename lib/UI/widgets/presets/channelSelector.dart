@@ -148,7 +148,7 @@ class _ChannelSelectorState extends State<ChannelSelector> {
           //better to use the same as the background color to imitate transparency
           //than to use translucent hittest (slow)
           color: Theme.of(context).scaffoldBackgroundColor,
-          width: width,
+          width: itemWidth,
           height:
               AppThemeConfig.toggleButtonHeight(widget.device.longChannelNames),
           child: Semantics(

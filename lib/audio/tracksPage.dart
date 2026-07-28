@@ -458,7 +458,9 @@ class _TracksPageState extends State<TracksPage>
                                 .tracks[index]
                                 .name
                                 .toLowerCase()
-                                .contains(filter)) return const SizedBox();
+                                .contains(filter)) {
+                          return const SizedBox();
+                        }
                         return ListTile(
                           contentPadding: const EdgeInsets.only(left: 12),
                           selected:

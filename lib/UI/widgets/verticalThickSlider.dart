@@ -66,10 +66,10 @@ class _VerticalThickSliderState extends State<VerticalThickSlider> {
   }
 
   //same as above, only with custom min and max
-  double _lerp2(double value, double _min, double _max) {
+  double _lerp2(double value, double min, double max) {
     assert(value >= 0.0);
     assert(value <= 1.0);
-    return value * (_max - _min) + _min;
+    return value * (max - min) + min;
   }
 
   // Returns a number between 0.0 and 1.0, given a value between min and max.

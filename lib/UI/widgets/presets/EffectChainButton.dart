@@ -26,7 +26,7 @@ class EffectChainButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Color _color = enabled ? color : Theme.of(context).disabledColor;
+    Color color = enabled ? color : Theme.of(context).disabledColor;
     return ReorderableDragStartListener(
       index: index,
       child: AspectRatio(
@@ -52,17 +52,17 @@ class EffectChainButton extends StatelessWidget {
                       padding: const EdgeInsets.all(3),
                       decoration: BoxDecoration(
                           color: selected
-                              ? _color
+                              ? color
                               : Theme.of(context).scaffoldBackgroundColor,
                           border: Border.all(
-                            color: _color,
+                            color: color,
                           ),
                           borderRadius:
                               const BorderRadius.all(Radius.circular(3))),
                       child: Icon(
                         effectInfo.icon,
                         //size: 30,
-                        color: selected ? Colors.black : _color,
+                        color: selected ? Colors.black : color,
                       ),
                     ),
                     ExcludeSemantics(

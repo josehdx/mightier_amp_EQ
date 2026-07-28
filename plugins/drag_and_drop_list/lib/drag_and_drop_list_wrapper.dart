@@ -157,7 +157,7 @@ class _DragAndDropListWrapper extends State<DragAndDropListWrapper>
               if (candidateData.isNotEmpty) {}
               return const SizedBox();
             },
-            onWillAccept: (incoming) {
+            onWillAcceptWithDetails: (incoming) {
               bool accept = true;
               if (widget.parameters.listOnWillAccept != null) {
                 accept = widget.parameters.listOnWillAccept!(
@@ -179,7 +179,7 @@ class _DragAndDropListWrapper extends State<DragAndDropListWrapper>
                 }
               }
             },
-            onAccept: (incoming) {
+            onAcceptWithDetails: (incoming) {
               if (mounted) {
                 setState(() {
                   widget.parameters.onListReordered!(

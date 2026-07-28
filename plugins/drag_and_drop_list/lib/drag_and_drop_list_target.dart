@@ -73,7 +73,7 @@ class _DragAndDropListTarget extends State<DragAndDropListTarget>
               if (candidateData.isNotEmpty) {}
               return Container();
             },
-            onWillAccept: (incoming) {
+            onWillAcceptWithDetails: (incoming) {
               bool accept = true;
               if (widget.parameters.listTargetOnWillAccept != null) {
                 accept =
@@ -93,7 +93,7 @@ class _DragAndDropListTarget extends State<DragAndDropListTarget>
                 });
               }
             },
-            onAccept: (incoming) {
+            onAcceptWithDetails: (incoming) {
               if (mounted) {
                 setState(() {
                   widget.onDropOnLastTarget(incoming, widget);

@@ -21,7 +21,7 @@ class SelectPresetDialog {
           const Text('Select preset'),
         ],
       ),
-      actions: [],
+      actions: const [],
       content: Scaffold(
         body: ListView(
             shrinkWrap: true,

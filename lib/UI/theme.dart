@@ -26,8 +26,6 @@ ThemeData getTheme() {
       onSecondary: Colors.grey,
       error: Colors.red,
       onError: Colors.white,
-      background: Colors.grey,
-      onBackground: Colors.grey,
       surface: Colors.grey[700]!, //appbar
       onSurface: Colors.white, //titlebar text
     ),
@@ -50,9 +48,9 @@ ThemeData getTheme() {
         enabledBorder: UnderlineInputBorder(
             borderSide: BorderSide(color: Colors.grey[600]!))),
     checkboxTheme:
-        CheckboxThemeData(fillColor: MaterialStateColor.resolveWith((states) {
+        CheckboxThemeData(fillColor: WidgetStateColor.resolveWith((states) {
       return Colors.white;
-    }), checkColor: MaterialStateColor.resolveWith((states) {
+    }), checkColor: WidgetStateColor.resolveWith((states) {
       return Colors.black;
     })),
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
@@ -68,19 +66,19 @@ ThemeData getTheme() {
       ),
     ),
     textButtonTheme: TextButtonThemeData(style:
-        ButtonStyle(foregroundColor: MaterialStateColor.resolveWith((states) {
-      if (states.contains(MaterialState.disabled)) return Colors.grey[700]!;
+        ButtonStyle(foregroundColor: WidgetStateColor.resolveWith((states) {
+      if (states.contains(WidgetState.disabled)) return Colors.grey[700]!;
       return Colors.grey[300]!;
     }))),
 
     elevatedButtonTheme: ElevatedButtonThemeData(
         style: ButtonStyle(
-      backgroundColor: MaterialStateColor.resolveWith((states) {
-        if (states.contains(MaterialState.disabled)) return Colors.grey[700]!;
+      backgroundColor: WidgetStateColor.resolveWith((states) {
+        if (states.contains(WidgetState.disabled)) return Colors.grey[700]!;
         return Colors.blue;
       }),
-      foregroundColor: MaterialStateColor.resolveWith((states) {
-        if (states.contains(MaterialState.disabled)) return Colors.grey;
+      foregroundColor: WidgetStateColor.resolveWith((states) {
+        if (states.contains(WidgetState.disabled)) return Colors.grey;
         return Colors.white;
       }),
     )),

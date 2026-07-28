@@ -217,7 +217,9 @@ class _AudioEditorState extends State<AudioEditor> {
 
   AutomationEventType? showEventType() {
     if (showType == AutomationEventType.loop &&
-        (!automation.loopEnable || !automation.useLoopPoints)) return null;
+        (!automation.loopEnable || !automation.useLoopPoints)) {
+      return null;
+    }
     return showType;
   }
 

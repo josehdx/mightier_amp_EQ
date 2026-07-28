@@ -63,8 +63,8 @@ abstract class MidiController {
     //now enumerate the dictionary and find keys with the lower byte set to 0
     var mainCode = code & 0xffffff00;
     for (var key in _hotkeysDictionary.keys) {
-      var _key = key & 0xffffff00;
-      if (_key == mainCode &&
+      var key = key & 0xffffff00;
+      if (key == mainCode &&
           (ignoreLowByte || _hotkeysDictionary[key]!.control.sliderMode)) {
         return _hotkeysDictionary[key];
       }
@@ -111,8 +111,6 @@ abstract class MidiController {
     return (other is MidiController) && other.name == name;
   }
 
-  @override
-  int get hashCode => super.hashCode;
 
   Future<bool> connect();
 

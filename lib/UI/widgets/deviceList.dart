@@ -13,7 +13,9 @@ class DeviceList extends StatelessWidget {
   bool isConnected(String id) {
     //check with nux device first
     if (midiHandler.connectedDevice != null &&
-        id == midiHandler.connectedDevice?.id) return true;
+        id == midiHandler.connectedDevice?.id) {
+      return true;
+    }
 
     for (var controller in midiHandler.controllerDevices) {
       if (controller.id == id) return true;

@@ -67,23 +67,23 @@ class _MediaLibraryBrowserState extends State<MediaLibraryBrowser> {
                       break;
                     case ConnectionState.active:
                     case ConnectionState.done:
-                      List<ArtistModel> _artists;
+                      List<ArtistModel> artists;
                       var searchText = editingController.text.toLowerCase();
                       if (editingController.text.isNotEmpty) {
-                        _artists = <ArtistModel>[];
+                        artists = <ArtistModel>[];
                         for (var item in artists) {
                           if (item.artist.toLowerCase().contains(searchText)) {
-                            _artists.add(item);
+                            artists.add(item);
                           }
                         }
                       } else {
-                        _artists = artists;
+                        artists = artists;
                       }
 
                       return RefreshIndicator(
                         onRefresh: getArtists,
                         child: ListView.builder(
-                            itemCount: _artists.length,
+                            itemCount: artists.length,
                             itemBuilder: (BuildContext ctxt, int index) {
                               return Padding(
                                 padding:
@@ -94,15 +94,15 @@ class _MediaLibraryBrowserState extends State<MediaLibraryBrowser> {
                                           .push(MaterialPageRoute(
                                               builder: (context) =>
                                                   ArtistAlbums(
-                                                      _artists[index].artist,
+                                                      artists[index].artist,
                                                       artistId:
-                                                          _artists[index].id)));
+                                                          artists[index].id)));
                                       if (result != null) {
                                         Navigator.of(context).pop(result);
                                       }
                                     },
                                     title: Text(
-                                      _artists[index].artist,
+                                      artists[index].artist,
                                     ),
                                     trailing:
                                         const Icon(Icons.keyboard_arrow_right)),

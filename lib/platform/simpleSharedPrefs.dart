@@ -67,8 +67,8 @@ class SharedPrefs {
   _loadPrefs() async {
     try {
       if (_prefsFile != null) {
-        var _presetJson = await _prefsFile!.readAsString();
-        _prefsData = json.decode(_presetJson);
+        var presetJson = await _prefsFile!.readAsString();
+        _prefsData = json.decode(presetJson);
         _prefsReady = true;
       }
     } catch (e) {
@@ -87,8 +87,8 @@ class SharedPrefs {
 
   _savePrefs() async {
     if (_prefsFile != null) {
-      String _json = json.encode(_prefsData);
-      await _prefsFile?.writeAsString(_json);
+      String json = json.encode(_prefsData);
+      await _prefsFile?.writeAsString(json);
     }
   }
 
@@ -97,9 +97,9 @@ class SharedPrefs {
     _savePrefs();
   }
 
-  int getInt(String key, int _default) {
+  int getInt(String key, int default) {
     if (_prefsData.containsKey(key)) return _prefsData[key];
-    return _default;
+    return default;
   }
 
   void setValue(String key, dynamic value) {
@@ -112,9 +112,9 @@ class SharedPrefs {
     _savePrefs();
   }
 
-  dynamic getValue(String key, dynamic _default) {
+  dynamic getValue(String key, dynamic default) {
     if (_prefsData.containsKey(key)) return _prefsData[key];
-    return _default;
+    return default;
   }
 
   String? getCustomCabinetName(String productId, int cabIndex) {

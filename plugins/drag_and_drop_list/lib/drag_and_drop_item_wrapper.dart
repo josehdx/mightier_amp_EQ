@@ -122,7 +122,7 @@ class _DragAndDropItemWrapper extends State<DragAndDropItemWrapper>
                 : null,
             feedback: Transform.translate(
               //Tuntori - item offset
-              offset: widget.parameters!.itemDragOffset ?? Offset(0, 0),
+              offset: widget.parameters!.itemDragOffset ?? const Offset(0, 0),
               child: SizedBox(
                 width: widget.parameters!.itemDraggingWidth ??
                     _containerSize.width,
@@ -210,7 +210,7 @@ class _DragAndDropItemWrapper extends State<DragAndDropItemWrapper>
               if (candidateData.isNotEmpty) {}
               return Container();
             },
-            onWillAccept: (incoming) {
+            onWillAcceptWithDetails: (incoming) {
               bool accept = true;
               if (widget.parameters!.itemOnWillAccept != null) {
                 accept = widget.parameters!.itemOnWillAccept!(
@@ -230,7 +230,7 @@ class _DragAndDropItemWrapper extends State<DragAndDropItemWrapper>
                 });
               }
             },
-            onAccept: (incoming) {
+            onAcceptWithDetails: (incoming) {
               if (mounted) {
                 setState(() {
                   if (widget.parameters!.onItemReordered != null) {

@@ -286,7 +286,7 @@ class MainTabsState extends State<MainTabs> with TickerProviderStateMixin {
                     onExpandChange: (val) => setState(() {
                       isBottomDrawerOpen = val;
                     }),
-                    child: VolumeSlider(),
+                    child: const VolumeSlider(),
                   ),
               ],
             ),

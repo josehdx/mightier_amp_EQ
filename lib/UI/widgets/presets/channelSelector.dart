@@ -75,17 +75,17 @@ class _ChannelSelectorState extends State<ChannelSelector> {
     super.initState();
   }
 
-  List<Widget> _createButtons(double _width) {
+  List<Widget> _createButtons(double width) {
     var disabledColor = Theme.of(context).disabledColor;
     List<Widget> buttons = <Widget>[];
 
     var tooltip = "";
     _presets = widget.device.getPresetsList();
-    int row1 = _width < 330 && _presets.length > 4
+    int row1 = width < 330 && _presets.length > 4
         ? (_presets.length / 2).ceil()
         : _presets.length;
 
-    double width = (_width / row1).floorToDouble();
+    double width = (width / row1).floorToDouble();
     for (int i = 0; i < _presets.length; i++) {
       var col = i == widget.device.selectedChannel
           ? _presets[widget.device.selectedChannel].channelColor
@@ -208,8 +208,9 @@ class _ChannelSelectorState extends State<ChannelSelector> {
               description: "It will be displayed below the QR code.",
               value: "",
               onConfirm: (value) => {showQRExport(img, value)});
-        } else
+        } else {
           showQRExport(img, name);
+        }
     }
   }
 

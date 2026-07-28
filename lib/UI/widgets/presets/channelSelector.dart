@@ -85,7 +85,7 @@ class _ChannelSelectorState extends State<ChannelSelector> {
         ? (_presets.length / 2).ceil()
         : _presets.length;
 
-    double width = (width / row1).floorToDouble();
+    double itemWidth = (width / row1).floorToDouble();
     for (int i = 0; i < _presets.length; i++) {
       var col = i == widget.device.selectedChannel
           ? _presets[widget.device.selectedChannel].channelColor

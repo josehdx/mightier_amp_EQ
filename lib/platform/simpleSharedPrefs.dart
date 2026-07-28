@@ -87,8 +87,8 @@ class SharedPrefs {
 
   _savePrefs() async {
     if (_prefsFile != null) {
-      String json = json.encode(_prefsData);
-      await _prefsFile?.writeAsString(json);
+      String jsonString = json.encode(_prefsData);
+      await _prefsFile?.writeAsString(jsonString);
     }
   }
 
@@ -97,9 +97,9 @@ class SharedPrefs {
     _savePrefs();
   }
 
-  int getInt(String key, int default) {
+  int getInt(String key, int defaultValue) {
     if (_prefsData.containsKey(key)) return _prefsData[key];
-    return default;
+    return defaultValue;
   }
 
   void setValue(String key, dynamic value) {
@@ -112,9 +112,9 @@ class SharedPrefs {
     _savePrefs();
   }
 
-  dynamic getValue(String key, dynamic default) {
+  dynamic getValue(String key, dynamic defaultValue) {
     if (_prefsData.containsKey(key)) return _prefsData[key];
-    return default;
+    return defaultValue;
   }
 
   String? getCustomCabinetName(String productId, int cabIndex) {

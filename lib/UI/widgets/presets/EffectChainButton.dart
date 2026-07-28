@@ -26,7 +26,7 @@ class EffectChainButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Color color = enabled ? color : Theme.of(context).disabledColor;
+    Color buttonColor = enabled ? color : Theme.of(context).disabledColor;
     return ReorderableDragStartListener(
       index: index,
       child: AspectRatio(

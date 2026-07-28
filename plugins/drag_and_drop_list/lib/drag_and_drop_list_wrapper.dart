@@ -161,11 +161,11 @@ class _DragAndDropListWrapper extends State<DragAndDropListWrapper>
               bool accept = true;
               if (widget.parameters.listOnWillAccept != null) {
                 accept = widget.parameters.listOnWillAccept!(
-                    incoming, widget.dragAndDropList);
+                    incoming.data, widget.dragAndDropList);
               }
               if (accept && mounted) {
                 setState(() {
-                  _hoveredDraggable = incoming;
+                  _hoveredDraggable = incoming.data;
                 });
               }
               return accept;
@@ -183,7 +183,7 @@ class _DragAndDropListWrapper extends State<DragAndDropListWrapper>
               if (mounted) {
                 setState(() {
                   widget.parameters.onListReordered!(
-                      incoming, widget.dragAndDropList);
+                      incoming.data, widget.dragAndDropList);
                   _hoveredDraggable = null;
                 });
               }

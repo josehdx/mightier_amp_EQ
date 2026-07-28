@@ -214,11 +214,11 @@ class _DragAndDropItemWrapper extends State<DragAndDropItemWrapper>
               bool accept = true;
               if (widget.parameters!.itemOnWillAccept != null) {
                 accept = widget.parameters!.itemOnWillAccept!(
-                    incoming, widget.child);
+                    incoming.data, widget.child);
               }
               if (accept && mounted) {
                 setState(() {
-                  _hoveredDraggable = incoming;
+                  _hoveredDraggable = incoming.data;
                 });
               }
               return accept;
@@ -234,7 +234,8 @@ class _DragAndDropItemWrapper extends State<DragAndDropItemWrapper>
               if (mounted) {
                 setState(() {
                   if (widget.parameters!.onItemReordered != null) {
-                    widget.parameters!.onItemReordered!(incoming, widget.child);
+                    widget.parameters!.onItemReordered!(
+                        incoming.data, widget.child);
                   }
                   _hoveredDraggable = null;
                 });

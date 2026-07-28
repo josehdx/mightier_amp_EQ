@@ -73,11 +73,11 @@ android {
     buildTypes {
         
         debug {
-            defaultConfig.minSdkVersion 19
+            defaultConfig.minSdkVersion 24
             applicationIdSuffix ".debug"
         }
         profile {
-            defaultConfig.minSdkVersion 19
+            defaultConfig.minSdkVersion 24
             applicationIdSuffix ".debug"
         }
         release {

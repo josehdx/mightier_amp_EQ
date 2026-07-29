@@ -34,10 +34,7 @@ class ControllerHotkey {
 
   final Function(HotkeyControl) onHotkeyReceived;
 
-  NuxDevice? _cachedDevice;
   int? _cachedSlot;
-  int? _cachedFX;
-  int? _cachedChannel;
   int? _cachedParameter;
 
   ControllerHotkey(
@@ -290,7 +287,7 @@ class ControllerHotkey {
   }
 
   void _delayTapTempo(NuxDevice device) {
-    var p = _getEffectCached(device);
+    var p = _getEffectDynamic(device);
 
     if (_cachedSlot == null || _cachedSlot! >= device.effectsChainLength) {
       return;
@@ -311,7 +308,7 @@ class ControllerHotkey {
   }
 
   void _hotkeyParameterSet(int? value, NuxDevice device) {
-    var p = _getEffectCached(device);
+    var p = _getEffectDynamic(device);
 
     if (_cachedSlot == null || 
         _cachedSlot! >= device.effectsChainLength || 
@@ -340,35 +337,22 @@ class ControllerHotkey {
         value, 0, 100, formatter.min.toDouble(), formatter.max.toDouble());
   }
 
-  Preset _getEffectCached(NuxDevice device) {
+  Preset _getEffectDynamic(NuxDevice device) {
     ControllerHandleId id = ControllerHandleId.values[index];
-
-    bool deviceChanged = device != _cachedDevice;
-    bool channelChanged = device.selectedChannel != _cachedChannel;
-    
-    _cachedDevice = device;
-    _cachedChannel = device.selectedChannel;
-
     var p = device.getPreset(device.selectedChannel);
 
-    //find slot and cache it
-    if (deviceChanged ||
-        channelChanged ||
-        _cachedSlot == null ||
-        _cachedFX != p.getSelectedEffectForSlot(_cachedSlot!)) {
-      _cachedSlot = null;
-      _cachedFX = null;
-      _cachedParameter = null;
-      for (int i = 0; i < device.effectsChainLength; i++) {
-        var selectedFX = p.getSelectedEffectForSlot(i);
-        var effect = p.getEffectsForSlot(i)[selectedFX];
-        var paramIndex = _findParameterByControllerHandleId(effect, id);
-        if (paramIndex != null) {
-          _cachedSlot = i;
-          _cachedFX = selectedFX;
-          _cachedParameter = paramIndex;
-          break;
-        }
+    _cachedSlot = null;
+    _cachedParameter = null;
+    
+    // Always resolve the target dynamically.
+    for (int i = 0; i < device.effectsChainLength; i++) {
+      var selectedFX = p.getSelectedEffectForSlot(i);
+      var effect = p.getEffectsForSlot(i)[selectedFX];
+      var paramIndex = _findParameterByControllerHandleId(effect, id);
+      if (paramIndex != null) {
+        _cachedSlot = i;
+        _cachedParameter = paramIndex;
+        break;
       }
     }
     return p;

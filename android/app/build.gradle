@@ -22,8 +22,8 @@ if (keystorePropertiesFile.exists()) {
 }
 
 android {
-    compileSdk 34
-    compileSdkVersion 34
+    compileSdk 36
+    compileSdkVersion 36
 
     namespace 'com.tuntori.mightieramp'
 

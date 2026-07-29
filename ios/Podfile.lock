@@ -1,8 +1,6 @@
 PODS:
   - audio_picker (0.0.1):
     - Flutter
-  - audio_session (0.0.1):
-    - Flutter
   - audio_waveform (0.1.0):
     - Flutter
   - file_picker (0.0.1):
@@ -18,8 +16,6 @@ PODS:
     - Flutter
   - flutter_midi_command (0.3.6):
     - Flutter
-  - just_audio (0.0.1):
-    - Flutter
   - mighty_ble (0.0.1):
     - Flutter
   - on_audio_query_ios (0.0.1):
@@ -29,23 +25,18 @@ PODS:
   - qr_utils (0.1.5):
     - Flutter
   - SwiftyBeaver (1.9.5)
-  - wakelock_plus (0.0.1):
-    - Flutter
 
 DEPENDENCIES:
   - audio_picker (from `.symlinks/plugins/audio_picker/ios`)
-  - audio_session (from `.symlinks/plugins/audio_session/ios`)
   - audio_waveform (from `.symlinks/plugins/audio_waveform/ios`)
   - file_picker (from `.symlinks/plugins/file_picker/ios`)
   - Flutter (from `Flutter`)
   - flutter_blue_plus (from `.symlinks/plugins/flutter_blue_plus/ios`)
   - flutter_keyboard_visibility (from `.symlinks/plugins/flutter_keyboard_visibility/ios`)
   - flutter_midi_command (from `.symlinks/plugins/flutter_midi_command/ios`)
-  - just_audio (from `.symlinks/plugins/just_audio/ios`)
   - mighty_ble (from `.symlinks/plugins/mighty_ble/ios`)
   - on_audio_query_ios (from `.symlinks/plugins/on_audio_query_ios/ios`)
   - qr_utils (from `.symlinks/plugins/qr_utils/ios`)
-  - wakelock_plus (from `.symlinks/plugins/wakelock_plus/ios`)
 
 SPEC REPOS:
   trunk:
@@ -55,8 +46,6 @@ SPEC REPOS:
 EXTERNAL SOURCES:
   audio_picker:
     :path: ".symlinks/plugins/audio_picker/ios"
-  audio_session:
-    :path: ".symlinks/plugins/audio_session/ios"
   audio_waveform:
     :path: ".symlinks/plugins/audio_waveform/ios"
   file_picker:
@@ -69,33 +58,26 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/flutter_keyboard_visibility/ios"
   flutter_midi_command:
     :path: ".symlinks/plugins/flutter_midi_command/ios"
-  just_audio:
-    :path: ".symlinks/plugins/just_audio/ios"
   mighty_ble:
     :path: ".symlinks/plugins/mighty_ble/ios"
   on_audio_query_ios:
     :path: ".symlinks/plugins/on_audio_query_ios/ios"
   qr_utils:
     :path: ".symlinks/plugins/qr_utils/ios"
-  wakelock_plus:
-    :path: ".symlinks/plugins/wakelock_plus/ios"
 
 SPEC CHECKSUMS:
   audio_picker: 8513c218b50a09e854f2336c2299fda1850dc755
-  audio_session: f08db0697111ac84ba46191b55488c0563bb29c6
   audio_waveform: 2775b72dcdba28027b593f3a577d4c19e2b11e21
   file_picker: d9d9be45c6206abc12335943986a83a3fe011bda
   Flutter: cabc95a1d2626b1b06e7179b784ebcf0c0cde467
   flutter_blue_plus: b4fbe7eb2b7b4723ae93b7d43ef9f4e2af3d7cf7
   flutter_keyboard_visibility: 4625131e43015dbbe759d9b20daaf77e0e3f6619
   flutter_midi_command: 6fef11a5ca2b55d465feb797b5320c43faadec99
-  just_audio: 6c031bb61297cf218b4462be616638e81c058e97
   mighty_ble: bccaa455ee1097d1290d5e0fdcf14ef78d3b7ec1
   on_audio_query_ios: 28a780e2d0d85d92d500ba6e12c6c8167022b2fa
   Protobuf: d7f7c8329edf5eb8af65547a8ba3e9c1cee927d5
   qr_utils: 54943a66fbd22e397efbdf4a9a5c975c2f216835
   SwiftyBeaver: 84069991dd5dca07d7069100985badaca7f0ce82
-  wakelock_plus: 04623e3f525556020ebd4034310f20fe7fda8b49
 
 PODFILE CHECKSUM: 1c455ff64ee77c3791f25effa8c3cd5a79b5888f
 

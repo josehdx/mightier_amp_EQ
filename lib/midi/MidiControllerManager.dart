@@ -102,6 +102,18 @@ class MidiControllerManager extends ChangeNotifier {
     notifyListeners();
   }
 
+  /// Explicitly disconnects all active BLE MIDI Controllers (such as M-Vave Chocolate)
+  /// and waits briefly for the GATT disconnect packet to be transmitted.
+  Future<void> disconnectAllControllers() async {
+    for (var ctrl in _controllers) {
+      if (ctrl is BleMidiController && ctrl.connected) {
+        ctrl.disconnect();
+      }
+    }
+    // Give the Bluetooth hardware/GATT stack time to dispatch the disconnect packet over the air
+    await Future.delayed(const Duration(milliseconds: 300));
+  }
+
   _connectAvailableUsbDevices(List<MidiController> devices) {
     for (var dev in devices) {
       if (_controllers.contains(dev)) {

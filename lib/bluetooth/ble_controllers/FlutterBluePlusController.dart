@@ -103,7 +103,6 @@ class FlutterBluePlusController extends BLEController {
     flutterBlue
         .startScan(
       timeout: const Duration(seconds: 8),
-      //withServices: [Guid(midiService)]
     )
         .then((result) {
       //if device is not connected after the search - set to idle
@@ -119,24 +118,29 @@ class FlutterBluePlusController extends BLEController {
 
   @override
   Future<BLEConnection?> connectToDevice(BLEDevice device) async {
-    if (bleState != BleState.on) return null;
-    var ownDevice = (device as FBPBleDevice).device;
+    BluetoothDevice fbpDevice = (device as FBPBleDevice).device;
+    
+    // Automatically determine if this is the Amp or an external MIDI pedal
+    bool ampDevice = deviceListProvider.call().containsPartial(device.name);
 
-    bool ampDevice = false;
-    if (deviceListProvider.call().containsPartial(ownDevice.name)) {
-      ampDevice = true;
-      if (_connectInProgress || _device != null) {
-        debugPrint("Denying secondary connection!");
-        return null;
+    // 1. DEFENSIVE DISCONNECT FOR MIDI CONTROLLERS
+    // If it's the M-Vave or another controller, ensure orphaned OS connections are dropped
+    if (!ampDevice) {
+      var state = await fbpDevice.state.first;
+      if (state == BluetoothDeviceState.connected) {
+        debugPrint("M-Vave/MIDI: Found orphaned connection. Forcing disconnect...");
+        await fbpDevice.disconnect();
+        await Future.delayed(const Duration(milliseconds: 500));
       }
     }
 
     _connectInProgress = true;
     await stopScanning();
     setMidiSetupStatus(MidiSetupStatus.deviceConnecting);
+    
     try {
-      await ownDevice.connect(
-          autoConnect: false, timeout: const Duration(seconds: 5));
+      debugPrint("BLE: Initiating connection...");
+      await fbpDevice.connect(autoConnect: false, timeout: const Duration(seconds: 5));
     } on Exception {
       _connectInProgress = false;
       return null;
@@ -152,28 +156,44 @@ class FlutterBluePlusController extends BLEController {
       _device = device;
     }
 
-    List<BluetoothService> services = await ownDevice.discoverServices();
-    //find midi service
+    List<BluetoothService> services = await fbpDevice.discoverServices();
     BluetoothService? midiService;
+    
     for (var element in services) {
-      if (element.uuid == Guid(BLEController.midiServiceGuid)) {
+      // Check for both the standard UUID and custom specific ones
+      if (element.uuid.toString().toUpperCase() == "03B80E5A-EDE8-4B33-A751-6CE34EC4C700" || 
+          element.uuid == Guid(BLEController.midiServiceGuid)) {
         midiService = element;
       }
     }
 
     if (midiService != null) {
       for (var characteristic in midiService.characteristics) {
-        if (characteristic.uuid == Guid(BLEController.midiCharacteristicGuid)) {
+        if (characteristic.uuid.toString().toUpperCase() == "7772E5DB-3868-4112-A1A9-F2669D106BF3" ||
+            characteristic.uuid == Guid(BLEController.midiCharacteristicGuid)) {
+          
           if (ampDevice) {
-            _connectAmpDevice(device.device, characteristic);
+            _connectAmpDevice(fbpDevice, characteristic);
           } else {
-            characteristic.setNotifyValue(true);
+            // FORCED RE-SUBSCRIPTION (CCCD RESET) FOR M-VAVE
+            debugPrint("M-Vave/MIDI: Resetting CCCD Notification state...");
+            if (characteristic.isNotifying) {
+              await characteristic.setNotifyValue(false);
+              await Future.delayed(const Duration(milliseconds: 200));
+            }
+            
+            await characteristic.setNotifyValue(true);
+            debugPrint("M-Vave/MIDI: Notifications successfully enabled!");
+            
             _connectInProgress = false;
             return BLEConnection(characteristic.value);
           }
         }
       }
     }
+    
+    // If we reached here without returning, something failed.
+    if (!ampDevice) await fbpDevice.disconnect();
     return null;
   }
 
@@ -325,8 +345,6 @@ class FlutterBluePlusController extends BLEController {
   @override
   Future writeToCharacteristic(List<int> data, bool noResponse) async {
     bool withoutResponse = noResponse;
-    //wait for response on sysex messages
-    //if (data[2] == 0xf0) withoutResponse = false;
     return _midiCharacteristic!.write(data, withoutResponse: withoutResponse);
   }
 }

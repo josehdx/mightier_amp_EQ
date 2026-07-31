@@ -123,12 +123,19 @@ class FlutterBluePlusController extends BLEController {
     // Automatically determine if this is the Amp or an external MIDI pedal
     bool ampDevice = deviceListProvider.call().containsPartial(device.name);
 
-    // 1. DEFENSIVE DISCONNECT FOR MIDI CONTROLLERS
-    // If it's the M-Vave or another controller, ensure orphaned OS connections are dropped
+    // 1. DEFENSIVE DISCONNECT & CACHE CLEAR FOR MIDI CONTROLLERS
     if (!ampDevice) {
       var state = await fbpDevice.state.first;
       if (state == BluetoothDeviceState.connected) {
-        debugPrint("M-Vave/MIDI: Found orphaned connection. Forcing disconnect...");
+        debugPrint("M-Vave/MIDI: Found orphaned connection. Clearing cache and forcing disconnect...");
+        
+        // Force Android to wipe its memory of this device's states
+        if (Platform.isAndroid) {
+          try {
+            await fbpDevice.clearGattCache();
+          } catch (_) {}
+        }
+        
         await fbpDevice.disconnect();
         await Future.delayed(const Duration(milliseconds: 500));
       }
@@ -160,7 +167,6 @@ class FlutterBluePlusController extends BLEController {
     BluetoothService? midiService;
     
     for (var element in services) {
-      // Check for both the standard UUID and custom specific ones
       if (element.uuid.toString().toUpperCase() == "03B80E5A-EDE8-4B33-A751-6CE34EC4C700" || 
           element.uuid == Guid(BLEController.midiServiceGuid)) {
         midiService = element;
@@ -175,15 +181,19 @@ class FlutterBluePlusController extends BLEController {
           if (ampDevice) {
             _connectAmpDevice(fbpDevice, characteristic);
           } else {
-            // FORCED RE-SUBSCRIPTION (CCCD RESET) FOR M-VAVE
-            debugPrint("M-Vave/MIDI: Resetting CCCD Notification state...");
-            if (characteristic.isNotifying) {
-              await characteristic.setNotifyValue(false);
-              await Future.delayed(const Duration(milliseconds: 200));
-            }
+            // 2. UNCONDITIONAL RE-SUBSCRIPTION (CCCD RESET)
+            debugPrint("M-Vave/MIDI: Forcing CCCD Notification state reset over the air...");
             
+            // Unconditionally turn it off to bypass OS cache optimization
+            try {
+              await characteristic.setNotifyValue(false);
+            } catch (_) {}
+            
+            await Future.delayed(const Duration(milliseconds: 300));
+            
+            // Turn it back on to wake up the M-Vave
             await characteristic.setNotifyValue(true);
-            debugPrint("M-Vave/MIDI: Notifications successfully enabled!");
+            debugPrint("M-Vave/MIDI: Notifications successfully forced on!");
             
             _connectInProgress = false;
             return BLEConnection(characteristic.value);
@@ -345,6 +355,8 @@ class FlutterBluePlusController extends BLEController {
   @override
   Future writeToCharacteristic(List<int> data, bool noResponse) async {
     bool withoutResponse = noResponse;
+    //wait for response on sysex messages
+    //if (data[2] == 0xf0) withoutResponse = false;
     return _midiCharacteristic!.write(data, withoutResponse: withoutResponse);
   }
 }

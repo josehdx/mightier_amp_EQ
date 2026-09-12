@@ -1,7 +1,6 @@
 // (c) 2020-2021 Dian Iliev (Tuntorius)
 // This code is licensed under MIT license (see LICENSE.md for details)
 
-
 import 'package:flutter/material.dart';
 import 'package:mighty_plug_manager/UI/popups/alertDialogs.dart';
 import 'package:mighty_plug_manager/audio/setlist_player/setlistPlayerState.dart';
@@ -96,7 +95,7 @@ class _PresetEditorState extends State<PresetEditor> {
             child: ButtonTheme(
               minWidth: 55,
               height: 45,
-              buttonColor: Colors.blue,
+              buttonColor: Theme.of(context).colorScheme.primary, // Dynamic color instead of hardcoded
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -128,7 +127,6 @@ class _PresetEditorState extends State<PresetEditor> {
                             : null,
                         icon: const Icon(Icons.redo),
                         tooltip: "Redo",
-                        //padding: EdgeInsets.zero,
                       ),
                     ],
                   ),
@@ -143,12 +141,17 @@ class _PresetEditorState extends State<PresetEditor> {
                         isSelected: [
                           !NuxDeviceControl.instance().changes.canUndo
                         ],
-                        selectedBorderColor: Colors.transparent,
-                        borderColor: Colors.blue,
+                        
+                        // Fully removed hardcoded Colors.white/grey properties here 
+                        // to let it dynamically adjust to light/dark themes natively
+                        color: Theme.of(context).colorScheme.onSurface,
+                        selectedColor: Theme.of(context).colorScheme.onPrimary,
+                        fillColor: Theme.of(context).colorScheme.primary,
+                        borderColor: Theme.of(context).colorScheme.primary,
+                        selectedBorderColor: Theme.of(context).colorScheme.primary,
+                        disabledColor: Theme.of(context).disabledColor,
+                        
                         borderRadius: BorderRadius.circular(3),
-                        color: Colors.white,
-                        fillColor: Colors.blue,
-                        disabledColor: Colors.grey,
                         onPressed:
                             NuxDeviceControl.instance().changes.canUndo ||
                                     NuxDeviceControl.instance().changes.canRedo
@@ -156,7 +159,7 @@ class _PresetEditorState extends State<PresetEditor> {
                                     var changes =
                                         NuxDeviceControl.instance().changes;
                                     if (changes.canUndo) {
-                                      //we can go back (that's bad though)
+                                      //we can go back
                                       while (changes.canUndo) {
                                         changes.undo();
                                       }

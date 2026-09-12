@@ -1,3 +1,6 @@
+// (c) 2020-2021 Dian Iliev (Tuntorius)
+// This code is licensed under MIT license (see LICENSE.md for details)
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:mighty_plug_manager/UI/widgets/presets/preset_list/presetEffectPreview.dart';
@@ -27,7 +30,6 @@ class PresetItem extends StatelessWidget {
 
   Widget? _createPresetTrailingWidget(
       Map<String, dynamic> item, BuildContext context) {
-    //create trailing widget based on whether the preset is new
     Widget? trailingWidget;
     late Widget pmb;
     if (!simplified) {
@@ -100,6 +102,7 @@ class PresetItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool isDark = Theme.of(context).brightness == Brightness.dark;
     var pVersion = item["version"] ?? 0;
     var devVersion = device.productVersion;
     bool enabled = true;
@@ -117,6 +120,16 @@ class PresetItem extends StatelessWidget {
     if (!enabled) color = TinyColor.fromColor(color).desaturate(90).color;
 
     int alpha = selected && !simplified ? 105 : 0;
+
+    // Use black/onSurface font when unselected in Light mode, white when selected or in Dark mode
+    Color titleColor;
+    if (!enabled) {
+      titleColor = Theme.of(context).disabledColor;
+    } else if (selected) {
+      titleColor = Colors.white;
+    } else {
+      titleColor = isDark ? Colors.white : Colors.black87;
+    }
 
     return ColoredBox(
       color: Color.fromARGB(alpha, 8, 102, 232),
@@ -162,9 +175,7 @@ class PresetItem extends StatelessWidget {
               ],
             ),
           ),
-          title: Text(item["name"],
-              style:
-                  TextStyle(color: enabled ? Colors.white : Colors.grey[600])),
+          title: Text(item["name"], style: TextStyle(color: titleColor)),
           subtitle:
               PresetEffectPreview(device: dev, preset: item, enabled: enabled),
           trailing: _createPresetTrailingWidget(item, context),

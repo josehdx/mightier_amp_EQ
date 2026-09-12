@@ -1,3 +1,6 @@
+// (c) 2020-2021 Dian Iliev (Tuntorius)
+// This code is licensed under MIT license (see LICENSE.md for details)
+
 import 'package:flutter/material.dart';
 import '../../../../bluetooth/devices/NuxDevice.dart';
 import '../../../../bluetooth/devices/effects/Processor.dart';
@@ -7,10 +10,6 @@ class PresetEffectPreview extends StatelessWidget {
   final NuxDevice device;
   final bool enabled;
 
-  static const TextStyle _ampActive =
-      TextStyle(color: Color.fromARGB(255, 158, 158, 158), fontSize: 14);
-  static const TextStyle _ampInactive =
-      TextStyle(color: Color.fromARGB(255, 90, 90, 90), fontSize: 14);
   const PresetEffectPreview(
       {super.key,
       required this.preset,
@@ -18,21 +17,35 @@ class PresetEffectPreview extends StatelessWidget {
       required this.enabled});
 
   List<Widget> _buildEffectsPreview(
-      Map<String, dynamic> preset, NuxDevice dev) {
+      BuildContext context, Map<String, dynamic> preset, NuxDevice dev) {
+    bool isDark = Theme.of(context).brightness == Brightness.dark;
     var widgets = <Widget>[];
-    //int presetVersion = preset["version"] ?? 0;
 
     var pVersion = preset["version"] ?? 0;
+
+    TextStyle ampStyle;
+    if (enabled) {
+      ampStyle = TextStyle(
+          color: isDark
+              ? const Color.fromARGB(255, 180, 180, 180)
+              : const Color.fromARGB(255, 100, 100, 100),
+          fontSize: 14);
+    } else {
+      ampStyle = TextStyle(
+          color: isDark
+              ? const Color.fromARGB(255, 100, 100, 100)
+              : const Color.fromARGB(255, 160, 160, 160),
+          fontSize: 14);
+    }
+
     for (int i = 0; i < dev.processorList.length; i++) {
       ProcessorInfo pi = dev.processorList[i];
 
       Color color = pi.color;
 
       if (!enabled) color = color.withAlpha(128);
-      var textStyle = enabled ? _ampActive : _ampInactive;
 
       if (preset.containsKey(pi.keyName)) {
-        //special case for amp
         if (pi.keyName == "amp") {
           var name =
               dev.getAmpNameByNuxIndex(preset[pi.keyName]["fx_type"], pVersion);
@@ -40,7 +53,7 @@ class PresetEffectPreview extends StatelessWidget {
               0,
               Padding(
                 padding: const EdgeInsets.only(right: 8.0),
-                child: Text(name, style: textStyle),
+                child: Text(name, style: ampStyle),
               ));
         } else if (pi.keyName == "cabinet") {
           continue;
@@ -48,7 +61,9 @@ class PresetEffectPreview extends StatelessWidget {
           bool fxEnabled = preset[pi.keyName]["enabled"];
           widgets.add(Icon(
             pi.icon,
-            color: fxEnabled ? color : Colors.grey,
+            color: fxEnabled
+                ? color
+                : (isDark ? Colors.grey[700] : Colors.grey[400]),
             size: 16,
           ));
         }
@@ -60,7 +75,7 @@ class PresetEffectPreview extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      children: _buildEffectsPreview(preset, device),
+      children: _buildEffectsPreview(context, preset, device),
     );
   }
 }

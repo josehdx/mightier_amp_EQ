@@ -2,6 +2,7 @@
 // This code is licensed under MIT license (see LICENSE.md for details)
 
 import 'package:flutter/material.dart';
+import 'package:tinycolor2/tinycolor2.dart';
 import '../../../bluetooth/devices/effects/Processor.dart';
 
 class EffectChainButton extends StatelessWidget {
@@ -28,7 +29,29 @@ class EffectChainButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Color buttonColor = enabled ? color : Theme.of(context).disabledColor;
+    bool isDark = Theme.of(context).brightness == Brightness.dark;
+
+    Color activeColor = color;
+    
+    // Explicit override for EQ to guarantee it is visible when ON
+    if (effectInfo.shortName == "EQ" || color == Colors.grey || color.value == 0xFF9E9E9E) {
+      activeColor = isDark ? Colors.grey[400]! : Colors.grey[700]!;
+    } 
+    // In Light mode, aggressively darken bright colors like Yellow to separate them from the white background
+    else if (!isDark && TinyColor.fromColor(activeColor).isLight()) {
+      activeColor = TinyColor.fromColor(activeColor).darken(25).color;
+    }
+
+    Color inactiveColor = isDark ? Colors.grey[700]! : Colors.grey[400]!;
+    Color buttonColor = enabled ? activeColor : inactiveColor;
+
+    Color iconColor;
+    if (selected) {
+      iconColor = buttonColor.computeLuminance() > 0.5 ? Colors.black : Colors.white;
+    } else {
+      iconColor = buttonColor;
+    }
+
     return ReorderableDragStartListener(
       index: index,
       child: AspectRatio(
@@ -63,7 +86,7 @@ class EffectChainButton extends StatelessWidget {
                               const BorderRadius.all(Radius.circular(3))),
                       child: Icon(
                         effectInfo.icon,
-                        color: selected ? Colors.black : buttonColor,
+                        color: iconColor,
                       ),
                     ),
                     ExcludeSemantics(
@@ -72,7 +95,7 @@ class EffectChainButton extends StatelessWidget {
                         style: TextStyle(
                             fontSize: 10,
                             color: enabled
-                                ? null
+                                ? Theme.of(context).colorScheme.onSurface
                                 : Theme.of(context).textTheme.bodySmall!.color),
                       ),
                     ),

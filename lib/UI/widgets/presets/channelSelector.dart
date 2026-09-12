@@ -76,7 +76,8 @@ class _ChannelSelectorState extends State<ChannelSelector> {
   }
 
   List<Widget> _createButtons(double width) {
-    var disabledColor = Theme.of(context).disabledColor;
+    bool isDark = Theme.of(context).brightness == Brightness.dark;
+    var disabledColor = isDark ? Theme.of(context).disabledColor : Colors.grey[400]!;
     List<Widget> buttons = <Widget>[];
 
     var tooltip = "";
@@ -87,7 +88,8 @@ class _ChannelSelectorState extends State<ChannelSelector> {
 
     double itemWidth = (width / row1).floorToDouble();
     for (int i = 0; i < _presets.length; i++) {
-      var col = i == widget.device.selectedChannel
+      bool isSelected = i == widget.device.selectedChannel;
+      var col = isSelected
           ? _presets[widget.device.selectedChannel].channelColor
           : disabledColor;
 
@@ -107,7 +109,13 @@ class _ChannelSelectorState extends State<ChannelSelector> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 6.0),
               child: FittedBox(
-                  fit: BoxFit.fill, child: Text(_presets[i].channelName)),
+                  fit: BoxFit.fill,
+                  child: Text(
+                    _presets[i].channelName,
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.onSurface,
+                    ),
+                  )),
             ),
           ],
         );
@@ -125,7 +133,10 @@ class _ChannelSelectorState extends State<ChannelSelector> {
             ),
             Text(
               _presets[i].channelName,
-              style: const TextStyle(fontWeight: FontWeight.bold),
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: isSelected ? Colors.white : Theme.of(context).colorScheme.onSurface,
+              ),
             ),
           ],
         );
@@ -144,10 +155,7 @@ class _ChannelSelectorState extends State<ChannelSelector> {
           widget.device.toggleChannelActive(i);
         },
         child: Container(
-          //use container with color to expand hittest area for the gesture detector
-          //better to use the same as the background color to imitate transparency
-          //than to use translucent hittest (slow)
-          color: Theme.of(context).scaffoldBackgroundColor,
+          color: Colors.transparent,
           width: itemWidth,
           height:
               AppThemeConfig.toggleButtonHeight(widget.device.longChannelNames),
@@ -166,10 +174,10 @@ class _ChannelSelectorState extends State<ChannelSelector> {
 
   qrPopupSelection(pos) async {
     switch (pos) {
-      case 1: //scan qr
+      case 1:
         var result = await Permission.camera.request();
         if (result.isPermanentlyDenied) {
-          //TODO: Explain why camera is needed and open settings
+          // Explained in settings
         }
         final content = await QrUtils.scanQR;
         if (content?.isNotEmpty ?? false) {
@@ -252,6 +260,7 @@ class _ChannelSelectorState extends State<ChannelSelector> {
   @override
   Widget build(BuildContext context) {
     layout = getEditorLayoutMode(MediaQuery.of(context));
+    bool isDark = Theme.of(context).brightness == Brightness.dark;
 
     _presets = widget.device.getPresetsList();
 
@@ -263,8 +272,9 @@ class _ChannelSelectorState extends State<ChannelSelector> {
           padding: const EdgeInsets.all(8),
           child: Container(
             decoration: BoxDecoration(
-                color: Colors.grey[800],
-                border: Border.all(color: Theme.of(context).disabledColor),
+                color: isDark ? Colors.grey[800] : Theme.of(context).cardColor,
+                border: Border.all(
+                    color: isDark ? Theme.of(context).disabledColor : Colors.grey[300]!),
                 borderRadius: BorderRadius.circular(6)),
             child: Row(
               mainAxisSize: MainAxisSize.max,
@@ -274,17 +284,21 @@ class _ChannelSelectorState extends State<ChannelSelector> {
                       return qrMenu;
                     },
                     onSelected: qrPopupSelection,
-                    child: const SizedBox(
+                    child: SizedBox(
                       width: 60,
                       child: Column(
                         children: [
                           Icon(
                             Icons.qr_code_2,
                             size: 32,
+                            color: Theme.of(context).iconTheme.color,
                           ),
                           Text(
                             "QR Code",
                             textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: Theme.of(context).colorScheme.onSurface,
+                            ),
                           )
                         ],
                       ),
@@ -292,7 +306,7 @@ class _ChannelSelectorState extends State<ChannelSelector> {
                 Expanded(
                   child: Container(
                     constraints: const BoxConstraints(minHeight: 60),
-                    color: Colors.grey[900],
+                    color: isDark ? Colors.grey[900] : Colors.grey[100],
                     child: LayoutBuilder(
                       builder: (context, constraints) {
                         return Wrap(
@@ -322,8 +336,17 @@ class _ChannelSelectorState extends State<ChannelSelector> {
                                 ? Icons.check_circle
                                 : Icons.circle_outlined,
                             size: 30,
+                            color: widget.device.getChannelActive(
+                                    widget.device.selectedChannel)
+                                ? Colors.green
+                                : Theme.of(context).iconTheme.color,
                           ),
-                          const Text("Active")
+                          Text(
+                            "Active",
+                            style: TextStyle(
+                              color: Theme.of(context).colorScheme.onSurface,
+                            ),
+                          )
                         ],
                       ),
                     ),

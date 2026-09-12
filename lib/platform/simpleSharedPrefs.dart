@@ -11,6 +11,7 @@ import 'platformUtils.dart';
 class SettingsKeys {
   static const String latency = "audioLatency";
   static const String screenAlwaysOn = "screenAlwaysOn";
+  static const String darkMode = "darkMode";
   static const String timeUnit = "timeUnit";
   static const String changeCabs = "changeCabs";
   static const String device = "device";
@@ -26,6 +27,7 @@ class SettingsKeys {
   static const String tempoTrainerChangeMode = "trainerChangeMode";
   static const String tempoTrainerChangeUnits = "trainerChangeUnits";
   static const String trackGain = "jamTracksGain";
+  static const String midiHotkeys = "midiHotkeysData";
 }
 
 class SharedPrefs {
@@ -73,8 +75,6 @@ class SharedPrefs {
       }
     } catch (e) {
       _prefsReady = true;
-      //   //no file
-      //   print("Presets file not available");
     }
   }
 

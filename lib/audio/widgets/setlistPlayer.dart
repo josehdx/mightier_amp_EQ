@@ -398,6 +398,14 @@ class SetlistMiniPlayerState extends State<SetlistMiniPlayer> {
 
     return [
       IconButton(
+        onPressed: playerState.previous, // ADDED: Previous Track Button
+        icon: Icon(
+          Icons.skip_previous,
+          color: iconColor,
+          size: 30,
+        ),
+      ),
+      IconButton(
         onPressed: playerState.playPause,
         icon: Icon(
           playerState.state == PlayerState.play

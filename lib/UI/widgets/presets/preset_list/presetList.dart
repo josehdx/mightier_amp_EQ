@@ -58,7 +58,7 @@ class _PresetListState extends State<PresetList>
     super.initState();
 
     if (widget.visibilityEventHandler != null) {
-      _isVisible = false; // It will be set to true when the tab is actively selected
+      _isVisible = false; 
       widget.visibilityEventHandler!.onTabSelected = _onTabSelected;
       widget.visibilityEventHandler!.onTabDeselected = _onTabDeselected;
     }
@@ -90,12 +90,11 @@ class _PresetListState extends State<PresetList>
     if (mounted) {
       setState(() {});
       
-      // If a preset was changed via MIDI while on JamTracks, center it now
+      // Always attempt to center the preset when coming back to the tab, 
+      // especially after a cold start where the layout wasn't ready yet.
       String currentUuid = NuxDeviceControl.instance().presetUUID;
-      if (currentUuid != _lastPresetUuid) {
-        _lastPresetUuid = currentUuid;
-        _scrollToSelected();
-      }
+      _lastPresetUuid = currentUuid;
+      _scrollToSelected();
     }
   }
 
@@ -127,32 +126,32 @@ class _PresetListState extends State<PresetList>
   }
 
   void _scrollToSelected() {
-    // Start a highly responsive retry loop. It waits for the 
-    // expansion animation to finish, then locks onto the target.
-    _tryScroll(10);
+    // Add an initial delay to allow tab slide transitions and category 
+    // expansion animations to finish before looking for the widget.
+    Future.delayed(const Duration(milliseconds: 350), () {
+      _tryScroll(15); // Try 15 times, waiting 150ms between each attempt
+    });
   }
 
   void _tryScroll(int attemptsLeft) {
     if (attemptsLeft <= 0 || !mounted) return;
     
-    Future.delayed(const Duration(milliseconds: 100), () {
-      if (!mounted) return;
-      
-      // If the widget has finally rendered in the tree, scroll to it
-      if (_selectedPresetKey.currentContext != null) {
-        Scrollable.ensureVisible(
-          _selectedPresetKey.currentContext!,
-          duration: const Duration(milliseconds: 300),
-          curve: Curves.easeInOut,
-          alignment: 0.5, // Center the item vertically
-        ).catchError((e) {
-          debugPrint("Scroll error caught: $e");
-        });
-      } else {
-        // If it hasn't rendered yet (still animating open), try again
+    // If the widget has finally rendered in the tree, scroll to it
+    if (_selectedPresetKey.currentContext != null) {
+      Scrollable.ensureVisible(
+        _selectedPresetKey.currentContext!,
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeInOut,
+        alignment: 0.5, // Center the item vertically
+      ).catchError((e) {
+        debugPrint("Scroll error caught: $e");
+      });
+    } else {
+      // If it hasn't rendered yet (still animating open), try again shortly
+      Future.delayed(const Duration(milliseconds: 150), () {
         _tryScroll(attemptsLeft - 1);
-      }
-    });
+      });
+    }
   }
 
   Widget _mainPopupMenu() {
@@ -288,8 +287,6 @@ class _PresetListState extends State<PresetList>
 
     return SafeArea(
       child: CustomScrollView(
-        // Expanding the cache stops Flutter from destroying hidden categories.
-        // This ensures the auto-scroll will always find the off-screen items.
         cacheExtent: 10000, 
         slivers: [
           if (header != null)
@@ -326,7 +323,7 @@ class _PresetListState extends State<PresetList>
     presetList.sort((a, b) => a["name"].compareTo(b["name"]));
     return SafeArea(
       child: CustomScrollView(
-        cacheExtent: 10000, // Forces hidden items to render instantly
+        cacheExtent: 10000, 
         slivers: [
           SliverAppBar(
             backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -410,8 +407,6 @@ class _PresetListState extends State<PresetList>
     }
 
     bool shouldExpand = _expandAll || containsSelected;
-    // Alter the key when an item enters/leaves the selected state so the 
-    // tile naturally refreshes its 'initiallyExpanded' property.
     Key tileKey = Key(
         "${category["name"]}_${_expandToggleCount}_${containsSelected ? "active" : "inactive"}");
 
@@ -463,7 +458,6 @@ class _PresetListState extends State<PresetList>
   Widget _presetWidget(Map<String, dynamic> item, bool hideNonApplicable) {
     bool isSelected = item["uuid"] == NuxDeviceControl.instance().presetUUID;
     return Container(
-      // Attach a global key to the currently active preset widget so we can scroll to it
       key: isSelected ? _selectedPresetKey : null,
       child: PresetWidget(
           simplified: widget.simplified,

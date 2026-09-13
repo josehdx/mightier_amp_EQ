@@ -53,7 +53,6 @@ class HotkeyInputDialog {
       if (_invert) sliderValue = 127 - sliderValue;
       code &= 0xffffff00;
       if (code == _previousCode && previousSliderValue != sliderValue) {
-        //valid adjustment
         name = name.substring(0, name.length - 2);
         name += sliderValue.toRadixString(16).padLeft(2, '0');
         controller.text = name;
@@ -105,10 +104,7 @@ class HotkeyInputDialog {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               IconButton(
-                  icon: Icon(
-                    Icons.adaptive.arrow_back,
-                    color: Colors.white,
-                  ),
+                  icon: Icon(Icons.adaptive.arrow_back),
                   onPressed: () => Navigator.of(context).pop()),
               const Text('Set hotkey'),
             ],

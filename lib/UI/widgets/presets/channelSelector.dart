@@ -1,6 +1,5 @@
 // (c) 2020-2021 Dian Iliev (Tuntorius)
 // This code is licensed under MIT license (see LICENSE.md for details)
-//
 
 import 'package:flutter/material.dart';
 import 'package:mighty_plug_manager/UI/popups/alertDialogs.dart';
@@ -9,6 +8,7 @@ import 'package:mighty_plug_manager/bluetooth/NuxDeviceControl.dart';
 import 'package:mighty_plug_manager/platform/fileSaver.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:qr_utils/qr_utils.dart';
+
 import '../../../bluetooth/devices/presets/Preset.dart';
 import '../../../bluetooth/devices/NuxDevice.dart';
 import '../../../platform/platformUtils.dart';
@@ -35,7 +35,6 @@ class _ChannelSelectorState extends State<ChannelSelector> {
         children: <Widget>[
           Icon(
             Icons.qr_code_scanner,
-            color: AppThemeConfig.contextMenuIconColor,
           ),
           const SizedBox(width: 5),
           const Text("Scan QR"),
@@ -48,7 +47,6 @@ class _ChannelSelectorState extends State<ChannelSelector> {
         children: <Widget>[
           Icon(
             Icons.qr_code_2,
-            color: AppThemeConfig.contextMenuIconColor,
           ),
           const SizedBox(width: 5),
           const Text("Import QR Image"),
@@ -61,7 +59,6 @@ class _ChannelSelectorState extends State<ChannelSelector> {
         children: <Widget>[
           Icon(
             Icons.qr_code_2,
-            color: AppThemeConfig.contextMenuIconColor,
           ),
           const SizedBox(width: 5),
           const Text("Share QR"),
@@ -78,15 +75,17 @@ class _ChannelSelectorState extends State<ChannelSelector> {
   List<Widget> _createButtons(double width) {
     bool isDark = Theme.of(context).brightness == Brightness.dark;
     var disabledColor = isDark ? Theme.of(context).disabledColor : Colors.grey[400]!;
-    List<Widget> buttons = <Widget>[];
 
+    List<Widget> buttons = <Widget>[];
     var tooltip = "";
     _presets = widget.device.getPresetsList();
+
     int row1 = width < 330 && _presets.length > 4
         ? (_presets.length / 2).ceil()
         : _presets.length;
 
     double itemWidth = (width / row1).floorToDouble();
+
     for (int i = 0; i < _presets.length; i++) {
       bool isSelected = i == widget.device.selectedChannel;
       var col = isSelected
@@ -135,7 +134,10 @@ class _ChannelSelectorState extends State<ChannelSelector> {
               _presets[i].channelName,
               style: TextStyle(
                 fontWeight: FontWeight.bold,
-                color: isSelected ? Colors.white : Theme.of(context).colorScheme.onSurface,
+                // Luminance check added here:
+                color: isSelected 
+                    ? (col.computeLuminance() > 0.5 ? Colors.black : Colors.white) 
+                    : Theme.of(context).colorScheme.onSurface,
               ),
             ),
           ],
@@ -246,7 +248,6 @@ class _ChannelSelectorState extends State<ChannelSelector> {
     bool success = result == PresetQRError.Ok;
     NuxDeviceControl.instance().changes.clearHistory();
     setState(() {});
-
     var message = QrUtils.QRMessages[result.index];
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         backgroundColor: success ? Colors.green : Colors.red,
@@ -261,7 +262,6 @@ class _ChannelSelectorState extends State<ChannelSelector> {
   Widget build(BuildContext context) {
     layout = getEditorLayoutMode(MediaQuery.of(context));
     bool isDark = Theme.of(context).brightness == Brightness.dark;
-
     _presets = widget.device.getPresetsList();
 
     return Column(

@@ -1,5 +1,6 @@
 // (c) 2020-2021 Dian Iliev (Tuntorius)
 // This code is licensed under MIT license (see LICENSE.md for details)
+
 import 'package:flutter/material.dart';
 
 final ValueNotifier<ThemeMode> themeModeNotifier =
@@ -7,11 +8,10 @@ final ValueNotifier<ThemeMode> themeModeNotifier =
 
 class AppThemeConfig {
   static double dragHandlesWidth = 56;
-  static Color contextMenuIconColor = Colors.white;
   static bool allowRotation = true;
-
   static TextStyle ListTileHeaderStyle =
       const TextStyle(color: Colors.lightBlue, fontWeight: FontWeight.bold);
+
   static double toggleButtonHeight(bool hasLongNames) {
     if (hasLongNames) return 48;
     return 40;

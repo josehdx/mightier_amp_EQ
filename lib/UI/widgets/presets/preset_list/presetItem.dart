@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:mighty_plug_manager/UI/widgets/presets/preset_list/presetEffectPreview.dart';
 import 'package:tinycolor2/tinycolor2.dart';
+
 import '/bluetooth/NuxDeviceControl.dart';
 import '/bluetooth/devices/NuxDevice.dart';
 import '/UI/toneshare/share_preset.dart';
@@ -46,7 +47,6 @@ class PresetItem extends StatelessWidget {
         },
       );
     }
-
     if (simplified) {
       trailingWidget = null;
     } else if (kDebugMode && false) {
@@ -66,7 +66,6 @@ class PresetItem extends StatelessWidget {
     } else {
       trailingWidget = pmb;
     }
-
     return trailingWidget;
   }
 
@@ -105,9 +104,9 @@ class PresetItem extends StatelessWidget {
     bool isDark = Theme.of(context).brightness == Brightness.dark;
     var pVersion = item["version"] ?? 0;
     var devVersion = device.productVersion;
+
     bool enabled = true;
     enabled = item["product_id"] == device.presetClass;
-
     if (!enabled && hideNotApplicable) return const SizedBox.shrink();
     bool selected = item["uuid"] == device.deviceControl.presetUUID;
     bool newItem = item.containsKey("new");
@@ -115,6 +114,7 @@ class PresetItem extends StatelessWidget {
     var dev = NuxDeviceControl.instance()
             .getDeviceFromPresetClass(item["product_id"]) ??
         device;
+
     Color color = dev.getPreset(0).channelColorsList[item["channel"]];
 
     if (!enabled) color = TinyColor.fromColor(color).desaturate(90).color;
@@ -126,9 +126,10 @@ class PresetItem extends StatelessWidget {
     if (!enabled) {
       titleColor = Theme.of(context).disabledColor;
     } else if (selected) {
-      titleColor = Colors.white;
+      // Dynamic contrast check replaced hardcoded white
+      titleColor = isDark ? Colors.white : Theme.of(context).colorScheme.primary;
     } else {
-      titleColor = isDark ? Colors.white : Colors.black87;
+      titleColor = Theme.of(context).colorScheme.onSurface;
     }
 
     return ColoredBox(

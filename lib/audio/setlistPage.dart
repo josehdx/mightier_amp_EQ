@@ -34,7 +34,6 @@ class _SetlistPageState extends State<SetlistPage> {
         children: <Widget>[
           Icon(
             Icons.highlight_remove_outlined,
-            color: AppThemeConfig.contextMenuIconColor,
           ),
           const SizedBox(width: 5),
           const Text("Remove"),

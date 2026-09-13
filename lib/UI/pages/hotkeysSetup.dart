@@ -47,7 +47,7 @@ class _HotkeysSetupState extends State<HotkeysSetup> {
         enabled: enabled,
         leading: Icon(
           icon,
-          color: color,
+          color: color ?? Theme.of(context).iconTheme.color,
         ),
         minLeadingWidth: 0,
         onTap: () {
@@ -114,9 +114,6 @@ class _HotkeysSetupState extends State<HotkeysSetup> {
     for (int i = 0; i < dev.processorList.length; i++) {
       var fxid = dev.processorList[i].nuxFXID;
       var slot = dev.getPreset(dev.selectedChannel).getSlotFromFXID(fxid)!;
-      //var count =
-      //    dev.getPreset(dev.selectedChannel).getEffectsForSlot(prc).length;
-      //var index = fxid.toInt();
 
       var name = dev.processorList[i].longName;
       var icon = dev.processorList[i].icon;
@@ -179,12 +176,11 @@ class _HotkeysSetupState extends State<HotkeysSetup> {
     var dev = NuxDeviceControl.instance().device;
 
     //add master volume
-    widgets.add(buildWidget("Volume", Icons.volume_up, Colors.white,
+    widgets.add(buildWidget("Volume", Icons.volume_up, Theme.of(context).iconTheme.color,
         HotkeyControl.MasterVolumeSet, 0, 0, true,
         infoButton: null));
 
     List<MidiControllerHandle> effectHandles = [];
-    //enumerate all the slots in the signal chain
     for (int i = 0; i < dev.processorList.length; i++) {
       effectHandles.clear();
       var fxid = dev.processorList[i].nuxFXID;

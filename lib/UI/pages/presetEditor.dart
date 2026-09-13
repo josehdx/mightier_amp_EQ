@@ -95,7 +95,7 @@ class _PresetEditorState extends State<PresetEditor> {
             child: ButtonTheme(
               minWidth: 55,
               height: 45,
-              buttonColor: Theme.of(context).colorScheme.primary, // Dynamic color instead of hardcoded
+              buttonColor: Theme.of(context).colorScheme.primary, 
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -142,8 +142,6 @@ class _PresetEditorState extends State<PresetEditor> {
                           !NuxDeviceControl.instance().changes.canUndo
                         ],
                         
-                        // Fully removed hardcoded Colors.white/grey properties here 
-                        // to let it dynamically adjust to light/dark themes natively
                         color: Theme.of(context).colorScheme.onSurface,
                         selectedColor: Theme.of(context).colorScheme.onPrimary,
                         fillColor: Theme.of(context).colorScheme.primary,
@@ -159,7 +157,6 @@ class _PresetEditorState extends State<PresetEditor> {
                                     var changes =
                                         NuxDeviceControl.instance().changes;
                                     if (changes.canUndo) {
-                                      //we can go back
                                       while (changes.canUndo) {
                                         changes.undo();
                                       }

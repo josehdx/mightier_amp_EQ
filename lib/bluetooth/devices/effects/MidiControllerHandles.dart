@@ -45,6 +45,9 @@ enum ControllerHandleId {
   delayToggle,
   delayPrev,
   delayNext,
+  srOff,     // Added Send/Return
+  srOn,
+  srToggle,
 
   gateSense,
   gateDecay,
@@ -60,6 +63,7 @@ enum ControllerHandleId {
   efxRate,
   efxDepth,
   efxBass,
+  efxMode,   // Added Katana Boost, TouchWah Type
 
   ampGain,
   ampVolume,
@@ -67,6 +71,7 @@ enum ControllerHandleId {
   ampMiddle,
   ampTreble,
   ampTone,
+  ampBright, // Added Twin/Jazz Bright, Starlift Contour
 
   cabLevel,
   cabLoCut,
@@ -80,11 +85,14 @@ enum ControllerHandleId {
   reverbDecay,
   reverbMix,
   reverbTone,
+  reverbDepth, // Added Damp Depth
 
   modRate,
   modDepth,
   modIntensity,
+  modMode,   // Added Vibe/SCF Mode
   
+  eqVolume,  // Added EQ Master Volume
   eqBand1,
   eqBand2,
   eqBand3,
@@ -94,7 +102,10 @@ enum ControllerHandleId {
   eqBand7,
   eqBand8,
   eqBand9,
-  eqBand10
+  eqBand10,
+  
+  srParam1,  // Send/Return parameters
+  srParam2,
 }
 
 class MidiControllerHandle {
@@ -195,6 +206,14 @@ class MidiControllerHandles {
       MidiControllerHandle("", ControllerHandleId.delayPrev);
   static const MidiControllerHandle delayNext =
       MidiControllerHandle("", ControllerHandleId.delayNext);
+      
+  // Send/Return Toggles
+  static const MidiControllerHandle srOff =
+      MidiControllerHandle("", ControllerHandleId.srOff);
+  static const MidiControllerHandle srOn =
+      MidiControllerHandle("", ControllerHandleId.srOn);
+  static const MidiControllerHandle srToggle =
+      MidiControllerHandle("", ControllerHandleId.srToggle);
 
   //Gate
   static const MidiControllerHandle gateSense =
@@ -225,6 +244,8 @@ class MidiControllerHandles {
       MidiControllerHandle("Depth/Sustain", ControllerHandleId.efxDepth);
   static const MidiControllerHandle efxBass =
       MidiControllerHandle("Bass", ControllerHandleId.efxBass);
+  static const MidiControllerHandle efxMode =
+      MidiControllerHandle("Mode/Switch", ControllerHandleId.efxMode);
 
   //Amps
   static const MidiControllerHandle ampGain =
@@ -239,6 +260,8 @@ class MidiControllerHandles {
       MidiControllerHandle("Treble", ControllerHandleId.ampTreble);
   static const MidiControllerHandle ampTone =
       MidiControllerHandle("Presence/Tone", ControllerHandleId.ampTone);
+  static const MidiControllerHandle ampBright =
+      MidiControllerHandle("Bright/Contour", ControllerHandleId.ampBright);
 
   //Cabs
   static const MidiControllerHandle cabLevel =
@@ -265,6 +288,8 @@ class MidiControllerHandles {
       MidiControllerHandle("Level/Mix", ControllerHandleId.reverbMix);
   static const MidiControllerHandle reverbTone =
       MidiControllerHandle("Tone/Misc", ControllerHandleId.reverbTone);
+  static const MidiControllerHandle reverbDepth =
+      MidiControllerHandle("Depth", ControllerHandleId.reverbDepth);
 
   static const MidiControllerHandle modRate =
       MidiControllerHandle("Rate", ControllerHandleId.modRate);
@@ -272,7 +297,11 @@ class MidiControllerHandles {
       MidiControllerHandle("Depth/Width", ControllerHandleId.modDepth);
   static const MidiControllerHandle modIntensity =
       MidiControllerHandle("Intensity/Mix", ControllerHandleId.modIntensity);
+  static const MidiControllerHandle modMode =
+      MidiControllerHandle("Mode", ControllerHandleId.modMode);
       
+  static const MidiControllerHandle eqVolume =
+      MidiControllerHandle("Volume", ControllerHandleId.eqVolume);
   static const MidiControllerHandle eqBand1 =
       MidiControllerHandle("EQ Band 1", ControllerHandleId.eqBand1);
   static const MidiControllerHandle eqBand2 =
@@ -293,4 +322,9 @@ class MidiControllerHandles {
       MidiControllerHandle("EQ Band 9", ControllerHandleId.eqBand9);
   static const MidiControllerHandle eqBand10 =
       MidiControllerHandle("EQ Band 10", ControllerHandleId.eqBand10);
+      
+  static const MidiControllerHandle srParam1 =
+      MidiControllerHandle("Param 1", ControllerHandleId.srParam1);
+  static const MidiControllerHandle srParam2 =
+      MidiControllerHandle("Param 2", ControllerHandleId.srParam2);
 }

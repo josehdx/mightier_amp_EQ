@@ -1,0 +1,34 @@
+{
+    "logs": [
+        {
+            "outputFile": "com.aeologic.adhoc.qr_utils-release-35:/values-xxhdpi-v4/values-xxhdpi-v4.xml",
+            "map": [
+                {
+                    "source": "/Users/jose.hernandez/.gradle/caches/8.14/transforms/b38b4c037de9099d630bd07c0d1e31b4/transformed/jetified-core-1.9.8/res/values-xxhdpi-v4/values-xxhdpi-v4.xml",
+                    "from": {
+                        "startLines": "2,3",
+                        "startColumns": "4,4",
+                        "startOffsets": "55,114",
+                        "endColumns": "58,55",
+                        "endOffsets": "109,165"
+                    }
+                }
+            ]
+        },
+        {
+            "outputFile": "com.aeologic.adhoc.qr_utils-mergeReleaseResources-33:/values-xxhdpi-v4/values-xxhdpi-v4.xml",
+            "map": [
+                {
+                    "source": "/Users/jose.hernandez/.gradle/caches/8.14/transforms/b38b4c037de9099d630bd07c0d1e31b4/transformed/jetified-core-1.9.8/res/values-xxhdpi-v4/values-xxhdpi-v4.xml",
+                    "from": {
+                        "startLines": "2,3",
+                        "startColumns": "4,4",
+                        "startOffsets": "55,114",
+                        "endColumns": "58,55",
+                        "endOffsets": "109,165"
+                    }
+                }
+            ]
+        }
+    ]
+}

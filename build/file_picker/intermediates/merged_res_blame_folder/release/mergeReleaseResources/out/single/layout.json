@@ -1,0 +1,22 @@
+[
+    {
+        "merged": "com.example.file_picker-release-24:/layout/custom_dialog.xml",
+        "source": "com.example.file_picker-core-1.13.1-10:/layout/custom_dialog.xml"
+    },
+    {
+        "merged": "com.example.file_picker-release-24:/layout/ime_secondary_split_test_activity.xml",
+        "source": "com.example.file_picker-core-1.13.1-10:/layout/ime_secondary_split_test_activity.xml"
+    },
+    {
+        "merged": "com.example.file_picker-release-24:/layout/notification_template_part_chronometer.xml",
+        "source": "com.example.file_picker-core-1.13.1-10:/layout/notification_template_part_chronometer.xml"
+    },
+    {
+        "merged": "com.example.file_picker-release-24:/layout/ime_base_split_test_activity.xml",
+        "source": "com.example.file_picker-core-1.13.1-10:/layout/ime_base_split_test_activity.xml"
+    },
+    {
+        "merged": "com.example.file_picker-release-24:/layout/notification_template_part_time.xml",
+        "source": "com.example.file_picker-core-1.13.1-10:/layout/notification_template_part_time.xml"
+    }
+]

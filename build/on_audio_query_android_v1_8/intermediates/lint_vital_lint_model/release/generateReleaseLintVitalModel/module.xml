@@ -1,0 +1,19 @@
+<lint-module
+    format="1"
+    dir="/Users/jose.hernandez/.pub-cache/hosted/pub.dev/on_audio_query_android_v1_8-1.1.1/android"
+    name=":on_audio_query_android_v1_8"
+    type="LIBRARY"
+    maven="com.lucasjosino.on_audio_query:on_audio_query_android_v1_8:1.0-SNAPSHOT"
+    agpVersion="8.11.1"
+    buildFolder="/Users/jose.hernandez/mightier_amp_EQ/build/on_audio_query_android_v1_8"
+    bootClassPath="/Users/jose.hernandez/Library/Android/sdk/platforms/android-33/android.jar:/Users/jose.hernandez/Library/Android/sdk/build-tools/35.0.0/core-lambda-stubs.jar"
+    javaSourceLevel="1.8"
+    compileTarget="android-33"
+    neverShrinking="true">
+  <lintOptions
+      abortOnError="true"
+      absolutePaths="true"
+      checkReleaseBuilds="true"
+      explainIssues="true"/>
+  <variant name="release"/>
+</lint-module>

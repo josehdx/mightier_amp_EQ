@@ -1,0 +1,26 @@
+<lint-module
+    format="1"
+    dir="/Users/jose.hernandez/mightier_amp_EQ/plugins/flutter_midi_command/flutter_midi_command-0.3.7/android"
+    name=":flutter_midi_command"
+    type="LIBRARY"
+    maven="com.invisiblewrench.fluttermidicommand:flutter_midi_command:1.0-SNAPSHOT"
+    agpVersion="8.11.1"
+    buildFolder="/Users/jose.hernandez/mightier_amp_EQ/build/flutter_midi_command"
+    bootClassPath="/Users/jose.hernandez/Library/Android/sdk/platforms/android-34/android.jar:/Users/jose.hernandez/Library/Android/sdk/build-tools/35.0.0/core-lambda-stubs.jar"
+    javaSourceLevel="17"
+    compileTarget="android-34"
+    neverShrinking="true">
+  <lintOptions
+      disable="InvalidPackage"
+      abortOnError="true"
+      absolutePaths="true"
+      checkReleaseBuilds="true"
+      explainIssues="true">
+    <severities>
+      <severity
+        id="InvalidPackage"
+        severity="IGNORE" />
+    </severities>
+  </lintOptions>
+  <variant name="release"/>
+</lint-module>

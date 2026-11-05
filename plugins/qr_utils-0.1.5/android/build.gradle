@@ -1,0 +1,27 @@
+group 'com.aeologic.adhoc.qr_utils'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'com.android.library'
+
+android {
+    compileSdk 34
+    compileSdkVersion 34
+    namespace 'com.aeologic.adhoc.qr_utils'
+    defaultConfig {
+        minSdkVersion 24
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+    lintOptions {
+        disable 'InvalidPackage'
+    }
+}
+
+dependencies {
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation ('com.karumi:dexter:6.2.3') {
+        exclude group: 'com.android.support'
+    }
+    implementation ('me.dm7.barcodescanner:zxing:1.9.8') {
+        exclude group: 'com.android.support'
+    }
+}

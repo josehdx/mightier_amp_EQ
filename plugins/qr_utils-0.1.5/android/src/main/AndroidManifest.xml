@@ -1,0 +1,21 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+  package="com.aeologic.adhoc.qr_utils">
+
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <!--
+    IMPORTANT PART:
+    Include all the "features" under the camera permission,
+    and mark them all as optional.
+    -->
+<uses-feature
+    android:name="android.hardware.camera"
+    android:required="false" />
+
+    <application>
+        <activity
+            android:name=".activity.QRScannerActivity"
+            android:label="@string/qr_scanner"
+            android:theme="@style/AppTheme.NoActionBar.FullScreen" />
+    </application>
+</manifest>

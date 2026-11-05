@@ -1,0 +1,26 @@
+<lint-module
+    format="1"
+    dir="/Users/jose.hernandez/mightier_amp_EQ/plugins/audio_picker/android"
+    name=":audio_picker"
+    type="LIBRARY"
+    maven="com.audio_picker.audio_picker:audio_picker:1.0-SNAPSHOT"
+    agpVersion="8.11.1"
+    buildFolder="/Users/jose.hernandez/mightier_amp_EQ/build/audio_picker"
+    bootClassPath="/Users/jose.hernandez/Library/Android/sdk/platforms/android-34/android.jar:/Users/jose.hernandez/Library/Android/sdk/build-tools/35.0.0/core-lambda-stubs.jar"
+    javaSourceLevel="17"
+    compileTarget="android-34"
+    neverShrinking="true">
+  <lintOptions
+      disable="InvalidPackage"
+      abortOnError="true"
+      absolutePaths="true"
+      checkReleaseBuilds="true"
+      explainIssues="true">
+    <severities>
+      <severity
+        id="InvalidPackage"
+        severity="IGNORE" />
+    </severities>
+  </lintOptions>
+  <variant name="release"/>
+</lint-module>

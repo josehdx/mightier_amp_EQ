@@ -1,0 +1,26 @@
+[
+    {
+        "merged": "com.lucasjosino.on_audio_query.on_audio_query_android_v1_8-release-27:/animator/fragment_close_enter.xml",
+        "source": "com.lucasjosino.on_audio_query.on_audio_query_android_v1_8-fragment-1.7.1-7:/animator/fragment_close_enter.xml"
+    },
+    {
+        "merged": "com.lucasjosino.on_audio_query.on_audio_query_android_v1_8-release-27:/animator/fragment_close_exit.xml",
+        "source": "com.lucasjosino.on_audio_query.on_audio_query_android_v1_8-fragment-1.7.1-7:/animator/fragment_close_exit.xml"
+    },
+    {
+        "merged": "com.lucasjosino.on_audio_query.on_audio_query_android_v1_8-release-27:/animator/fragment_open_enter.xml",
+        "source": "com.lucasjosino.on_audio_query.on_audio_query_android_v1_8-fragment-1.7.1-7:/animator/fragment_open_enter.xml"
+    },
+    {
+        "merged": "com.lucasjosino.on_audio_query.on_audio_query_android_v1_8-release-27:/animator/fragment_fade_exit.xml",
+        "source": "com.lucasjosino.on_audio_query.on_audio_query_android_v1_8-fragment-1.7.1-7:/animator/fragment_fade_exit.xml"
+    },
+    {
+        "merged": "com.lucasjosino.on_audio_query.on_audio_query_android_v1_8-release-27:/animator/fragment_fade_enter.xml",
+        "source": "com.lucasjosino.on_audio_query.on_audio_query_android_v1_8-fragment-1.7.1-7:/animator/fragment_fade_enter.xml"
+    },
+    {
+        "merged": "com.lucasjosino.on_audio_query.on_audio_query_android_v1_8-release-27:/animator/fragment_open_exit.xml",
+        "source": "com.lucasjosino.on_audio_query.on_audio_query_android_v1_8-fragment-1.7.1-7:/animator/fragment_open_exit.xml"
+    }
+]

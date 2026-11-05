@@ -1,0 +1,112 @@
+import '../../NuxConstants.dart';
+import '../../value_formatters/ValueFormatter.dart';
+import '../MidiControllerHandles.dart';
+import '../Processor.dart';
+
+abstract class Reverb extends Processor {
+  //TODO: check if correct
+  @override
+  int? get nuxEffectTypeIndex => PresetDataIndex2040BT.rvb_type;
+  @override
+  int? get nuxEnableIndex => PresetDataIndex2040BT.rvb_enable;
+  @override
+  EffectEditorUI get editorUI => EffectEditorUI.Sliders;
+  @override
+  int get midiCCEnableValue => MidiCCValues.bCC_ReverbEnable;
+  @override
+  int get midiCCSelectionValue => MidiCCValues.bCC_ReverbMode;
+
+  //MIDI foot controller stuff
+  @override
+  MidiControllerHandle? get midiControlOff => MidiControllerHandles.reverbOff;
+  @override
+  MidiControllerHandle? get midiControlOn => MidiControllerHandles.reverbOn;
+  @override
+  MidiControllerHandle? get midiControlToggle =>
+      MidiControllerHandles.reverbToggle;
+  @override
+  MidiControllerHandle? get midiControlPrev => MidiControllerHandles.reverbPrev;
+  @override
+  MidiControllerHandle? get midiControlNext => MidiControllerHandles.reverbNext;
+}
+
+class HallReverb extends Reverb {
+  @override
+  final name = "Hall";
+
+  @override
+  int get nuxIndex => 0;
+  @override
+  List<Parameter> parameters = [
+    Parameter(
+        name: "Decay",
+        handle: "decay",
+        value: 70,
+        formatter: ValueFormatters.percentage,
+        devicePresetIndex: PresetDataIndex2040BT.rvb_decay,
+        midiCC: MidiCCValues.bCC_ReverbDecay,
+        midiControllerHandle: MidiControllerHandles.reverbDecay),
+    Parameter(
+        name: "Mix",
+        handle: "mix",
+        value: 65,
+        formatter: ValueFormatters.percentage,
+        devicePresetIndex: PresetDataIndex2040BT.rvb_mix,
+        midiCC: MidiCCValues.bCC_ReverbLevel,
+        midiControllerHandle: MidiControllerHandles.reverbMix)
+  ];
+}
+
+class PlateReverb extends Reverb {
+  @override
+  final name = "Plate";
+
+  @override
+  int get nuxIndex => 1;
+  @override
+  List<Parameter> parameters = [
+    Parameter(
+        name: "Decay",
+        handle: "decay",
+        value: 81,
+        formatter: ValueFormatters.percentage,
+        devicePresetIndex: PresetDataIndex2040BT.rvb_decay,
+        midiCC: MidiCCValues.bCC_ReverbDecay,
+        midiControllerHandle: MidiControllerHandles.reverbDecay),
+    Parameter(
+        name: "Mix",
+        handle: "mix",
+        value: 66,
+        formatter: ValueFormatters.percentage,
+        devicePresetIndex: PresetDataIndex2040BT.rvb_mix,
+        midiCC: MidiCCValues.bCC_ReverbLevel,
+        midiControllerHandle: MidiControllerHandles.reverbMix)
+  ];
+}
+
+class SpringReverb extends Reverb {
+  @override
+  final name = "Spring";
+
+  @override
+  int get nuxIndex => 2;
+  @override
+  List<Parameter> parameters = [
+    Parameter(
+        name: "Decay",
+        handle: "decay",
+        value: 32,
+        formatter: ValueFormatters.percentage,
+        devicePresetIndex: PresetDataIndex2040BT.rvb_decay,
+        midiCC: MidiCCValues.bCC_ReverbDecay,
+        midiControllerHandle: MidiControllerHandles.reverbDecay),
+    Parameter(
+        name: "Mix",
+        handle: "mix",
+        value: 50,
+        formatter: ValueFormatters.percentage,
+        devicePresetIndex: PresetDataIndex2040BT.rvb_mix,
+        midiCC: MidiCCValues.bCC_ReverbLevel,
+        midiControllerHandle: MidiControllerHandles.reverbMix)
+  ];
+}

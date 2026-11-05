@@ -1,0 +1,37 @@
+-- Merging decision tree log ---
+manifest
+ADDED from /Users/jose.hernandez/mightier_amp_EQ/plugins/qr_utils-0.1.5/android/src/main/AndroidManifest.xml:1:1-21:12
+INJECTED from /Users/jose.hernandez/mightier_amp_EQ/plugins/qr_utils-0.1.5/android/src/main/AndroidManifest.xml:1:1-21:12
+	package
+		ADDED from /Users/jose.hernandez/mightier_amp_EQ/plugins/qr_utils-0.1.5/android/src/main/AndroidManifest.xml:2:3-40
+		INJECTED from /Users/jose.hernandez/mightier_amp_EQ/plugins/qr_utils-0.1.5/android/src/main/AndroidManifest.xml
+	xmlns:android
+		ADDED from /Users/jose.hernandez/mightier_amp_EQ/plugins/qr_utils-0.1.5/android/src/main/AndroidManifest.xml:1:11-69
+uses-permission#android.permission.CAMERA
+ADDED from /Users/jose.hernandez/mightier_amp_EQ/plugins/qr_utils-0.1.5/android/src/main/AndroidManifest.xml:4:5-65
+	android:name
+		ADDED from /Users/jose.hernandez/mightier_amp_EQ/plugins/qr_utils-0.1.5/android/src/main/AndroidManifest.xml:4:22-62
+uses-feature#android.hardware.camera
+ADDED from /Users/jose.hernandez/mightier_amp_EQ/plugins/qr_utils-0.1.5/android/src/main/AndroidManifest.xml:11:1-13:32
+	android:required
+		ADDED from /Users/jose.hernandez/mightier_amp_EQ/plugins/qr_utils-0.1.5/android/src/main/AndroidManifest.xml:13:5-29
+	android:name
+		ADDED from /Users/jose.hernandez/mightier_amp_EQ/plugins/qr_utils-0.1.5/android/src/main/AndroidManifest.xml:12:5-43
+application
+ADDED from /Users/jose.hernandez/mightier_amp_EQ/plugins/qr_utils-0.1.5/android/src/main/AndroidManifest.xml:15:5-20:19
+activity#com.aeologic.adhoc.qr_utils.activity.QRScannerActivity
+ADDED from /Users/jose.hernandez/mightier_amp_EQ/plugins/qr_utils-0.1.5/android/src/main/AndroidManifest.xml:16:9-19:70
+	android:label
+		ADDED from /Users/jose.hernandez/mightier_amp_EQ/plugins/qr_utils-0.1.5/android/src/main/AndroidManifest.xml:18:13-47
+	android:theme
+		ADDED from /Users/jose.hernandez/mightier_amp_EQ/plugins/qr_utils-0.1.5/android/src/main/AndroidManifest.xml:19:13-67
+	android:name
+		ADDED from /Users/jose.hernandez/mightier_amp_EQ/plugins/qr_utils-0.1.5/android/src/main/AndroidManifest.xml:17:13-55
+uses-sdk
+INJECTED from /Users/jose.hernandez/mightier_amp_EQ/plugins/qr_utils-0.1.5/android/src/main/AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from /Users/jose.hernandez/mightier_amp_EQ/plugins/qr_utils-0.1.5/android/src/main/AndroidManifest.xml
+INJECTED from /Users/jose.hernandez/mightier_amp_EQ/plugins/qr_utils-0.1.5/android/src/main/AndroidManifest.xml
+	android:targetSdkVersion
+		INJECTED from /Users/jose.hernandez/mightier_amp_EQ/plugins/qr_utils-0.1.5/android/src/main/AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from /Users/jose.hernandez/mightier_amp_EQ/plugins/qr_utils-0.1.5/android/src/main/AndroidManifest.xml

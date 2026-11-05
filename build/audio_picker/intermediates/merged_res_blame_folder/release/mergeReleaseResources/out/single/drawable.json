@@ -1,0 +1,18 @@
+[
+    {
+        "merged": "com.audio_picker.audio_picker-release-24:/drawable/notification_tile_bg.xml",
+        "source": "com.audio_picker.audio_picker-core-1.13.1-10:/drawable/notification_tile_bg.xml"
+    },
+    {
+        "merged": "com.audio_picker.audio_picker-release-24:/drawable/notification_icon_background.xml",
+        "source": "com.audio_picker.audio_picker-core-1.13.1-10:/drawable/notification_icon_background.xml"
+    },
+    {
+        "merged": "com.audio_picker.audio_picker-release-24:/drawable/notification_bg.xml",
+        "source": "com.audio_picker.audio_picker-core-1.13.1-10:/drawable/notification_bg.xml"
+    },
+    {
+        "merged": "com.audio_picker.audio_picker-release-24:/drawable/notification_bg_low.xml",
+        "source": "com.audio_picker.audio_picker-core-1.13.1-10:/drawable/notification_bg_low.xml"
+    }
+]

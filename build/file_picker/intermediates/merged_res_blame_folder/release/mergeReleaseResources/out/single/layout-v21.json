@@ -1,0 +1,18 @@
+[
+    {
+        "merged": "com.example.file_picker-release-24:/layout-v21/notification_action_tombstone.xml",
+        "source": "com.example.file_picker-core-1.13.1-10:/layout-v21/notification_action_tombstone.xml"
+    },
+    {
+        "merged": "com.example.file_picker-release-24:/layout-v21/notification_template_custom_big.xml",
+        "source": "com.example.file_picker-core-1.13.1-10:/layout-v21/notification_template_custom_big.xml"
+    },
+    {
+        "merged": "com.example.file_picker-release-24:/layout-v21/notification_template_icon_group.xml",
+        "source": "com.example.file_picker-core-1.13.1-10:/layout-v21/notification_template_icon_group.xml"
+    },
+    {
+        "merged": "com.example.file_picker-release-24:/layout-v21/notification_action.xml",
+        "source": "com.example.file_picker-core-1.13.1-10:/layout-v21/notification_action.xml"
+    }
+]

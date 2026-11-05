@@ -1,0 +1,18 @@
+group 'com.tuntori.audio_waveform'
+version '1.0'
+
+apply plugin: 'com.android.library'
+
+android {
+    namespace 'com.tuntori.audio_waveform'
+    compileSdkVersion 34
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    defaultConfig {
+        minSdkVersion 24
+    }
+}

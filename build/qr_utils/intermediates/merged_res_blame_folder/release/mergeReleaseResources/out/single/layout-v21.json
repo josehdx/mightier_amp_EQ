@@ -1,0 +1,18 @@
+[
+    {
+        "merged": "com.aeologic.adhoc.qr_utils-release-35:/layout-v21/notification_template_icon_group.xml",
+        "source": "com.aeologic.adhoc.qr_utils-core-1.13.1-15:/layout-v21/notification_template_icon_group.xml"
+    },
+    {
+        "merged": "com.aeologic.adhoc.qr_utils-release-35:/layout-v21/notification_template_custom_big.xml",
+        "source": "com.aeologic.adhoc.qr_utils-core-1.13.1-15:/layout-v21/notification_template_custom_big.xml"
+    },
+    {
+        "merged": "com.aeologic.adhoc.qr_utils-release-35:/layout-v21/notification_action.xml",
+        "source": "com.aeologic.adhoc.qr_utils-core-1.13.1-15:/layout-v21/notification_action.xml"
+    },
+    {
+        "merged": "com.aeologic.adhoc.qr_utils-release-35:/layout-v21/notification_action_tombstone.xml",
+        "source": "com.aeologic.adhoc.qr_utils-core-1.13.1-15:/layout-v21/notification_action_tombstone.xml"
+    }
+]

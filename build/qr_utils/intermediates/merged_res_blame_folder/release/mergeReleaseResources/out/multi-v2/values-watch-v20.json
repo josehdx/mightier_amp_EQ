@@ -1,0 +1,36 @@
+{
+    "logs": [
+        {
+            "outputFile": "com.aeologic.adhoc.qr_utils-release-35:/values-watch-v20/values-watch-v20.xml",
+            "map": [
+                {
+                    "source": "/Users/jose.hernandez/.gradle/caches/8.14/transforms/c74cfa5f2a6557daac3bc626f2e1bcfa/transformed/appcompat-1.6.1/res/values-watch-v20/values-watch-v20.xml",
+                    "from": {
+                        "startLines": "2,5,8",
+                        "startColumns": "4,4,4",
+                        "startOffsets": "55,214,385",
+                        "endLines": "4,7,10",
+                        "endColumns": "12,12,12",
+                        "endOffsets": "209,380,553"
+                    }
+                }
+            ]
+        },
+        {
+            "outputFile": "com.aeologic.adhoc.qr_utils-mergeReleaseResources-33:/values-watch-v20/values-watch-v20.xml",
+            "map": [
+                {
+                    "source": "/Users/jose.hernandez/.gradle/caches/8.14/transforms/c74cfa5f2a6557daac3bc626f2e1bcfa/transformed/appcompat-1.6.1/res/values-watch-v20/values-watch-v20.xml",
+                    "from": {
+                        "startLines": "2,5,8",
+                        "startColumns": "4,4,4",
+                        "startOffsets": "55,214,385",
+                        "endLines": "4,7,10",
+                        "endColumns": "12,12,12",
+                        "endOffsets": "209,380,553"
+                    }
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,26 @@
+[
+    {
+        "merged": "com.aeologic.adhoc.qr_utils-release-35:/drawable-ldpi-v4/ic_call_decline.png",
+        "source": "com.aeologic.adhoc.qr_utils-core-1.13.1-15:/drawable-ldpi-v4/ic_call_decline.png"
+    },
+    {
+        "merged": "com.aeologic.adhoc.qr_utils-release-35:/drawable-ldpi-v4/ic_call_answer_video.png",
+        "source": "com.aeologic.adhoc.qr_utils-core-1.13.1-15:/drawable-ldpi-v4/ic_call_answer_video.png"
+    },
+    {
+        "merged": "com.aeologic.adhoc.qr_utils-release-35:/drawable-ldpi-v4/ic_call_answer_video_low.png",
+        "source": "com.aeologic.adhoc.qr_utils-core-1.13.1-15:/drawable-ldpi-v4/ic_call_answer_video_low.png"
+    },
+    {
+        "merged": "com.aeologic.adhoc.qr_utils-release-35:/drawable-ldpi-v4/ic_call_answer.png",
+        "source": "com.aeologic.adhoc.qr_utils-core-1.13.1-15:/drawable-ldpi-v4/ic_call_answer.png"
+    },
+    {
+        "merged": "com.aeologic.adhoc.qr_utils-release-35:/drawable-ldpi-v4/ic_call_answer_low.png",
+        "source": "com.aeologic.adhoc.qr_utils-core-1.13.1-15:/drawable-ldpi-v4/ic_call_answer_low.png"
+    },
+    {
+        "merged": "com.aeologic.adhoc.qr_utils-release-35:/drawable-ldpi-v4/ic_call_decline_low.png",
+        "source": "com.aeologic.adhoc.qr_utils-core-1.13.1-15:/drawable-ldpi-v4/ic_call_decline_low.png"
+    }
+]

@@ -1,0 +1,14 @@
+[
+    {
+        "merged": "com.aeologic.adhoc.qr_utils-release-35:/interpolator-v21/mtrl_linear_out_slow_in.xml",
+        "source": "com.aeologic.adhoc.qr_utils-material-1.0.0-2:/interpolator-v21/mtrl_linear_out_slow_in.xml"
+    },
+    {
+        "merged": "com.aeologic.adhoc.qr_utils-release-35:/interpolator-v21/mtrl_fast_out_linear_in.xml",
+        "source": "com.aeologic.adhoc.qr_utils-material-1.0.0-2:/interpolator-v21/mtrl_fast_out_linear_in.xml"
+    },
+    {
+        "merged": "com.aeologic.adhoc.qr_utils-release-35:/interpolator-v21/mtrl_fast_out_slow_in.xml",
+        "source": "com.aeologic.adhoc.qr_utils-material-1.0.0-2:/interpolator-v21/mtrl_fast_out_slow_in.xml"
+    }
+]

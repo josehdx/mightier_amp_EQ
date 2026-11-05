@@ -1,0 +1,6 @@
+[
+    {
+        "merged": "com.boskokg.flutter_blue_plus-release-24:/drawable-v21/notification_action_background.xml",
+        "source": "com.boskokg.flutter_blue_plus-core-1.13.1-10:/drawable-v21/notification_action_background.xml"
+    }
+]

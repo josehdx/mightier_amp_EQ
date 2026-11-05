@@ -1,0 +1,16 @@
+R_DEF: Internal format may change without notice
+local
+color white
+drawable ic_flash_active
+drawable ic_flash_inactive
+drawable ic_shape_circle
+id content_frame
+id flash_img
+layout activity_qr_scanner
+string grant_all_permission
+string process_failed
+string qr_scanner
+style AppTheme
+style AppTheme.NoActionBar
+style AppTheme.NoActionBar.FullScreen
+xml provider_paths

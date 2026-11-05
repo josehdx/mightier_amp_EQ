@@ -1,0 +1,6 @@
+[
+    {
+        "merged": "com.github.dart_lang.jni_flutter-release-27:/drawable-v21/notification_action_background.xml",
+        "source": "com.github.dart_lang.jni_flutter-core-1.13.1-10:/drawable-v21/notification_action_background.xml"
+    }
+]

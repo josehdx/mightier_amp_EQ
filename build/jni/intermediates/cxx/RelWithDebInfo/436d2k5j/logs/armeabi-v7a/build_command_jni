@@ -1,0 +1,4 @@
+/Users/jose.hernandez/Library/Android/sdk/cmake/3.22.1/bin/ninja \
+  -C \
+  /Users/jose.hernandez/.pub-cache/hosted/pub.dev/jni-1.0.2/android/.cxx/RelWithDebInfo/436d2k5j/armeabi-v7a \
+  jni

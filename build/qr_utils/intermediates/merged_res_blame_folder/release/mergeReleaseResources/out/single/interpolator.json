@@ -1,0 +1,34 @@
+[
+    {
+        "merged": "com.aeologic.adhoc.qr_utils-release-35:/interpolator/mtrl_linear.xml",
+        "source": "com.aeologic.adhoc.qr_utils-material-1.0.0-2:/interpolator/mtrl_linear.xml"
+    },
+    {
+        "merged": "com.aeologic.adhoc.qr_utils-release-35:/interpolator/btn_radio_to_on_mtrl_animation_interpolator_0.xml",
+        "source": "com.aeologic.adhoc.qr_utils-appcompat-1.6.1-26:/interpolator/btn_radio_to_on_mtrl_animation_interpolator_0.xml"
+    },
+    {
+        "merged": "com.aeologic.adhoc.qr_utils-release-35:/interpolator/btn_checkbox_unchecked_mtrl_animation_interpolator_1.xml",
+        "source": "com.aeologic.adhoc.qr_utils-appcompat-1.6.1-26:/interpolator/btn_checkbox_unchecked_mtrl_animation_interpolator_1.xml"
+    },
+    {
+        "merged": "com.aeologic.adhoc.qr_utils-release-35:/interpolator/btn_radio_to_off_mtrl_animation_interpolator_0.xml",
+        "source": "com.aeologic.adhoc.qr_utils-appcompat-1.6.1-26:/interpolator/btn_radio_to_off_mtrl_animation_interpolator_0.xml"
+    },
+    {
+        "merged": "com.aeologic.adhoc.qr_utils-release-35:/interpolator/fast_out_slow_in.xml",
+        "source": "com.aeologic.adhoc.qr_utils-appcompat-1.6.1-26:/interpolator/fast_out_slow_in.xml"
+    },
+    {
+        "merged": "com.aeologic.adhoc.qr_utils-release-35:/interpolator/btn_checkbox_unchecked_mtrl_animation_interpolator_0.xml",
+        "source": "com.aeologic.adhoc.qr_utils-appcompat-1.6.1-26:/interpolator/btn_checkbox_unchecked_mtrl_animation_interpolator_0.xml"
+    },
+    {
+        "merged": "com.aeologic.adhoc.qr_utils-release-35:/interpolator/btn_checkbox_checked_mtrl_animation_interpolator_0.xml",
+        "source": "com.aeologic.adhoc.qr_utils-appcompat-1.6.1-26:/interpolator/btn_checkbox_checked_mtrl_animation_interpolator_0.xml"
+    },
+    {
+        "merged": "com.aeologic.adhoc.qr_utils-release-35:/interpolator/btn_checkbox_checked_mtrl_animation_interpolator_1.xml",
+        "source": "com.aeologic.adhoc.qr_utils-appcompat-1.6.1-26:/interpolator/btn_checkbox_checked_mtrl_animation_interpolator_1.xml"
+    }
+]

@@ -1,0 +1,130 @@
+[
+    {
+        "merged": "com.aeologic.adhoc.qr_utils-release-35:/color/mtrl_tabs_legacy_text_color_selector.xml",
+        "source": "com.aeologic.adhoc.qr_utils-material-1.0.0-2:/color/mtrl_tabs_legacy_text_color_selector.xml"
+    },
+    {
+        "merged": "com.aeologic.adhoc.qr_utils-release-35:/color/mtrl_btn_stroke_color_selector.xml",
+        "source": "com.aeologic.adhoc.qr_utils-material-1.0.0-2:/color/mtrl_btn_stroke_color_selector.xml"
+    },
+    {
+        "merged": "com.aeologic.adhoc.qr_utils-release-35:/color/abc_search_url_text.xml",
+        "source": "com.aeologic.adhoc.qr_utils-appcompat-1.6.1-26:/color/abc_search_url_text.xml"
+    },
+    {
+        "merged": "com.aeologic.adhoc.qr_utils-release-35:/color/abc_primary_text_disable_only_material_light.xml",
+        "source": "com.aeologic.adhoc.qr_utils-appcompat-1.6.1-26:/color/abc_primary_text_disable_only_material_light.xml"
+    },
+    {
+        "merged": "com.aeologic.adhoc.qr_utils-release-35:/color/abc_hint_foreground_material_light.xml",
+        "source": "com.aeologic.adhoc.qr_utils-appcompat-1.6.1-26:/color/abc_hint_foreground_material_light.xml"
+    },
+    {
+        "merged": "com.aeologic.adhoc.qr_utils-release-35:/color/mtrl_tabs_icon_color_selector_colored.xml",
+        "source": "com.aeologic.adhoc.qr_utils-material-1.0.0-2:/color/mtrl_tabs_icon_color_selector_colored.xml"
+    },
+    {
+        "merged": "com.aeologic.adhoc.qr_utils-release-35:/color/mtrl_chip_background_color.xml",
+        "source": "com.aeologic.adhoc.qr_utils-material-1.0.0-2:/color/mtrl_chip_background_color.xml"
+    },
+    {
+        "merged": "com.aeologic.adhoc.qr_utils-release-35:/color/mtrl_tabs_colored_ripple_color.xml",
+        "source": "com.aeologic.adhoc.qr_utils-material-1.0.0-2:/color/mtrl_tabs_colored_ripple_color.xml"
+    },
+    {
+        "merged": "com.aeologic.adhoc.qr_utils-release-35:/color/abc_hint_foreground_material_dark.xml",
+        "source": "com.aeologic.adhoc.qr_utils-appcompat-1.6.1-26:/color/abc_hint_foreground_material_dark.xml"
+    },
+    {
+        "merged": "com.aeologic.adhoc.qr_utils-release-35:/color/abc_primary_text_disable_only_material_dark.xml",
+        "source": "com.aeologic.adhoc.qr_utils-appcompat-1.6.1-26:/color/abc_primary_text_disable_only_material_dark.xml"
+    },
+    {
+        "merged": "com.aeologic.adhoc.qr_utils-release-35:/color/switch_thumb_material_dark.xml",
+        "source": "com.aeologic.adhoc.qr_utils-appcompat-1.6.1-26:/color/switch_thumb_material_dark.xml"
+    },
+    {
+        "merged": "com.aeologic.adhoc.qr_utils-release-35:/color/mtrl_bottom_nav_item_tint.xml",
+        "source": "com.aeologic.adhoc.qr_utils-material-1.0.0-2:/color/mtrl_bottom_nav_item_tint.xml"
+    },
+    {
+        "merged": "com.aeologic.adhoc.qr_utils-release-35:/color/mtrl_chip_ripple_color.xml",
+        "source": "com.aeologic.adhoc.qr_utils-material-1.0.0-2:/color/mtrl_chip_ripple_color.xml"
+    },
+    {
+        "merged": "com.aeologic.adhoc.qr_utils-release-35:/color/abc_secondary_text_material_dark.xml",
+        "source": "com.aeologic.adhoc.qr_utils-appcompat-1.6.1-26:/color/abc_secondary_text_material_dark.xml"
+    },
+    {
+        "merged": "com.aeologic.adhoc.qr_utils-release-35:/color/abc_background_cache_hint_selector_material_dark.xml",
+        "source": "com.aeologic.adhoc.qr_utils-appcompat-1.6.1-26:/color/abc_background_cache_hint_selector_material_dark.xml"
+    },
+    {
+        "merged": "com.aeologic.adhoc.qr_utils-release-35:/color/mtrl_bottom_nav_colored_item_tint.xml",
+        "source": "com.aeologic.adhoc.qr_utils-material-1.0.0-2:/color/mtrl_bottom_nav_colored_item_tint.xml"
+    },
+    {
+        "merged": "com.aeologic.adhoc.qr_utils-release-35:/color/mtrl_btn_text_color_selector.xml",
+        "source": "com.aeologic.adhoc.qr_utils-material-1.0.0-2:/color/mtrl_btn_text_color_selector.xml"
+    },
+    {
+        "merged": "com.aeologic.adhoc.qr_utils-release-35:/color/mtrl_text_btn_text_color_selector.xml",
+        "source": "com.aeologic.adhoc.qr_utils-material-1.0.0-2:/color/mtrl_text_btn_text_color_selector.xml"
+    },
+    {
+        "merged": "com.aeologic.adhoc.qr_utils-release-35:/color/abc_background_cache_hint_selector_material_light.xml",
+        "source": "com.aeologic.adhoc.qr_utils-appcompat-1.6.1-26:/color/abc_background_cache_hint_selector_material_light.xml"
+    },
+    {
+        "merged": "com.aeologic.adhoc.qr_utils-release-35:/color/abc_primary_text_material_dark.xml",
+        "source": "com.aeologic.adhoc.qr_utils-appcompat-1.6.1-26:/color/abc_primary_text_material_dark.xml"
+    },
+    {
+        "merged": "com.aeologic.adhoc.qr_utils-release-35:/color/abc_secondary_text_material_light.xml",
+        "source": "com.aeologic.adhoc.qr_utils-appcompat-1.6.1-26:/color/abc_secondary_text_material_light.xml"
+    },
+    {
+        "merged": "com.aeologic.adhoc.qr_utils-release-35:/color/mtrl_tabs_icon_color_selector.xml",
+        "source": "com.aeologic.adhoc.qr_utils-material-1.0.0-2:/color/mtrl_tabs_icon_color_selector.xml"
+    },
+    {
+        "merged": "com.aeologic.adhoc.qr_utils-release-35:/color/mtrl_btn_text_btn_ripple_color.xml",
+        "source": "com.aeologic.adhoc.qr_utils-material-1.0.0-2:/color/mtrl_btn_text_btn_ripple_color.xml"
+    },
+    {
+        "merged": "com.aeologic.adhoc.qr_utils-release-35:/color/mtrl_chip_close_icon_tint.xml",
+        "source": "com.aeologic.adhoc.qr_utils-material-1.0.0-2:/color/mtrl_chip_close_icon_tint.xml"
+    },
+    {
+        "merged": "com.aeologic.adhoc.qr_utils-release-35:/color/abc_primary_text_material_light.xml",
+        "source": "com.aeologic.adhoc.qr_utils-appcompat-1.6.1-26:/color/abc_primary_text_material_light.xml"
+    },
+    {
+        "merged": "com.aeologic.adhoc.qr_utils-release-35:/color/mtrl_tabs_ripple_color.xml",
+        "source": "com.aeologic.adhoc.qr_utils-material-1.0.0-2:/color/mtrl_tabs_ripple_color.xml"
+    },
+    {
+        "merged": "com.aeologic.adhoc.qr_utils-release-35:/color/mtrl_fab_ripple_color.xml",
+        "source": "com.aeologic.adhoc.qr_utils-material-1.0.0-2:/color/mtrl_fab_ripple_color.xml"
+    },
+    {
+        "merged": "com.aeologic.adhoc.qr_utils-release-35:/color/mtrl_btn_ripple_color.xml",
+        "source": "com.aeologic.adhoc.qr_utils-material-1.0.0-2:/color/mtrl_btn_ripple_color.xml"
+    },
+    {
+        "merged": "com.aeologic.adhoc.qr_utils-release-35:/color/switch_thumb_material_light.xml",
+        "source": "com.aeologic.adhoc.qr_utils-appcompat-1.6.1-26:/color/switch_thumb_material_light.xml"
+    },
+    {
+        "merged": "com.aeologic.adhoc.qr_utils-release-35:/color/mtrl_chip_text_color.xml",
+        "source": "com.aeologic.adhoc.qr_utils-material-1.0.0-2:/color/mtrl_chip_text_color.xml"
+    },
+    {
+        "merged": "com.aeologic.adhoc.qr_utils-release-35:/color/design_error.xml",
+        "source": "com.aeologic.adhoc.qr_utils-material-1.0.0-2:/color/design_error.xml"
+    },
+    {
+        "merged": "com.aeologic.adhoc.qr_utils-release-35:/color/mtrl_btn_bg_color_selector.xml",
+        "source": "com.aeologic.adhoc.qr_utils-material-1.0.0-2:/color/mtrl_btn_bg_color_selector.xml"
+    }
+]

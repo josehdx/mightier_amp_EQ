@@ -1,0 +1,31 @@
+<variant
+    name="release"
+    package="dev.fluttercommunity.plus.share"
+    minSdkVersion="19"
+    targetSdkVersion="19"
+    mergedManifest="/Users/jose.hernandez/mightier_amp_EQ/build/share_plus/intermediates/merged_manifest/release/processReleaseManifest/AndroidManifest.xml"
+    proguardFiles="/Users/jose.hernandez/mightier_amp_EQ/build/share_plus/intermediates/default_proguard_files/global/proguard-android.txt-8.11.1"
+    partialResultsDir="/Users/jose.hernandez/mightier_amp_EQ/build/share_plus/intermediates/lint_vital_partial_results/release/lintVitalAnalyzeRelease/out"
+    desugaredMethodsFiles="/Users/jose.hernandez/.gradle/caches/8.14/transforms/86e5f94569c46611814ef590c310eb84/transformed/D8BackportedDesugaredMethods.txt">
+  <buildFeatures
+      namespacing="REQUIRED"/>
+  <sourceProviders>
+    <sourceProvider
+        manifests="src/main/AndroidManifest.xml"
+        javaDirectories="src/main/java:src/release/java:src/main/kotlin:src/release/kotlin"
+        resDirectories="src/main/res:src/release/res"
+        assetsDirectories="src/main/assets:src/release/assets"/>
+  </sourceProviders>
+  <testSourceProviders>
+  </testSourceProviders>
+  <testFixturesSourceProviders>
+  </testFixturesSourceProviders>
+  <artifact
+      classOutputs="/Users/jose.hernandez/mightier_amp_EQ/build/share_plus/intermediates/javac/release/compileReleaseJavaWithJavac/classes:/Users/jose.hernandez/mightier_amp_EQ/build/share_plus/tmp/kotlin-classes/release:/Users/jose.hernandez/mightier_amp_EQ/build/share_plus/intermediates/compile_r_class_jar/release/generateReleaseRFile/R.jar"
+      type="MAIN"
+      applicationId="dev.fluttercommunity.plus.share"
+      generatedSourceFolders="/Users/jose.hernandez/mightier_amp_EQ/build/share_plus/generated/ap_generated_sources/release/out"
+      generatedResourceFolders="/Users/jose.hernandez/mightier_amp_EQ/build/share_plus/generated/res/resValues/release"
+      desugaredMethodsFiles="/Users/jose.hernandez/.gradle/caches/8.14/transforms/86e5f94569c46611814ef590c310eb84/transformed/D8BackportedDesugaredMethods.txt">
+  </artifact>
+</variant>

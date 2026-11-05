@@ -1,0 +1,1 @@
+com.boskokg.flutter_blue_plus

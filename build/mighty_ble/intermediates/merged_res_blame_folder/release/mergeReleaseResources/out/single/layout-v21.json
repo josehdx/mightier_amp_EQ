@@ -1,0 +1,18 @@
+[
+    {
+        "merged": "com.tuntori.mighty_ble-release-24:/layout-v21/notification_action_tombstone.xml",
+        "source": "com.tuntori.mighty_ble-core-1.13.1-10:/layout-v21/notification_action_tombstone.xml"
+    },
+    {
+        "merged": "com.tuntori.mighty_ble-release-24:/layout-v21/notification_template_custom_big.xml",
+        "source": "com.tuntori.mighty_ble-core-1.13.1-10:/layout-v21/notification_template_custom_big.xml"
+    },
+    {
+        "merged": "com.tuntori.mighty_ble-release-24:/layout-v21/notification_action.xml",
+        "source": "com.tuntori.mighty_ble-core-1.13.1-10:/layout-v21/notification_action.xml"
+    },
+    {
+        "merged": "com.tuntori.mighty_ble-release-24:/layout-v21/notification_template_icon_group.xml",
+        "source": "com.tuntori.mighty_ble-core-1.13.1-10:/layout-v21/notification_template_icon_group.xml"
+    }
+]

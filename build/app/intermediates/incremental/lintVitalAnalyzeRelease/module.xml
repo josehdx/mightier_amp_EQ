@@ -1,0 +1,25 @@
+<lint-module
+    format="1"
+    dir="/Users/jose.hernandez/mightier_amp_EQ/android/app"
+    name=":app"
+    type="APP"
+    maven="android:app:unspecified"
+    agpVersion="8.11.1"
+    buildFolder="/Users/jose.hernandez/mightier_amp_EQ/build/app"
+    bootClassPath="/Users/jose.hernandez/Library/Android/sdk/platforms/android-36/android.jar:/Users/jose.hernandez/Library/Android/sdk/build-tools/35.0.0/core-lambda-stubs.jar"
+    javaSourceLevel="17"
+    compileTarget="android-36">
+  <lintOptions
+      disable="InvalidPackage"
+      abortOnError="true"
+      absolutePaths="true"
+      checkReleaseBuilds="true"
+      explainIssues="true">
+    <severities>
+      <severity
+        id="InvalidPackage"
+        severity="IGNORE" />
+    </severities>
+  </lintOptions>
+  <variant name="release"/>
+</lint-module>

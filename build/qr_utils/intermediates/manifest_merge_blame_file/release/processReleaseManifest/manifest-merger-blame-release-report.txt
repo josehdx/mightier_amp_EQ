@@ -1,0 +1,35 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.aeologic.adhoc.qr_utils" >
+4
+5    <uses-sdk android:minSdkVersion="24" />
+6
+7    <uses-permission android:name="android.permission.CAMERA" />
+7-->/Users/jose.hernandez/mightier_amp_EQ/plugins/qr_utils-0.1.5/android/src/main/AndroidManifest.xml:4:5-65
+7-->/Users/jose.hernandez/mightier_amp_EQ/plugins/qr_utils-0.1.5/android/src/main/AndroidManifest.xml:4:22-62
+8
+9    <!--
+10    IMPORTANT PART:
+11    Include all the "features" under the camera permission,
+12    and mark them all as optional.
+13    -->
+14    <uses-feature
+14-->/Users/jose.hernandez/mightier_amp_EQ/plugins/qr_utils-0.1.5/android/src/main/AndroidManifest.xml:11:1-13:32
+15        android:name="android.hardware.camera"
+15-->/Users/jose.hernandez/mightier_amp_EQ/plugins/qr_utils-0.1.5/android/src/main/AndroidManifest.xml:12:5-43
+16        android:required="false" />
+16-->/Users/jose.hernandez/mightier_amp_EQ/plugins/qr_utils-0.1.5/android/src/main/AndroidManifest.xml:13:5-29
+17
+18    <application>
+18-->/Users/jose.hernandez/mightier_amp_EQ/plugins/qr_utils-0.1.5/android/src/main/AndroidManifest.xml:15:5-20:19
+19        <activity
+19-->/Users/jose.hernandez/mightier_amp_EQ/plugins/qr_utils-0.1.5/android/src/main/AndroidManifest.xml:16:9-19:70
+20            android:name="com.aeologic.adhoc.qr_utils.activity.QRScannerActivity"
+20-->/Users/jose.hernandez/mightier_amp_EQ/plugins/qr_utils-0.1.5/android/src/main/AndroidManifest.xml:17:13-55
+21            android:label="@string/qr_scanner"
+21-->/Users/jose.hernandez/mightier_amp_EQ/plugins/qr_utils-0.1.5/android/src/main/AndroidManifest.xml:18:13-47
+22            android:theme="@style/AppTheme.NoActionBar.FullScreen" />
+22-->/Users/jose.hernandez/mightier_amp_EQ/plugins/qr_utils-0.1.5/android/src/main/AndroidManifest.xml:19:13-67
+23    </application>
+24
+25</manifest>

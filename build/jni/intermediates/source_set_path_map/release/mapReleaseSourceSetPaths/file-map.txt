@@ -21,8 +21,8 @@ com.github.dart_lang.jni-jetified-window-1.2.0-19 /Users/jose.hernandez/.gradle/
 com.github.dart_lang.jni-jetified-tracing-1.2.0-20 /Users/jose.hernandez/.gradle/caches/8.14/transforms/fe9cb27c90a494ba075b6c387e4ff5be/transformed/jetified-tracing-1.2.0/res
 com.github.dart_lang.jni-main-21 /Users/jose.hernandez/.pub-cache/hosted/pub.dev/jni-1.0.2/android/src/main/res
 com.github.dart_lang.jni-release-22 /Users/jose.hernandez/.pub-cache/hosted/pub.dev/jni-1.0.2/android/src/release/res
-com.github.dart_lang.jni-pngs-23 /Users/jose.hernandez/mightier_amp_EQ/build/jni/generated/res/pngs/release
-com.github.dart_lang.jni-resValues-24 /Users/jose.hernandez/mightier_amp_EQ/build/jni/generated/res/resValues/release
-com.github.dart_lang.jni-mergeReleaseResources-25 /Users/jose.hernandez/mightier_amp_EQ/build/jni/intermediates/incremental/release/mergeReleaseResources/merged.dir
-com.github.dart_lang.jni-mergeReleaseResources-26 /Users/jose.hernandez/mightier_amp_EQ/build/jni/intermediates/incremental/release/mergeReleaseResources/stripped.dir
-com.github.dart_lang.jni-release-27 /Users/jose.hernandez/mightier_amp_EQ/build/jni/intermediates/merged_res/release/mergeReleaseResources
+com.github.dart_lang.jni-pngs-23 /Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/jni/generated/res/pngs/release
+com.github.dart_lang.jni-resValues-24 /Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/jni/generated/res/resValues/release
+com.github.dart_lang.jni-mergeReleaseResources-25 /Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/jni/intermediates/incremental/release/mergeReleaseResources/merged.dir
+com.github.dart_lang.jni-mergeReleaseResources-26 /Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/jni/intermediates/incremental/release/mergeReleaseResources/stripped.dir
+com.github.dart_lang.jni-release-27 /Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/jni/intermediates/merged_res/release/mergeReleaseResources

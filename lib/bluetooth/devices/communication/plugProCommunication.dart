@@ -15,7 +15,6 @@ import '../../../platform/simpleSharedPrefs.dart';
 import '../NuxConstants.dart';
 import '../NuxMightyPlugPro.dart';
 import 'communication.dart';
-import 'namProCommunication.dart'; // FIX: Imported missing class
 
 class PlugProCommunication extends DeviceCommunication {
   PlugProCommunication(NuxDevice device, NuxDeviceConfiguration config)
@@ -160,6 +159,14 @@ class PlugProCommunication extends DeviceCommunication {
   @override
   void requestBatteryStatus() {
     if (!device.batterySupport) return;
+    //TODO: Wrong!!!
+
+    // var data = createSysExMessagePro(
+    //     SysexPrivacy.kSYSEX_PRIVATE,
+    //     SyxMsg.kSYX_SPEC_CMD,
+    //     SyxDir.kSYXDIR_REQ,
+    //     [SysCtrlState.syscmd_dsprun_battery]);
+
     var data = createSysExMessage(DeviceMessageID.devSysCtrlMsgID,
         [SysCtrlState.syscmd_dsprun_battery, 0, 0, 0, 0]);
     device.deviceControl.sendBLEData(data);
@@ -292,6 +299,8 @@ class PlugProCommunication extends DeviceCommunication {
   void sendDrumsTempo(double tempo) {
     if (!device.deviceControl.isConnected) return;
 
+    //int tempoNux = (((tempo - 40) / 200) * 16384).floor();
+    //these must be sent as 2 7bit values
     int tempoL = tempo.round() & 0x7f;
     int tempoH = (tempo.round() >> 7);
 
@@ -312,6 +321,7 @@ class PlugProCommunication extends DeviceCommunication {
   @override
   void setEcoMode(bool enable) {}
 
+  //sets eq group
   @override
   void setBTEq(int eq) {
     if (!device.deviceControl.isConnected) return;
@@ -492,6 +502,8 @@ class PlugProCommunication extends DeviceCommunication {
     List<List<int>> presetData = [];
     int pos = 0;
 
+    //sometimes MPPro sends several data pieces in one payload.
+    //Let's split it here
     do {
       pos = data.indexOf(SysexPrivacy.kSYSEX_PRIVATE);
 
@@ -511,6 +523,7 @@ class PlugProCommunication extends DeviceCommunication {
     List<List<int>> presetData = _splitPresetData(data);
 
     for (List<int> data in presetData) {
+      //remove last 2 bytes if needed
       if (data[data.length - 1] == MidiMessageValues.sysExEnd) {
         data = data.sublist(0, data.length - 2);
       }
@@ -518,7 +531,7 @@ class PlugProCommunication extends DeviceCommunication {
       var total = (data[3] & 0xf0) >> 4;
       var current = data[3] & 0x0f;
 
-      debugPrint('preset \${data[2] + 1}, piece ${current + 1} of$total');
+      debugPrint('preset ${data[2] + 1}, piece ${current + 1} of $total');
 
       var preset = device.getPreset(data[2]);
       if (current == 0) preset.resetNuxData();
@@ -548,6 +561,7 @@ class PlugProCommunication extends DeviceCommunication {
       bool hasIR = data[data.length - 3] != 0;
       int stringEnd = 0;
 
+      //find name length
       for (int i = 8; i < data.length - 1; i++) {
         if (data[i] == 0 && data[i + 1] == 0) {
           stringEnd = i;
@@ -570,7 +584,7 @@ class PlugProCommunication extends DeviceCommunication {
         }
         var decoder = const AsciiDecoder();
         String name = decoder.convert(decodedName);
-        debugPrint("IR \$index, active: $hasIR, name:$name");
+        debugPrint("IR $index, active: $hasIR, name: $name");
 
         for (var preset in device.presets) {
           if (preset.cabinetList == null) continue;
@@ -581,7 +595,7 @@ class PlugProCommunication extends DeviceCommunication {
           }
         }
       } else {
-        debugPrint("IR $index, active:$hasIR}");
+        debugPrint("IR $index, active: $hasIR}");
       }
     }
     readyIRsCount++;
@@ -617,15 +631,21 @@ class PlugProCommunication extends DeviceCommunication {
   }
 
   bool _handleFirmwareData(List<int> data) {
+    //check for firmware message
     if (data[2] == MidiMessageValues.sysExStart &&
         data[3] == 67 &&
         data[5] == SysexPrivacy.kSYSEX_PUBLICREPLY.toInt()) {
+      //the actual version starts at byte 9 and is 8 byte string
+      //containing the date of the build
+      //for now it's not needed
       device.setFirmwareVersion(0);
 
+      //get FW version date of MPPro
       var versionArray = data.sublist(6, 14);
       String asciiString = String.fromCharCodes(versionArray);
       (device as NuxMightyPlugPro).setVersionDate(asciiString);
 
+      //save device version since we know it already
       SharedPrefs().setValue(SettingsKeys.deviceVersion, device.productVersion);
 
       device.deviceControl.onFirmwareVersionReady();
@@ -733,6 +753,36 @@ class PlugProCommunication extends DeviceCommunication {
     (device as Tuner).notifyTunerListeners();
   }
 
+  //Info: in plugProDataObject.js in the beginning there are few const enums
+  // O, G, z, etc... they are the indexes of some SysEx data
+  //just reduce with 1
+  /*
+  const G = {
+  micmute: 0,
+  outmodeeq1: 1,
+  outmodeeq2: 2,
+  outmodeeq3: 3,
+  display1: 4,
+  display2: 5,
+  display3: 6,
+  expset1: 7,
+  expset2: 8,
+  expset3: 9,
+  expset4: 10,
+  preeq1: 11,
+  preeq2: 12,
+  preeq3: 13,
+  preeq4: 14,
+  usbrount1: 15,
+  usbrount2: 16,
+  usbrount3: 17,
+  usbrount4: 18,
+  presetrange: 19,
+  micvolume: 20,
+  midi_chan: 21,
+  length: 22,
+};
+*/
   void _handleSystemSettings(List<int> data) {
     config.micMute = data[1] > 0;
     config.routingMode = data[18];
@@ -745,6 +795,19 @@ class PlugProCommunication extends DeviceCommunication {
     }
   }
 
+/*
+const z = {
+  drum_command: 0,
+  drumtype: 1,
+  drum_vol: 2,
+  drumeqL: 3,
+  drumeqM: 4,
+  drumeqH: 5,
+  tmpoH: 6,
+  tmpoL: 7,
+  length: 8,
+};
+*/
   void _handleDrumData(List<int> data) {
     if (data[0] == SyxDir.kSYXDIR_REQ && data.length >= 8) {
       config.drumsEnabled = data[1] != 0;
@@ -775,13 +838,6 @@ class PlugProCommunication extends DeviceCommunication {
         (config as NuxMightySpaceConfiguration).speakerEQGroup = data[6];
       }
 
-      // CRITICAL MIGHTY-NAM FIX: The custom firmware appends the active model's 
-      // 32-bit CRC (as 5 MIDI bytes) to the end of the CURSTATE diagnostic payload.
-      if (this is NamProCommunication && data.length >= 12) {
-        (this as NamProCommunication).activeModelCrc = data.sublist(7, 12);
-        debugPrint("NamProComm: Harvested Active Model CRC from Diagnostic Heartbeat: \${data.sublist(7, 12)}");
-      }
-
       debugPrint("Mic step ready");
       connectionStepReady();
     }
@@ -801,6 +857,9 @@ class PlugProCommunication extends DeviceCommunication {
       _speakerEQReceived = null;
     }
   }
+
+//Some discovered stuff
+//kSYX_SYSTEMSET - for ACTIVE channels, mic stuff and USB stuff
 
   @override
   void onDataReceive(List<int> data) {
@@ -851,6 +910,9 @@ class PlugProCommunication extends DeviceCommunication {
                   connectionStepReady();
                   return;
                 case SyxMsg.kSYX_CURPRESET:
+
+                  //current preset is sent 3 times, check it's the 3rd time
+                  //to proceed with connection
                   if (data[9] == 0x32) {
                     device.setSelectedChannel(data[8],
                         notifyBT: false, notifyUI: true, sendFullPreset: false);
@@ -887,6 +949,7 @@ class PlugProCommunication extends DeviceCommunication {
                             .sendBLEData(_requestEffectsOrder());
                         break;
                       case SyxMsg.kSYX_DRUM:
+                        //request drums data
                         device.deviceControl.sendBLEData(_requestDrumData());
                         break;
                     }

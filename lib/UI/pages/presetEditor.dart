@@ -44,11 +44,11 @@ class _PresetEditorState extends State<PresetEditor> {
       device = NuxDeviceControl.instance().device;
       device.addListener(onDeviceDataChanged);
     }
-    if (mounted) setState(() {});
+    setState(() {});
   }
 
   void onJamTracksStateChange() {
-    if (mounted) setState(() {});
+    setState(() {});
   }
 
   void savePresetToDevice() {
@@ -65,7 +65,7 @@ class _PresetEditorState extends State<PresetEditor> {
   }
 
   void onDeviceDataChanged() {
-    if (mounted) setState(() {});
+    setState(() {});
   }
 
   Widget wrapContainer(bool isExpanded, List<Widget> children) {

@@ -31,10 +31,6 @@ class ControllerHotkey {
 
   //whether to invert knob/slider style value
   bool invertSlider;
-  
-  // Sweep constraints
-  double minLimit;
-  double maxLimit;
 
   final Function(HotkeyControl) onHotkeyReceived;
 
@@ -48,9 +44,7 @@ class ControllerHotkey {
       required this.subIndex,
       required this.hotkeyCode,
       required this.hotkeyName,
-      required this.invertSlider,
-      this.minLimit = 0.0,
-      this.maxLimit = 1.0});
+      required this.invertSlider});
 
   execute(int? value) {
     var device = NuxDeviceControl().device;
@@ -257,13 +251,7 @@ class ControllerHotkey {
   double midiToPercentage(int? midiVal) {
     var val = midiVal ?? 0;
     if (invertSlider) val = 127 - val;
-    
-    // Normalize to 0.0 - 1.0 and scale to configured boundaries
-    double normalized = val / 127.0;
-    double scaled = minLimit + (normalized * (maxLimit - minLimit));
-    
-    // Return as 0-100 percentage for downstream mapping
-    return scaled * 100.0;
+    return (val / 127) * 100;
   }
 
   void _changeToAdjacentPreset(
@@ -418,8 +406,6 @@ class ControllerHotkey {
     data["index"] = index;
     data["subIndex"] = subIndex;
     data["invert"] = invertSlider;
-    data["minLimit"] = minLimit;
-    data["maxLimit"] = maxLimit;
     return data;
   }
 
@@ -432,8 +418,6 @@ class ControllerHotkey {
         index: json["index"],
         subIndex: json["subIndex"],
         invertSlider: json["invert"] ?? false,
-        minLimit: (json["minLimit"] ?? 0.0).toDouble(),
-        maxLimit: (json["maxLimit"] ?? 1.0).toDouble(),
         onHotkeyReceived: onReceived);
     return hk;
   }

@@ -50,7 +50,6 @@ class DeviceMessageID {
   static const devGetPresetMsgID = 7;
   static const devSetPresetMsgID = 8;
   static const devReqCurLoopMsgID = 9;
-
   static const devProjectMsgID = 16;
   static const devReqManuMsgID = 22;
   static const devGetManuMsgID = 23;
@@ -126,6 +125,7 @@ class PresetDataIndex8BT {
 class PresetDataIndex2040BT {
   static const ngenable = 0;
   static const ngthresold = 1;
+
   static const wah_enable = 2;
   static const wah_pedal = 3;
   static const amp_type = 4;
@@ -158,6 +158,7 @@ class PresetDataIndexLite {
   static const ngenable = 0;
   static const ngthresold = 1;
   static const ngsustain = 2;
+
   static const drivetype = 3;
   static const drivesubtype1 = 4;
   static const drivesubtype2 = 5;
@@ -177,7 +178,6 @@ class PresetDataIndexLite {
 
   static const efxenable = 18;
   static const efxtype = 19;
-
   static const reverbtype = 20;
   static const reverbdecay = 21;
   static const reverbmix = 22;
@@ -192,7 +192,6 @@ class PresetDataIndexLite {
   static const tap_time_bpm_l = 29;
   static const tap_time_value_h = 30;
   static const tap_time_value_l = 31;
-
   static const reverbenable = 32;
   static const delayenable = 33;
   static const miclevel = 34;
@@ -236,7 +235,6 @@ class PresetDataIndexPlugPro {
   static const Head_iRVB = 8;
   static const Head_iCAB = 9;
   static const Head_iSR = 10;
-  
   static const WAH_Count = 11;
   static const WAH_Para1 = 12;
   static const WAH_Para2 = 13;
@@ -314,7 +312,6 @@ class PresetDataIndexPlugPro {
   static const delay_time_flag = 85;
   static const bpmH = 86;
   static const bpmL = 87;
-
   static const BITCTRL = 88;
   static const LINK1 = 89;
   static const LINK2 = 90;
@@ -327,7 +324,6 @@ class PresetDataIndexPlugPro {
   static const LINK9 = 97;
   static const LINK10 = 98;
   static const LINK11 = 99;
-
   static const UserName1 = 100;
   static const UserName2 = 101;
   static const UserName3 = 102;
@@ -368,6 +364,7 @@ class SysexPrivacy {
   @override
   toString() => '$_value';
   toInt() => _value;
+
   static const kSYSEX_PUBLIC = 0x0;
   static const kSYSEX_PUBLICREPLY = 0x10;
   static const kSYSEX_RDCTRL = 0x20;
@@ -381,6 +378,7 @@ class SyxMsg {
   @override
   toString() => '$_value';
   toInt() => _value;
+
   static const kSYX_BPM = 0x03;
   static const kSYX_LANGUAGE = 0x04;
   static const kSYX_CPURUN = 0x05;
@@ -407,11 +405,13 @@ class SyxMsg {
   static const kSYX_CABNAME = 0x1A;
   static const kSYX_BTSET =
       0x1B; //bluetooth eq groups 1-3, however use group 4 to retrieve mute and phase
+
   static const kSYX_AUXEQ = 27;
   static const kSYX_SPKEQ = 28;
-  static const kSYX_SPKSET = 0x1C;
-  static const kSYX_STICKY = 95;
 
+  static const kSYX_SPKSET = 0x1C;
+
+  static const kSYX_STICKY = 95;
   static const kSYX_PARAINIT = 0x60;
   static const kSYX_WELCOME = 0x61;
   static const kSYX_QTVERSION = 0x62;
@@ -539,10 +539,8 @@ class MidiCCValuesPro {
   static const Head_iRVB = 8;
   static const Head_iCAB = 9;
   static const Head_iSR = 10;
-
   static const TUNER_State = 11;
   static const TUNER_Note = 12;
-
   static const CMP_Para1 = 13;
   static const CMP_Para2 = 14;
   static const CMP_Para3 = 15;
@@ -601,7 +599,6 @@ class MidiCCValuesPro {
   static const CAB_Para4 = 68;
   static const CAB_Para5 = 69;
   static const CAB_Para6 = 70;
-
   static const TUNER_Number = 71;
   static const TUNER_Cent = 72;
   static const MASTER = 73; //patch level
@@ -615,17 +612,14 @@ class MidiCCValuesPro {
   static const LOOPSTATE = 81;
   static const AUXEQENABLE = 82; //aux eq group 0-3
   static const PRESETRANGE = 83; //this sets/receives Active bitfield
-
   static const MICVOLUME = 84;
   static const MICMUTE = 85;
-
   static const USBROUNT_1 = 86; //Recording LV
   static const USBROUNT_2 = 87; //Playback LV
   static const USBROUNT_3 = 88; //Audio Mode 0-2
   //0-dry out, 1 - normal, 2 - reamp, ---x ---- - this bit is for loopback
   //the loopback is supposed to work with normal only, but I can set it with everything
   static const USBROUNT_4 = 89; //Dry/Wet
-
   static const AUX_MUTE = 90;
   static const AUX_PHASE = 91; //phase invert
   static const AUX_BAND_1 = 92;

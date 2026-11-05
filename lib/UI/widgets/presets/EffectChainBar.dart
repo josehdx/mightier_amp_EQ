@@ -28,54 +28,22 @@ class EffectChainBar extends StatelessWidget {
     required this.reorderable,
   }) : super(key: key);
 
-  Widget buildItem(context, index) {
-    // SAFEGUARD: Gracefully handle out-of-bounds slots during firmware hot-swaps
-    try {
-      var proc = preset.getFXIDFromSlot(index);
-      var effect = device.getProcessorInfoByFXID(proc);
-      
-      // If the effect doesn't exist (e.g. invalid slot), render empty space
-      if (effect == null) {
-         return SizedBox(
-           key: Key(index.toString()), 
-           width: 50,
-         );
-      }
-      
-      bool selected = index == device.selectedSlot;
-      
-      Color chainColor = Colors.grey;
-      try {
-        chainColor = preset.effectColor(index);
-      } catch (e) {
-        chainColor = Colors.grey;
-      }
-      
-      bool chainEnabled = true;
-      try {
-        chainEnabled = preset.slotEnabled(index);
-      } catch (e) {
-        chainEnabled = true;
-      }
+  EffectChainButton buildItem(context, index) {
+    var proc = preset.getFXIDFromSlot(index);
+    var effect = device.getProcessorInfoByFXID(proc);
+    bool selected = index == device.selectedSlot;
 
-      return EffectChainButton(
-        index: index,
-        effectInfo: effect,
-        color: chainColor,
-        enabled: chainEnabled,
-        selected: selected,
-        reorderable: reorderable,
-        key: Key(index.toString()),
-        onTap: () => onTap(index),
-        onDoubleTap: () => onDoubleTap(index),
-      );
-    } catch (e) {
-      // Fallback for any base class exceptions when accessing invalid slots
-      return SizedBox(
-        key: Key(index.toString()), 
-        width: 50,
-      );
-    }
+    return EffectChainButton(
+      index: index,
+      effectInfo: effect!,
+      color: preset.effectColor(index),
+      enabled: preset.slotEnabled(index),
+      selected: selected,
+      reorderable: reorderable,
+      key: Key(index.toString()),
+      onTap: () => onTap(index),
+      onDoubleTap: () => onDoubleTap(index),
+    );
   }
 
   @override
@@ -88,10 +56,6 @@ class EffectChainBar extends StatelessWidget {
             maxHeight),
         10);
 
-    // FIX: Reverted to device.effectsChainLength to avoid base class compilation errors.
-    // The try/catch in buildItem will safely swallow any out-of-bounds indexing.
-    int renderCount = device.effectsChainLength;
-
     Widget list;
     if (reorderable) {
       list = ReorderableList(
@@ -99,7 +63,7 @@ class EffectChainBar extends StatelessWidget {
         shrinkWrap: true,
         scrollDirection: Axis.horizontal,
         physics: const NeverScrollableScrollPhysics(),
-        itemCount: renderCount,
+        itemCount: device.effectsChainLength,
         proxyDecorator: (widget, index, animation) {
           return AnimatedBuilder(
             animation: animation,
@@ -129,7 +93,7 @@ class EffectChainBar extends StatelessWidget {
         shrinkWrap: true,
         scrollDirection: Axis.horizontal,
         physics: const NeverScrollableScrollPhysics(),
-        itemCount: renderCount,
+        itemCount: device.effectsChainLength,
         itemBuilder: buildItem,
       );
     }

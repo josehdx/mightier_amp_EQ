@@ -1,11 +1,11 @@
 <lint-module
     format="1"
-    dir="/Users/jose.hernandez/mightier_amp_EQ/android/app"
+    dir="/Users/jose.hernandez/mightier_amp_EQ_no_NAM/android/app"
     name=":app"
     type="APP"
     maven="android:app:unspecified"
     agpVersion="8.11.1"
-    buildFolder="/Users/jose.hernandez/mightier_amp_EQ/build/app"
+    buildFolder="/Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/app"
     bootClassPath="/Users/jose.hernandez/Library/Android/sdk/platforms/android-36/android.jar:/Users/jose.hernandez/Library/Android/sdk/build-tools/35.0.0/core-lambda-stubs.jar"
     javaSourceLevel="17"
     compileTarget="android-36">

@@ -21,8 +21,8 @@ dev.fluttercommunity.plus.share.share_plus-jetified-window-1.2.0-19 /Users/jose.
 dev.fluttercommunity.plus.share.share_plus-jetified-tracing-1.2.0-20 /Users/jose.hernandez/.gradle/caches/8.14/transforms/fe9cb27c90a494ba075b6c387e4ff5be/transformed/jetified-tracing-1.2.0/res
 dev.fluttercommunity.plus.share.share_plus-main-21 /Users/jose.hernandez/.pub-cache/hosted/pub.dev/share_plus-10.1.4/android/src/main/res
 dev.fluttercommunity.plus.share.share_plus-release-22 /Users/jose.hernandez/.pub-cache/hosted/pub.dev/share_plus-10.1.4/android/src/release/res
-dev.fluttercommunity.plus.share.share_plus-pngs-23 /Users/jose.hernandez/mightier_amp_EQ/build/share_plus/generated/res/pngs/release
-dev.fluttercommunity.plus.share.share_plus-resValues-24 /Users/jose.hernandez/mightier_amp_EQ/build/share_plus/generated/res/resValues/release
-dev.fluttercommunity.plus.share.share_plus-mergeReleaseResources-25 /Users/jose.hernandez/mightier_amp_EQ/build/share_plus/intermediates/incremental/release/mergeReleaseResources/merged.dir
-dev.fluttercommunity.plus.share.share_plus-mergeReleaseResources-26 /Users/jose.hernandez/mightier_amp_EQ/build/share_plus/intermediates/incremental/release/mergeReleaseResources/stripped.dir
-dev.fluttercommunity.plus.share.share_plus-release-27 /Users/jose.hernandez/mightier_amp_EQ/build/share_plus/intermediates/merged_res/release/mergeReleaseResources
+dev.fluttercommunity.plus.share.share_plus-pngs-23 /Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/share_plus/generated/res/pngs/release
+dev.fluttercommunity.plus.share.share_plus-resValues-24 /Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/share_plus/generated/res/resValues/release
+dev.fluttercommunity.plus.share.share_plus-mergeReleaseResources-25 /Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/share_plus/intermediates/incremental/release/mergeReleaseResources/merged.dir
+dev.fluttercommunity.plus.share.share_plus-mergeReleaseResources-26 /Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/share_plus/intermediates/incremental/release/mergeReleaseResources/stripped.dir
+dev.fluttercommunity.plus.share.share_plus-release-27 /Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/share_plus/intermediates/merged_res/release/mergeReleaseResources

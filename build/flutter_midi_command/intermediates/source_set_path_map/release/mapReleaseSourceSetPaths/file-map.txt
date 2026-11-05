@@ -19,10 +19,10 @@ com.invisiblewrench.fluttermidicommand.flutter_midi_command-jetified-core-1.0.0-
 com.invisiblewrench.fluttermidicommand.flutter_midi_command-jetified-lifecycle-viewmodel-savedstate-2.7.0-18 /Users/jose.hernandez/.gradle/caches/8.14/transforms/c01d3f9bf800c0fbcc46ad78ad641d08/transformed/jetified-lifecycle-viewmodel-savedstate-2.7.0/res
 com.invisiblewrench.fluttermidicommand.flutter_midi_command-jetified-window-1.2.0-19 /Users/jose.hernandez/.gradle/caches/8.14/transforms/fbd7a1f40973efdd3e0b39325049fc32/transformed/jetified-window-1.2.0/res
 com.invisiblewrench.fluttermidicommand.flutter_midi_command-jetified-tracing-1.2.0-20 /Users/jose.hernandez/.gradle/caches/8.14/transforms/fe9cb27c90a494ba075b6c387e4ff5be/transformed/jetified-tracing-1.2.0/res
-com.invisiblewrench.fluttermidicommand.flutter_midi_command-pngs-21 /Users/jose.hernandez/mightier_amp_EQ/build/flutter_midi_command/generated/res/pngs/release
-com.invisiblewrench.fluttermidicommand.flutter_midi_command-resValues-22 /Users/jose.hernandez/mightier_amp_EQ/build/flutter_midi_command/generated/res/resValues/release
-com.invisiblewrench.fluttermidicommand.flutter_midi_command-mergeReleaseResources-23 /Users/jose.hernandez/mightier_amp_EQ/build/flutter_midi_command/intermediates/incremental/release/mergeReleaseResources/merged.dir
-com.invisiblewrench.fluttermidicommand.flutter_midi_command-mergeReleaseResources-24 /Users/jose.hernandez/mightier_amp_EQ/build/flutter_midi_command/intermediates/incremental/release/mergeReleaseResources/stripped.dir
-com.invisiblewrench.fluttermidicommand.flutter_midi_command-release-25 /Users/jose.hernandez/mightier_amp_EQ/build/flutter_midi_command/intermediates/merged_res/release/mergeReleaseResources
-com.invisiblewrench.fluttermidicommand.flutter_midi_command-main-26 /Users/jose.hernandez/mightier_amp_EQ/plugins/flutter_midi_command/flutter_midi_command-0.3.7/android/src/main/res
-com.invisiblewrench.fluttermidicommand.flutter_midi_command-release-27 /Users/jose.hernandez/mightier_amp_EQ/plugins/flutter_midi_command/flutter_midi_command-0.3.7/android/src/release/res
+com.invisiblewrench.fluttermidicommand.flutter_midi_command-pngs-21 /Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/flutter_midi_command/generated/res/pngs/release
+com.invisiblewrench.fluttermidicommand.flutter_midi_command-resValues-22 /Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/flutter_midi_command/generated/res/resValues/release
+com.invisiblewrench.fluttermidicommand.flutter_midi_command-mergeReleaseResources-23 /Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/flutter_midi_command/intermediates/incremental/release/mergeReleaseResources/merged.dir
+com.invisiblewrench.fluttermidicommand.flutter_midi_command-mergeReleaseResources-24 /Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/flutter_midi_command/intermediates/incremental/release/mergeReleaseResources/stripped.dir
+com.invisiblewrench.fluttermidicommand.flutter_midi_command-release-25 /Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/flutter_midi_command/intermediates/merged_res/release/mergeReleaseResources
+com.invisiblewrench.fluttermidicommand.flutter_midi_command-main-26 /Users/jose.hernandez/mightier_amp_EQ_no_NAM/plugins/flutter_midi_command/flutter_midi_command-0.3.7/android/src/main/res
+com.invisiblewrench.fluttermidicommand.flutter_midi_command-release-27 /Users/jose.hernandez/mightier_amp_EQ_no_NAM/plugins/flutter_midi_command/flutter_midi_command-0.3.7/android/src/release/res

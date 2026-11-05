@@ -3,11 +3,11 @@
     package="com.github.dart_lang.jni"
     minSdkVersion="21"
     targetSdkVersion="21"
-    mergedManifest="/Users/jose.hernandez/mightier_amp_EQ/build/jni/intermediates/merged_manifest/release/processReleaseManifest/AndroidManifest.xml"
-    manifestMergeReport="/Users/jose.hernandez/mightier_amp_EQ/build/jni/outputs/logs/manifest-merger-release-report.txt"
-    proguardFiles="/Users/jose.hernandez/mightier_amp_EQ/build/jni/intermediates/default_proguard_files/global/proguard-android.txt-8.11.1"
+    mergedManifest="/Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/jni/intermediates/merged_manifest/release/processReleaseManifest/AndroidManifest.xml"
+    manifestMergeReport="/Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/jni/outputs/logs/manifest-merger-release-report.txt"
+    proguardFiles="/Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/jni/intermediates/default_proguard_files/global/proguard-android.txt-8.11.1"
     consumerProguardFiles="consumer-rules.pro"
-    partialResultsDir="/Users/jose.hernandez/mightier_amp_EQ/build/jni/intermediates/lint_vital_partial_results/release/lintVitalAnalyzeRelease/out">
+    partialResultsDir="/Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/jni/intermediates/lint_vital_partial_results/release/lintVitalAnalyzeRelease/out">
   <buildFeatures
       namespacing="REQUIRED"/>
   <sourceProviders>
@@ -22,11 +22,11 @@
   <testFixturesSourceProviders>
   </testFixturesSourceProviders>
   <artifact
-      classOutputs="/Users/jose.hernandez/mightier_amp_EQ/build/jni/intermediates/javac/release/compileReleaseJavaWithJavac/classes:/Users/jose.hernandez/mightier_amp_EQ/build/jni/tmp/kotlin-classes/release:/Users/jose.hernandez/mightier_amp_EQ/build/jni/intermediates/compile_r_class_jar/release/generateReleaseRFile/R.jar"
+      classOutputs="/Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/jni/intermediates/javac/release/compileReleaseJavaWithJavac/classes:/Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/jni/tmp/kotlin-classes/release:/Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/jni/intermediates/compile_r_class_jar/release/generateReleaseRFile/R.jar"
       type="MAIN"
       applicationId="com.github.dart_lang.jni"
-      generatedSourceFolders="/Users/jose.hernandez/mightier_amp_EQ/build/jni/generated/ap_generated_sources/release/out"
-      generatedResourceFolders="/Users/jose.hernandez/mightier_amp_EQ/build/jni/generated/res/resValues/release"
+      generatedSourceFolders="/Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/jni/generated/ap_generated_sources/release/out"
+      generatedResourceFolders="/Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/jni/generated/res/resValues/release"
       desugaredMethodsFiles="/Users/jose.hernandez/.gradle/caches/8.14/transforms/9a5ad1c028474b5040cdda1eee0b785c/transformed/D8BackportedDesugaredMethods.txt">
   </artifact>
 </variant>

@@ -22,8 +22,8 @@ com.ryanheise.audio_session-jetified-window-1.2.0-20 /Users/jose.hernandez/.grad
 com.ryanheise.audio_session-jetified-tracing-1.2.0-21 /Users/jose.hernandez/.gradle/caches/8.14/transforms/fe9cb27c90a494ba075b6c387e4ff5be/transformed/jetified-tracing-1.2.0/res
 com.ryanheise.audio_session-main-22 /Users/jose.hernandez/.pub-cache/hosted/pub.dev/audio_session-0.1.25/android/src/main/res
 com.ryanheise.audio_session-release-23 /Users/jose.hernandez/.pub-cache/hosted/pub.dev/audio_session-0.1.25/android/src/release/res
-com.ryanheise.audio_session-pngs-24 /Users/jose.hernandez/mightier_amp_EQ/build/audio_session/generated/res/pngs/release
-com.ryanheise.audio_session-resValues-25 /Users/jose.hernandez/mightier_amp_EQ/build/audio_session/generated/res/resValues/release
-com.ryanheise.audio_session-mergeReleaseResources-26 /Users/jose.hernandez/mightier_amp_EQ/build/audio_session/intermediates/incremental/release/mergeReleaseResources/merged.dir
-com.ryanheise.audio_session-mergeReleaseResources-27 /Users/jose.hernandez/mightier_amp_EQ/build/audio_session/intermediates/incremental/release/mergeReleaseResources/stripped.dir
-com.ryanheise.audio_session-release-28 /Users/jose.hernandez/mightier_amp_EQ/build/audio_session/intermediates/merged_res/release/mergeReleaseResources
+com.ryanheise.audio_session-pngs-24 /Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/audio_session/generated/res/pngs/release
+com.ryanheise.audio_session-resValues-25 /Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/audio_session/generated/res/resValues/release
+com.ryanheise.audio_session-mergeReleaseResources-26 /Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/audio_session/intermediates/incremental/release/mergeReleaseResources/merged.dir
+com.ryanheise.audio_session-mergeReleaseResources-27 /Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/audio_session/intermediates/incremental/release/mergeReleaseResources/stripped.dir
+com.ryanheise.audio_session-release-28 /Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/audio_session/intermediates/merged_res/release/mergeReleaseResources

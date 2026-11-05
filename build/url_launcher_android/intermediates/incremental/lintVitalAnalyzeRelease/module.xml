@@ -5,7 +5,7 @@
     type="LIBRARY"
     maven="io.flutter.plugins.urllauncher:url_launcher_android:1.0-SNAPSHOT"
     agpVersion="8.11.1"
-    buildFolder="/Users/jose.hernandez/mightier_amp_EQ/build/url_launcher_android"
+    buildFolder="/Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/url_launcher_android"
     bootClassPath="/Users/jose.hernandez/Library/Android/sdk/platforms/android-36/android.jar:/Users/jose.hernandez/Library/Android/sdk/build-tools/35.0.0/core-lambda-stubs.jar"
     javaSourceLevel="17"
     compileTarget="android-36"

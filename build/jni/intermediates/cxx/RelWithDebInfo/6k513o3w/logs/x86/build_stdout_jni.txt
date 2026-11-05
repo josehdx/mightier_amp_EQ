@@ -1,0 +1,5 @@
+ninja: Entering directory `/Users/jose.hernandez/.pub-cache/hosted/pub.dev/jni-1.0.2/android/.cxx/RelWithDebInfo/6k513o3w/x86'
+[1/4] Building C object CMakeFiles/jni.dir/include/dart_api_dl.c.o
+[2/4] Building C object CMakeFiles/jni.dir/dartjni.c.o
+[3/4] Building C object CMakeFiles/jni.dir/third_party/global_jni_env.c.o
+[4/4] Linking C shared library /Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/jni/intermediates/cxx/RelWithDebInfo/6k513o3w/obj/x86/libdartjni.so

@@ -5,7 +5,7 @@
     type="LIBRARY"
     maven="com.lucasjosino.on_audio_query:on_audio_query_android_v1_8:1.0-SNAPSHOT"
     agpVersion="8.11.1"
-    buildFolder="/Users/jose.hernandez/mightier_amp_EQ/build/on_audio_query_android_v1_8"
+    buildFolder="/Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/on_audio_query_android_v1_8"
     bootClassPath="/Users/jose.hernandez/Library/Android/sdk/platforms/android-33/android.jar:/Users/jose.hernandez/Library/Android/sdk/build-tools/35.0.0/core-lambda-stubs.jar"
     javaSourceLevel="1.8"
     compileTarget="android-33"

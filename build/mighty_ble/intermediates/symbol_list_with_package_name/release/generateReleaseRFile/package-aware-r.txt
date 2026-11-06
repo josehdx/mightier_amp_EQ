@@ -1,1 +1,0 @@
-com.tuntori.mighty_ble

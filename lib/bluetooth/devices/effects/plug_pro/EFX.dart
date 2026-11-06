@@ -36,8 +36,6 @@ abstract class EFXPro extends Processor {
   MidiControllerHandle? get midiControlNext => MidiControllerHandles.efxNext;
 }
 
-// CRITICAL FIX: Parameter indices are strictly sequential (Para1 - Para5) to prevent memory overlapping.
-// The up/down toggle utilizes your native touchWahDirectionFormatterPro for a safe compile.
 class TouchWahPro extends EFXPro {
   @override
   final name = "Touch Wah";
@@ -51,7 +49,7 @@ class TouchWahPro extends EFXPro {
         name: "Type",
         handle: "type",
         value: 1,
-        formatter: ValueFormatters.touchWahFormatter,
+        formatter: ValueFormatters.touchWahFormatterLiteMk2,
         devicePresetIndex: PresetDataIndexPlugPro.EFX_Para1, 
         midiCC: MidiCCValuesPro.EFX_Para1,
         midiControllerHandle: MidiControllerHandles.efxMode),
@@ -83,7 +81,6 @@ class TouchWahPro extends EFXPro {
         name: "Up/Down Switch",
         handle: "updown",
         value: 0,
-        // PROPER FORMATTER: Uses your existing TouchWahDirectionFormatterPro
         formatter: ValueFormatters.touchWahDirectionFormatterPro, 
         devicePresetIndex: PresetDataIndexPlugPro.EFX_Para5, 
         midiCC: MidiCCValuesPro.EFX_Para5,

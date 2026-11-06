@@ -15,13 +15,11 @@ class Parameter {
   String handle;
   int midiCC;
   int devicePresetIndex;
-  
   double _value;
-  
+
   // Upper and lower boundaries populated from App Settings
   double? limitMin;
   double? limitMax;
-  
   bool masterVolume = false;
   MidiControllerHandle? midiControllerHandle;
 
@@ -33,24 +31,29 @@ class Parameter {
       required this.midiCC,
       required this.devicePresetIndex,
       this.midiControllerHandle,
-      this.masterVolume = false}) : _value = value;
+      this.masterVolume = false})
+      : _value = value;
 
   double get value => _value;
 
   // Clamps the value against user-defined boundaries before assigning
   set value(double val) {
     double clamped = val;
-    if (limitMin != null && clamped < limitMin!) clamped = limitMin!;
-    if (limitMax != null && clamped > limitMax!) clamped = limitMax!;
+    
+    // CRITICAL FIX: Bypass clamping for switches so they don't get stuck at 1.0 (limitMax)
+    if (formatter is! SwitchFormatter) {
+      if (limitMin != null && clamped < limitMin!) clamped = limitMin!;
+      if (limitMax != null && clamped > limitMax!) clamped = limitMax!;
+    }
+    
     _value = clamped;
   }
 
   int get midiValue => formatter.valueToMidi7Bit(value);
   int get masterVolMidiValue => formatter
       .valueToMidi7Bit(value * (NuxDeviceControl().masterVolume * 0.01));
-
+  
   set midiValue(mv) => value = formatter.midi7BitToValue(mv);
-
   String get label => formatter.toLabel(value);
   
   double toHumanInput() {
@@ -70,7 +73,6 @@ class ProcessorInfo {
   final NuxFXID nuxFXID;
   final Color color;
   final IconData icon;
-
   const ProcessorInfo(
       {required this.shortName,
       required this.longName,

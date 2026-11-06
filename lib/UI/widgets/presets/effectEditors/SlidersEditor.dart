@@ -85,8 +85,11 @@ class _SlidersEditorState extends State<SlidersEditor> {
       value: param.value,
       parameter: param,
       onChanged: (val) {
-        _oldValue = param.value;
-        _updateParameterValue(param, val);
+        // CRITICAL FIX: Wrapped in setState to force the segmented button to visually update
+        setState(() {
+          _oldValue = param.value;
+          _updateParameterValue(param, val);
+        });
       },
       effectColor: widget.preset.effectColor(widget.slot),
       enabled: enabled,
@@ -215,7 +218,6 @@ class _SlidersEditorState extends State<SlidersEditor> {
         Widget widget;
         switch (params[i].formatter.inputType) {
           case InputType.SliderInput:
-            // FIX: Removed the Flexible widget to prevent RenderFlex crash in unbounded Columns
             widget = _createSlider(params[i], handleVerticalDrag);
             break;
           case InputType.SwitchInput:

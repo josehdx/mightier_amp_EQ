@@ -39,7 +39,32 @@ class PlugProPreset extends Preset {
     return Colors.blue; 
   }
 
+  // CACHED INSTANCES: This prevents the UI from generating new objects on every rebuild,
+  // which stops sliders from snapping back to default values.
   final NoiseGatePro _noiseGate = NoiseGatePro();
+  final WahDummyPro _wahDummy = WahDummyPro();
+
+  late final List<Processor> _cmpList = [RoseCompPro(), KComp(), StudioComp()];
+  
+  late final List<Processor> _efxList = [
+    DistortionPlus(), RCBoost(), ACBoost(), DistOne(),
+    TSDrive(), BluesDrive(), MorningDrive(), EatDist(),
+    RedDirt(), Crunch(), MuffFuzz(), Katana(), STSinger(), TouchWahPro()
+  ];
+  
+  late final List<Processor> _modList = [
+    ModCE1(), ModCE2(), STChorusPro(), Vibrato(), Detune(),
+    FlangerPro(), Phase90(), Phase100(), SCFPro(),
+    VibePro(), TremoloPro(), Rotary(), SCH1Pro(), MonoOctave()
+  ];
+  
+  late final List<Processor> _delayList = [
+    AnalogDelay(), DigitalDelay(), ModDelay(), TapeEcho(), PanDelay(), PhiDelayPro()
+  ];
+  
+  late final List<Processor> _reverbList = [
+    RoomReverb(), HallReverb(), SpringReverb(), PlateReverb(), ShimmerReverb(), DampReverbPro()
+  ];
 
   @override
   final List<Amplifier> amplifierList = <Amplifier>[];
@@ -169,18 +194,14 @@ class PlugProPreset extends Preset {
   @override
   List<Processor> getEffectsForSlot(int slot) {
     var proc = getFXIDFromSlot(slot);
+    // Return the cached lists instead of instantiating new objects
     switch (proc.value) {
       case PresetDataIndexPlugPro.Head_iWAH:
-        return [WahDummyPro()];
+        return [_wahDummy];
       case PresetDataIndexPlugPro.Head_iCMP:
-        return [RoseCompPro(), KComp(), StudioComp()];
+        return _cmpList;
       case PresetDataIndexPlugPro.Head_iEFX:
-        // FIX: Moved TouchWahPro to the END of the list so it appears at the bottom
-        return [
-          DistortionPlus(), RCBoost(), ACBoost(), DistOne(),
-          TSDrive(), BluesDrive(), MorningDrive(), EatDist(),
-          RedDirt(), Crunch(), MuffFuzz(), Katana(), STSinger(), TouchWahPro()
-        ];
+        return _efxList;
       case PresetDataIndexPlugPro.Head_iAMP:
         return amplifierList;
       case PresetDataIndexPlugPro.Head_iCAB:
@@ -190,17 +211,11 @@ class PlugProPreset extends Preset {
       case PresetDataIndexPlugPro.Head_iNG:
         return [_noiseGate];
       case PresetDataIndexPlugPro.Head_iMOD:
-        return [
-          ModCE1(), ModCE2(), STChorusPro(), Vibrato(), Detune(),
-          FlangerPro(), Phase90(), Phase100(), SCFPro(),
-          VibePro(), TremoloPro(), Rotary(), SCH1Pro(), MonoOctave()
-        ];
+        return _modList;
       case PresetDataIndexPlugPro.Head_iDLY:
-        return [
-          AnalogDelay(), DigitalDelay(), ModDelay(), TapeEcho(), PanDelay(), PhiDelayPro()
-        ];
+        return _delayList;
       case PresetDataIndexPlugPro.Head_iRVB:
-        return [RoomReverb(), HallReverb(), SpringReverb(), PlateReverb(), ShimmerReverb(), DampReverbPro()];
+        return _reverbList;
     }
     return [];
   }

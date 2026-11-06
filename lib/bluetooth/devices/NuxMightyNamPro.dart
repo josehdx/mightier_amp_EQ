@@ -7,7 +7,6 @@ import '../NuxDeviceControl.dart';
 import 'presets/NamProPreset.dart';
 import 'NuxFXID.dart';
 
-/// Device profile for the Mighty NAM custom firmware.
 class NuxMightyNamPro extends NuxMightyPlugPro {
   late final NamProCommunication _communication =
       NamProCommunication(this, config);
@@ -15,8 +14,8 @@ class NuxMightyNamPro extends NuxMightyPlugPro {
   @override
   DeviceCommunication get communication => _communication;
 
-  // CRITICAL FIX: We must point these to the standard PlugPro UI identifiers
-  // otherwise getProcessorInfoByFXID returns null offline, rendering invisible gaps
+  // CRITICAL FIX: Map directly to the standard PlugPro UI identifiers
+  // This allows the EffectChainBar to find and render their icons offline.
   @override
   NuxFXID get ampFXID => PlugProFXID.amp;
   

@@ -35,7 +35,8 @@ class NamProPreset extends PlugProPreset {
   int selectedFxA = 0;
   int selectedFxB = 1;
 
-  // CRITICAL FIX: Bridging the standard PlugPro identifiers to render the UI properly offline
+  // CRITICAL FIX: Base topology uses standard PlugPro IDs for AMP, CAB, and EQ 
+  // so the EffectChainBar renders the standard icons offline without panicking.
   static const List<NuxFXID> namBaseEffects = [
     PlugProFXID.gate,
     PlugProFXID.comp,
@@ -164,9 +165,9 @@ class NamProPreset extends PlugProPreset {
 
     switch (fxid) {
       case PlugProFXID.amp:
-        return _namAmpList; // Injects Custom NAM logic under standard UI identifier
+        return _namAmpList; // Injects Custom NAM logic securely underneath standard UI identifier
       case PlugProFXID.eq:
-        return _namEqList;  // Injects Custom EQ logic under standard UI identifier
+        return _namEqList;  // Injects Custom EQ logic securely underneath standard UI identifier
       default:
         var slot = getSlotFromFXID(fxid);
         if (slot != null) {

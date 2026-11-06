@@ -35,17 +35,16 @@ class NamProPreset extends PlugProPreset {
   int selectedFxA = 0;
   int selectedFxB = 1;
 
-  // CRITICAL FIX: Bridging the standard PlugPro identifiers to render the UI properly,
-  // while keeping the custom Nam processors injected underneath via getEffectsForFXID.
+  // CRITICAL FIX: Bridging the standard PlugPro identifiers to render the UI properly offline
   static const List<NuxFXID> namBaseEffects = [
     PlugProFXID.gate,
     PlugProFXID.comp,
     MightyNamFXID.fxA,
     MightyNamFXID.fxB,
     PlugProFXID.efx,
-    PlugProFXID.amp, // Maps UI to custom NamAmp
+    PlugProFXID.amp, // Maps UI perfectly to custom NamAmp
     PlugProFXID.cab,
-    PlugProFXID.eq,  // Maps UI to custom CutEQ
+    PlugProFXID.eq,  // Maps UI perfectly to custom CutEQ
     PlugProFXID.mod,
     PlugProFXID.delay,
     PlugProFXID.reverb,
@@ -165,9 +164,9 @@ class NamProPreset extends PlugProPreset {
 
     switch (fxid) {
       case PlugProFXID.amp:
-        return _namAmpList; // Maps standard Amp UI identifier to custom NamAmp
+        return _namAmpList; // Injects Custom NAM logic under standard UI identifier
       case PlugProFXID.eq:
-        return _namEqList;  // Maps standard EQ UI identifier to custom CutEQ
+        return _namEqList;  // Injects Custom EQ logic under standard UI identifier
       default:
         var slot = getSlotFromFXID(fxid);
         if (slot != null) {
@@ -293,7 +292,6 @@ class NamProPreset extends PlugProPreset {
     NuxDeviceControl.instance().diagData.lastNuxPreset = loadedPreset;
     NuxDeviceControl.instance().updateDiagnosticsData(nuxPreset: loadedPreset);
 
-    // Filter using valid PlugPro FX indices to extract DSP statuses
     for (int i = 0; i < PresetDataIndexPlugPro.effectTypesIndex.length; i++) {
       int nuxSlot = PresetDataIndexPlugPro.effectTypesIndex[i];
       if (nuxSlot >= nuxData.length) continue;
@@ -332,7 +330,9 @@ class NamProPreset extends PlugProPreset {
     if (nuxData.length > start) {
       for (int i = 0; i < 9; i++) {
         if (start + i < nuxData.length) {
-          var fxid = NuxFXID.fromInt(nuxData[start + i]);
+          int rawFxid = nuxData[start + i];
+          NuxFXID fxid = NuxFXID.fromInt(rawFxid);
+
           if (device.getProcessorInfoByFXID(fxid) != null) {
             stockOrder.add(fxid);
           }

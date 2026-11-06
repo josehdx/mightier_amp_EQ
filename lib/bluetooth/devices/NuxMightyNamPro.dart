@@ -15,6 +15,8 @@ class NuxMightyNamPro extends NuxMightyPlugPro {
   @override
   DeviceCommunication get communication => _communication;
 
+  // CRITICAL FIX: We must point these to the standard PlugPro UI identifiers
+  // otherwise getProcessorInfoByFXID returns null offline, rendering invisible gaps
   @override
   NuxFXID get ampFXID => PlugProFXID.amp;
   
@@ -25,20 +27,11 @@ class NuxMightyNamPro extends NuxMightyPlugPro {
     presets.clear();
     channelNames.clear();
     
-    // Create the NamProPresets properly
     for (int i = 0; i < channelsCount; i++) {
       var preset = NamProPreset(
           device: this, channel: i, channelName: (i + 1).toString());
       
-      // Setting firmware version triggers our overridden NamProPreset.setFirmwareVersion,
-      // locking in the proper 11-block topology using valid UI FXIDs.
       preset.setFirmwareVersion(version.index);
-
-      // Force the exact 11-block topology for this preset using the corrected list
-      for (int slot = 0; slot < effectsChainLength; slot++) {
-        preset.setFXIDAtSlot(slot, NamProPreset.namBaseEffects[slot]);
-        preset.setSelectedEffectForSlot(slot, 0, false);
-      }
       
       presets.add(preset);
       channelNames.add("Channel ${preset.channelName}");
@@ -85,7 +78,6 @@ class NuxMightyNamPro extends NuxMightyPlugPro {
     var preset = NamProPreset(device: this, channel: channel, channelName: "");
     preset.setFirmwareVersion(productVersion);
     
-    // Ensure the detached preset also has the correct 11-block layout
     for (int slot = 0; slot < effectsChainLength; slot++) {
       preset.setFXIDAtSlot(slot, NamProPreset.namBaseEffects[slot]);
     }

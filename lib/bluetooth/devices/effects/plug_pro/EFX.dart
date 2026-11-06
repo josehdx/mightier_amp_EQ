@@ -15,14 +15,13 @@ abstract class EFXPro extends Processor {
   int get nuxEnableMask => 0x40;
   @override
   bool get nuxEnableInverted => true;
-
   @override
   EffectEditorUI get editorUI => EffectEditorUI.Sliders;
   @override
   int get midiCCEnableValue => MidiCCValuesPro.Head_iEFX;
   @override
   int get midiCCSelectionValue => MidiCCValuesPro.Head_iEFX;
-
+  
   //MIDI foot controller stuff
   @override
   MidiControllerHandle? get midiControlOff => MidiControllerHandles.efxOff;
@@ -35,6 +34,61 @@ abstract class EFXPro extends Processor {
   MidiControllerHandle? get midiControlPrev => MidiControllerHandles.efxPrev;
   @override
   MidiControllerHandle? get midiControlNext => MidiControllerHandles.efxNext;
+}
+
+// CRITICAL FIX: Parameter indices are strictly sequential (Para1 - Para5) to prevent memory overlapping.
+// The up/down toggle utilizes your native touchWahDirectionFormatterPro for a safe compile.
+class TouchWahPro extends EFXPro {
+  @override
+  final name = "Touch Wah";
+  
+  @override
+  int get nuxIndex => 0;
+  
+  @override
+  List<Parameter> parameters = [
+    Parameter(
+        name: "Type",
+        handle: "type",
+        value: 1,
+        formatter: ValueFormatters.touchWahFormatter,
+        devicePresetIndex: PresetDataIndexPlugPro.EFX_Para1, 
+        midiCC: MidiCCValuesPro.EFX_Para1,
+        midiControllerHandle: MidiControllerHandles.efxMode),
+    Parameter(
+        name: "Wow",
+        handle: "wow",
+        value: 60,
+        formatter: ValueFormatters.percentageMPPro,
+        devicePresetIndex: PresetDataIndexPlugPro.EFX_Para2, 
+        midiCC: MidiCCValuesPro.EFX_Para2,
+        midiControllerHandle: MidiControllerHandles.efxLevel),
+    Parameter(
+        name: "Sense",
+        handle: "sense",
+        value: 27,
+        formatter: ValueFormatters.percentageMPPro,
+        devicePresetIndex: PresetDataIndexPlugPro.EFX_Para3, 
+        midiCC: MidiCCValuesPro.EFX_Para3,
+        midiControllerHandle: MidiControllerHandles.efxRate),
+    Parameter(
+        name: "Level",
+        handle: "level",
+        value: 50,
+        formatter: ValueFormatters.percentageMPPro,
+        devicePresetIndex: PresetDataIndexPlugPro.EFX_Para4, 
+        midiCC: MidiCCValuesPro.EFX_Para4,
+        midiControllerHandle: MidiControllerHandles.efxGain),
+    Parameter(
+        name: "Up/Down Switch",
+        handle: "updown",
+        value: 0,
+        // PROPER FORMATTER: Uses your existing TouchWahDirectionFormatterPro
+        formatter: ValueFormatters.touchWahDirectionFormatterPro, 
+        devicePresetIndex: PresetDataIndexPlugPro.EFX_Para5, 
+        midiCC: MidiCCValuesPro.EFX_Para5,
+        midiControllerHandle: MidiControllerHandles.efxTone),
+  ];
 }
 
 class DistortionPlus extends EFXPro {
@@ -429,19 +483,19 @@ class Katana extends EFXPro {
     Parameter(
         name: "Volume",
         handle: "volume",
-        value: 45,
+        value: 50,
         formatter: ValueFormatters.percentageMPPro,
-        devicePresetIndex: PresetDataIndexPlugPro.EFX_Para2,
-        midiCC: MidiCCValuesPro.EFX_Para2,
+        devicePresetIndex: PresetDataIndexPlugPro.EFX_Para1,
+        midiCC: MidiCCValuesPro.EFX_Para1,
         midiControllerHandle: MidiControllerHandles.efxLevel),
     Parameter(
         name: "Boost",
         handle: "boost",
-        value: 0,
-        formatter: ValueFormatters.boostModePro,
-        devicePresetIndex: PresetDataIndexPlugPro.EFX_Para1,
-        midiCC: MidiCCValuesPro.EFX_Para1,
-        midiControllerHandle: MidiControllerHandles.efxMode),
+        value: 50,
+        formatter: ValueFormatters.percentageMPPro,
+        devicePresetIndex: PresetDataIndexPlugPro.EFX_Para2,
+        midiCC: MidiCCValuesPro.EFX_Para2,
+        midiControllerHandle: MidiControllerHandles.efxGain),
   ];
 }
 
@@ -454,8 +508,8 @@ class STSinger extends EFXPro {
   List<Parameter> parameters = [
     Parameter(
         name: "Volume",
-        handle: "volume",
-        value: 50,
+        handle: "level",
+        value: 35,
         formatter: ValueFormatters.percentageMPPro,
         devicePresetIndex: PresetDataIndexPlugPro.EFX_Para1,
         midiCC: MidiCCValuesPro.EFX_Para1,
@@ -463,68 +517,18 @@ class STSinger extends EFXPro {
     Parameter(
         name: "Gain",
         handle: "gain",
-        value: 50,
+        value: 78,
         formatter: ValueFormatters.percentageMPPro,
-        devicePresetIndex: PresetDataIndexPlugPro.EFX_Para2,
-        midiCC: MidiCCValuesPro.EFX_Para2,
+        devicePresetIndex: PresetDataIndexPlugPro.EFX_Para3,
+        midiCC: MidiCCValuesPro.EFX_Para3,
         midiControllerHandle: MidiControllerHandles.efxGain),
     Parameter(
         name: "Filter",
         handle: "filter",
-        value: 40,
-        formatter: ValueFormatters.percentageMPPro,
-        devicePresetIndex: PresetDataIndexPlugPro.EFX_Para3,
-        midiCC: MidiCCValuesPro.EFX_Para3,
-        midiControllerHandle: MidiControllerHandles.efxTone),
-  ];
-}
-
-class TouchWahPro extends EFXPro {
-  @override
-  int get nuxIndex => 0; // Fixed index to match the hardware addressing
-  @override
-  final name = "Touch Wah";
-  @override
-  List<Parameter> parameters = [
-    Parameter(
-        name: "Type",
-        handle: "type",
-        value: 1,
-        // REVERTED TO AVOID COMPILER CRASH - Ensure this matches the existing definition in your ValueFormatter.dart
-        formatter: ValueFormatters.touchWahFormatterLiteMk2, 
-        devicePresetIndex: PresetDataIndexPlugPro.EFX_Para1,
-        midiCC: MidiCCValuesPro.EFX_Para1,
-        midiControllerHandle: MidiControllerHandles.efxMode),
-    Parameter(
-        name: "Wow",
-        handle: "wow",
-        value: 35,
+        value: 65,
         formatter: ValueFormatters.percentageMPPro,
         devicePresetIndex: PresetDataIndexPlugPro.EFX_Para2,
         midiCC: MidiCCValuesPro.EFX_Para2,
-        midiControllerHandle: MidiControllerHandles.efxGain),
-    Parameter(
-        name: "Sense",
-        handle: "sense",
-        value: 90,
-        formatter: ValueFormatters.percentageMPPro,
-        devicePresetIndex: PresetDataIndexPlugPro.EFX_Para3,
-        midiCC: MidiCCValuesPro.EFX_Para3,
-        midiControllerHandle: MidiControllerHandles.efxRate),
-    Parameter(
-        name: "Level",
-        handle: "level",
-        value: 100,
-        formatter: ValueFormatters.percentageMPPro,
-        devicePresetIndex: PresetDataIndexPlugPro.EFX_Para5,
-        midiCC: MidiCCValuesPro.EFX_Para5,
-        midiControllerHandle: MidiControllerHandles.efxLevel),
-    Parameter(
-        name: "Up/Down Switch",
-        handle: "direction",
-        value: 0,
-        formatter: ValueFormatters.touchWahDirectionFormatterPro,
-        devicePresetIndex: PresetDataIndexPlugPro.EFX_Para4,
-        midiCC: MidiCCValuesPro.EFX_Para4),
+        midiControllerHandle: MidiControllerHandles.efxTone),
   ];
 }

@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'EffectChainBar.dart';
 import 'package:mighty_plug_manager/platform/simpleSharedPrefs.dart';
 import 'package:undo/undo.dart';
+
 import '../../../bluetooth/NuxDeviceControl.dart';
 import '../../../bluetooth/devices/NuxDevice.dart';
 import '../../../bluetooth/devices/NuxFXID.dart';
@@ -21,21 +22,29 @@ import '../common/customPopupMenu.dart' as custom;
 class EffectSelector extends StatefulWidget {
   final Preset preset;
   final NuxDevice device;
-
   const EffectSelector({Key? key, required this.preset, required this.device})
       : super(key: key);
+
   @override
   State createState() => _EffectSelectorState();
 }
 
 class _EffectSelectorState extends State<EffectSelector> {
-  int get _selectedSlot => widget.device.selectedSlot;
+  // CLAMP FIX: Ensures the selected slot never exceeds the preset's capability
+  int get _selectedSlot {
+    int slot = widget.device.selectedSlot;
+    if (slot < 0) return 0;
+    if (slot >= _preset.device.effectsChainLength) {
+      return _preset.device.effectsChainLength - 1;
+    }
+    return slot;
+  }
+
   set _selectedSlot(val) => widget.device.selectedSlot = val;
 
   late Preset _preset;
   late List<custom.PopupMenuEntry<dynamic>> _effectItems;
   String _selectedEffectName = "";
-
   late Color _effectColor;
 
   @override
@@ -47,6 +56,7 @@ class _EffectSelectorState extends State<EffectSelector> {
     setState(() {
       var device = NuxDeviceControl.instance().device;
       var effectSlot = _selectedSlot;
+
       var oldEffect = (
         slot: _selectedSlot,
         index: _preset.getSelectedEffectForSlot(_selectedSlot),
@@ -64,24 +74,30 @@ class _EffectSelectorState extends State<EffectSelector> {
       if (device.cabinetSupport &&
           SharedPrefs().getInt(SettingsKeys.changeCabs, 1) == 1) {
         if (_selectedSlot == device.amplifierSlotIndex) {
-          Processor amp = _preset.getEffectsForSlot(_selectedSlot)[index];
-          if (amp is Amplifier) {
-            var proc = _preset.getFXIDFromSlot(device.cabinetSlotIndex);
-            var cabIndex =
-                _preset.getEffectArrayIndexFromNuxIndex(proc, amp.defaultCab);
-            var oldEffect = (
-              slot: device.cabinetSlotIndex,
-              index: _preset.getSelectedEffectForSlot(device.cabinetSlotIndex)
-            );
-            totalChanges.add(Change(
-                oldEffect,
-                () => _preset.setSelectedEffectForSlot(
-                    device.cabinetSlotIndex, cabIndex, true),
-                (oldVal) => _preset.setSelectedEffectForSlot(
-                    oldVal.slot, oldVal.index, true)));
+          var fxList = _preset.getEffectsForSlot(_selectedSlot);
+          if (index >= 0 && index < fxList.length) {
+            Processor amp = fxList[index];
+            if (amp is Amplifier) {
+              var proc = _preset.getFXIDFromSlot(device.cabinetSlotIndex);
+              var cabIndex =
+                  _preset.getEffectArrayIndexFromNuxIndex(proc, amp.defaultCab);
+
+              var oldEffect = (
+                slot: device.cabinetSlotIndex,
+                index: _preset.getSelectedEffectForSlot(device.cabinetSlotIndex)
+              );
+
+              totalChanges.add(Change(
+                  oldEffect,
+                  () => _preset.setSelectedEffectForSlot(
+                      device.cabinetSlotIndex, cabIndex, true),
+                  (oldVal) => _preset.setSelectedEffectForSlot(
+                      oldVal.slot, oldVal.index, true)));
+            }
           }
         }
       }
+
       if (totalChanges.length == 1) {
         NuxDeviceControl.instance().changes.add(totalChanges[0]);
       } else {
@@ -96,15 +112,90 @@ class _EffectSelectorState extends State<EffectSelector> {
     var layout = getEditorLayoutMode(MediaQuery.of(context));
     bool isDark = Theme.of(context).brightness == Brightness.dark;
     _preset = widget.preset;
+    
+    var proc = _preset.getFXIDFromSlot(_selectedSlot);
+    var effectInfo = widget.device.getProcessorInfoByFXID(proc);
+
+    var chainBarWidget = EffectChainBar(
+        maxHeight: 60,
+        device: widget.device,
+        preset: _preset,
+        reorderable: widget.device.reorderableFXChain,
+        onTap: (i) {
+          setState(() {
+            _selectedSlot = i;
+          });
+        },
+        onDoubleTap: (int i) {
+          if (_preset.slotSwitchable(i)) {
+            bool state = _preset.slotEnabled(i);
+            _setSlotEnabledState(i, !state);
+          }
+        },
+        onReorder: (from, to) {
+          var old = from + to * 100;
+          setState(() {
+            NuxDeviceControl.instance().changes.add(Change<int>(old, () {
+                  var selectedType = _preset.getFXIDFromSlot(_selectedSlot);
+                  _preset.swapProcessorSlots(from, to, true);
+                  _selectSlotByFXID(selectedType);
+                }, (oldVal) {
+                  var selectedType = _preset.getFXIDFromSlot(_selectedSlot);
+                  int from = oldVal % 100;
+                  int to = (oldVal / 100).floor();
+                  _preset.swapProcessorSlots(to, from, true);
+                  _selectSlotByFXID(selectedType);
+                }));
+            NuxDeviceControl.instance().undoStackChanged();
+          });
+        });
+
+    if (effectInfo == null) {
+      Widget fallbackEditor = const Center(
+        child: Padding(
+          padding: EdgeInsets.all(20.0),
+          child: Text("Block unavailable (Check processorList mapping)"),
+        ),
+      );
+
+      return Column(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          chainBarWidget,
+          const SizedBox(height: 8),
+          const SizedBox(height: 48),
+          if (layout == EditorLayoutMode.expand)
+            Expanded(child: fallbackEditor)
+          else
+            fallbackEditor
+        ],
+      );
+    }
 
     _effectColor = _preset.effectColor(_selectedSlot);
     var _effectColorBright =
         TinyColor.fromColor(_effectColor).brighten(20).color;
 
-    var proc = _preset.getFXIDFromSlot(_selectedSlot);
-    var effectInfo = widget.device.getProcessorInfoByFXID(proc)!;
-
     List<Processor> effects = _preset.getEffectsForSlot(_selectedSlot);
+    
+    if (effects.isEmpty) {
+      return Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          chainBarWidget,
+          const Padding(
+            padding: EdgeInsets.all(20.0),
+            child: Text("No effects mapped to this slot"),
+          )
+        ],
+      );
+    }
+
+    int safeEffectIndex = _preset.getSelectedEffectForSlot(_selectedSlot);
+    if (safeEffectIndex < 0 || safeEffectIndex >= effects.length) {
+      safeEffectIndex = 0; 
+    }
 
     var popupEffectColor = _effectColor;
     for (int i = 0; i < 2; i++) {
@@ -113,11 +204,8 @@ class _EffectSelectorState extends State<EffectSelector> {
             TinyColor.fromColor(popupEffectColor).darken(15).color;
       }
     }
-
-    _selectedEffectName = _preset
-        .getEffectsForSlot(
-            _selectedSlot)[_preset.getSelectedEffectForSlot(_selectedSlot)]
-        .name;
+    
+    _selectedEffectName = effects[safeEffectIndex].name;
 
     _effectItems = <custom.PopupMenuEntry<dynamic>>[];
     for (int f = 0; f < effects.length; f++) {
@@ -127,18 +215,17 @@ class _EffectSelectorState extends State<EffectSelector> {
           color: isDark ? Colors.grey : Colors.grey[700],
         ));
       }
-
       _effectItems.add(custom.PopupMenuItem(
         value: f,
-        backgroundColor: f == _preset.getSelectedEffectForSlot(_selectedSlot)
+        backgroundColor: f == safeEffectIndex
             ? popupEffectColor
             : null,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8.0),
           child: Text(
-            "${f + 1}. ${effects[f].name}",
+            "${f + 1}.${effects[f].name}",
             style: TextStyle(
-                color: f == _preset.getSelectedEffectForSlot(_selectedSlot)
+                color: f == safeEffectIndex
                     ? (TinyColor.fromColor(popupEffectColor).isLight()
                         ? Colors.black
                         : Colors.white)
@@ -148,13 +235,11 @@ class _EffectSelectorState extends State<EffectSelector> {
       ));
     }
 
-    // Ensure arrows and text have enough contrast in Light Mode
     Color arrowAndTextColor = _effectColorBright;
     if (!isDark && TinyColor.fromColor(arrowAndTextColor).isLight()) {
       arrowAndTextColor = TinyColor.fromColor(arrowAndTextColor).darken(35).color;
     }
-
-    // Ensure the switch thumb and track are visible in Light Mode
+    
     Color switchActiveColor = _effectColorBright;
     if (!isDark && TinyColor.fromColor(switchActiveColor).isLight()) {
       switchActiveColor = TinyColor.fromColor(switchActiveColor).darken(15).color;
@@ -194,39 +279,7 @@ class _EffectSelectorState extends State<EffectSelector> {
       mainAxisSize: MainAxisSize.min,
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        EffectChainBar(
-            maxHeight: 60,
-            device: widget.device,
-            preset: _preset,
-            reorderable: widget.device.reorderableFXChain,
-            onTap: (i) {
-              setState(() {
-                _selectedSlot = i;
-              });
-            },
-            onDoubleTap: (int i) {
-              if (_preset.slotSwitchable(i)) {
-                bool state = _preset.slotEnabled(i);
-                _setSlotEnabledState(i, !state);
-              }
-            },
-            onReorder: (from, to) {
-              var old = from + to * 100;
-              setState(() {
-                NuxDeviceControl.instance().changes.add(Change<int>(old, () {
-                      var selectedType = _preset.getFXIDFromSlot(_selectedSlot);
-                      _preset.swapProcessorSlots(from, to, true);
-                      _selectSlotByFXID(selectedType);
-                    }, (oldVal) {
-                      var selectedType = _preset.getFXIDFromSlot(_selectedSlot);
-                      int from = oldVal % 100;
-                      int to = (oldVal / 100).floor();
-                      _preset.swapProcessorSlots(to, from, true);
-                      _selectSlotByFXID(selectedType);
-                    }));
-                NuxDeviceControl.instance().undoStackChanged();
-              });
-            }),
+        chainBarWidget,
         const SizedBox(
           height: 8,
         ),
@@ -240,23 +293,22 @@ class _EffectSelectorState extends State<EffectSelector> {
                 custom.PopupMenuButton(
                   itemBuilder: (context) => _effectItems,
                   onSelected: setSelectedEffect,
-                  initialValue: _preset.getSelectedEffectForSlot(_selectedSlot),
+                  initialValue: safeEffectIndex,
+                  offset: const Offset(0, 4),
                   child: effectSelectButton,
                 )
               else
                 ExcludeSemantics(child: effectSelectButton),
               const SizedBox(
                   width: 1,
-                  height:
-                      48), //used to even out sizes when switch is not visible
+                  height: 48),
               Row(
                 children: [
                   if (_effectItems.length > 1)
                     IconButton(
                       tooltip: "Previous effect",
                       onPressed: () {
-                        var effect =
-                            _preset.getSelectedEffectForSlot(_selectedSlot) - 1;
+                        var effect = safeEffectIndex - 1;
                         if (effect < 0) effect = effects.length - 1;
                         setSelectedEffect(effect);
                       },
@@ -270,8 +322,7 @@ class _EffectSelectorState extends State<EffectSelector> {
                     IconButton(
                       tooltip: "Next effect",
                       onPressed: () {
-                        var effect =
-                            _preset.getSelectedEffectForSlot(_selectedSlot) + 1;
+                        var effect = safeEffectIndex + 1;
                         if (effect > effects.length - 1) effect = 0;
                         setSelectedEffect(effect);
                       },
@@ -287,7 +338,6 @@ class _EffectSelectorState extends State<EffectSelector> {
                           _setSlotEnabledState(_selectedSlot, val);
                         },
                         activeColor: switchActiveColor,
-                        // This explicitly differentiates the track from the thumb
                         activeTrackColor: switchActiveColor.withOpacity(0.4), 
                         inactiveThumbColor: isDark ? Colors.grey : Colors.grey[400],
                         inactiveTrackColor: isDark ? Colors.grey[700] : Colors.grey[300],

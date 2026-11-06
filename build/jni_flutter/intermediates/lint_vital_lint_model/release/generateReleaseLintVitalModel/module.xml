@@ -5,7 +5,7 @@
     type="LIBRARY"
     maven="com.github.dart_lang.jni_flutter:jni_flutter:1.0"
     agpVersion="8.11.1"
-    buildFolder="/Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/jni_flutter"
+    buildFolder="/Users/jose.hernandez/mightier_amp_EQ/build/jni_flutter"
     bootClassPath="/Users/jose.hernandez/Library/Android/sdk/platforms/android-35/android.jar:/Users/jose.hernandez/Library/Android/sdk/build-tools/35.0.0/core-lambda-stubs.jar"
     javaSourceLevel="11"
     compileTarget="android-35"

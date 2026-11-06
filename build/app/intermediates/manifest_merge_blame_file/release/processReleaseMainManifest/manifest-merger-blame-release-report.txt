@@ -16,103 +16,103 @@
 16    -->
 17
 18    <uses-feature
-18-->/Users/jose.hernandez/mightier_amp_EQ_no_NAM/android/app/src/main/AndroidManifest.xml:10:5-89
+18-->/Users/jose.hernandez/mightier_amp_EQ/android/app/src/main/AndroidManifest.xml:10:5-89
 19        android:name="android.hardware.bluetooth_le"
-19-->/Users/jose.hernandez/mightier_amp_EQ_no_NAM/android/app/src/main/AndroidManifest.xml:10:19-63
+19-->/Users/jose.hernandez/mightier_amp_EQ/android/app/src/main/AndroidManifest.xml:10:19-63
 20        android:required="true" />
-20-->/Users/jose.hernandez/mightier_amp_EQ_no_NAM/android/app/src/main/AndroidManifest.xml:10:64-87
+20-->/Users/jose.hernandez/mightier_amp_EQ/android/app/src/main/AndroidManifest.xml:10:64-87
 21
 22    <uses-permission
-22-->/Users/jose.hernandez/mightier_amp_EQ_no_NAM/android/app/src/main/AndroidManifest.xml:12:5-120
+22-->/Users/jose.hernandez/mightier_amp_EQ/android/app/src/main/AndroidManifest.xml:12:5-120
 23        android:name="android.permission.BLUETOOTH_SCAN"
-23-->/Users/jose.hernandez/mightier_amp_EQ_no_NAM/android/app/src/main/AndroidManifest.xml:12:22-70
+23-->/Users/jose.hernandez/mightier_amp_EQ/android/app/src/main/AndroidManifest.xml:12:22-70
 24        android:usesPermissionFlags="neverForLocation" />
-24-->/Users/jose.hernandez/mightier_amp_EQ_no_NAM/android/app/src/main/AndroidManifest.xml:12:71-117
+24-->/Users/jose.hernandez/mightier_amp_EQ/android/app/src/main/AndroidManifest.xml:12:71-117
 25    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-25-->/Users/jose.hernandez/mightier_amp_EQ_no_NAM/android/app/src/main/AndroidManifest.xml:13:5-79
-25-->/Users/jose.hernandez/mightier_amp_EQ_no_NAM/android/app/src/main/AndroidManifest.xml:13:22-77
+25-->/Users/jose.hernandez/mightier_amp_EQ/android/app/src/main/AndroidManifest.xml:13:5-79
+25-->/Users/jose.hernandez/mightier_amp_EQ/android/app/src/main/AndroidManifest.xml:13:22-77
 26    <uses-permission android:name="android.permission.WAKE_LOCK" />
-26-->/Users/jose.hernandez/mightier_amp_EQ_no_NAM/android/app/src/main/AndroidManifest.xml:14:5-68
-26-->/Users/jose.hernandez/mightier_amp_EQ_no_NAM/android/app/src/main/AndroidManifest.xml:14:22-65
+26-->/Users/jose.hernandez/mightier_amp_EQ/android/app/src/main/AndroidManifest.xml:14:5-68
+26-->/Users/jose.hernandez/mightier_amp_EQ/android/app/src/main/AndroidManifest.xml:14:22-65
 27    <uses-permission
-27-->/Users/jose.hernandez/mightier_amp_EQ_no_NAM/android/app/src/main/AndroidManifest.xml:15:5-16:35
+27-->/Users/jose.hernandez/mightier_amp_EQ/android/app/src/main/AndroidManifest.xml:15:5-16:35
 28        android:name="android.permission.ACCESS_FINE_LOCATION"
-28-->/Users/jose.hernandez/mightier_amp_EQ_no_NAM/android/app/src/main/AndroidManifest.xml:15:22-76
+28-->/Users/jose.hernandez/mightier_amp_EQ/android/app/src/main/AndroidManifest.xml:15:22-76
 29        android:maxSdkVersion="30" />
-29-->/Users/jose.hernandez/mightier_amp_EQ_no_NAM/android/app/src/main/AndroidManifest.xml:16:7-33
+29-->/Users/jose.hernandez/mightier_amp_EQ/android/app/src/main/AndroidManifest.xml:16:7-33
 30    <uses-permission
-30-->/Users/jose.hernandez/mightier_amp_EQ_no_NAM/android/app/src/main/AndroidManifest.xml:17:5-18:35
+30-->/Users/jose.hernandez/mightier_amp_EQ/android/app/src/main/AndroidManifest.xml:17:5-18:35
 31        android:name="android.permission.READ_MEDIA_AUDIO"
-31-->/Users/jose.hernandez/mightier_amp_EQ_no_NAM/android/app/src/main/AndroidManifest.xml:17:22-72
+31-->/Users/jose.hernandez/mightier_amp_EQ/android/app/src/main/AndroidManifest.xml:17:22-72
 32        android:minSdkVersion="33" />
-32-->/Users/jose.hernandez/mightier_amp_EQ_no_NAM/android/app/src/main/AndroidManifest.xml:18:7-33
+32-->/Users/jose.hernandez/mightier_amp_EQ/android/app/src/main/AndroidManifest.xml:18:7-33
 33    <uses-permission android:name="android.permission.INTERNET" />
-33-->/Users/jose.hernandez/mightier_amp_EQ_no_NAM/android/app/src/main/AndroidManifest.xml:19:5-66
-33-->/Users/jose.hernandez/mightier_amp_EQ_no_NAM/android/app/src/main/AndroidManifest.xml:19:22-64
+33-->/Users/jose.hernandez/mightier_amp_EQ/android/app/src/main/AndroidManifest.xml:19:5-66
+33-->/Users/jose.hernandez/mightier_amp_EQ/android/app/src/main/AndroidManifest.xml:19:22-64
 34
 35    <queries>
-35-->/Users/jose.hernandez/mightier_amp_EQ_no_NAM/android/app/src/main/AndroidManifest.xml:63:5-73:15
+35-->/Users/jose.hernandez/mightier_amp_EQ/android/app/src/main/AndroidManifest.xml:63:5-73:15
 36
 37        <!-- If your app opens https URLs -->
 38        <intent>
-38-->/Users/jose.hernandez/mightier_amp_EQ_no_NAM/android/app/src/main/AndroidManifest.xml:65:7-68:16
+38-->/Users/jose.hernandez/mightier_amp_EQ/android/app/src/main/AndroidManifest.xml:65:7-68:16
 39            <action android:name="android.intent.action.VIEW" />
-39-->/Users/jose.hernandez/mightier_amp_EQ_no_NAM/android/app/src/main/AndroidManifest.xml:66:9-61
-39-->/Users/jose.hernandez/mightier_amp_EQ_no_NAM/android/app/src/main/AndroidManifest.xml:66:17-58
+39-->/Users/jose.hernandez/mightier_amp_EQ/android/app/src/main/AndroidManifest.xml:66:9-61
+39-->/Users/jose.hernandez/mightier_amp_EQ/android/app/src/main/AndroidManifest.xml:66:17-58
 40
 41            <data android:scheme="https" />
-41-->/Users/jose.hernandez/mightier_amp_EQ_no_NAM/android/app/src/main/AndroidManifest.xml:67:9-40
-41-->/Users/jose.hernandez/mightier_amp_EQ_no_NAM/android/app/src/main/AndroidManifest.xml:67:15-37
+41-->/Users/jose.hernandez/mightier_amp_EQ/android/app/src/main/AndroidManifest.xml:67:9-40
+41-->/Users/jose.hernandez/mightier_amp_EQ/android/app/src/main/AndroidManifest.xml:67:15-37
 42        </intent>
 43        <intent>
-43-->/Users/jose.hernandez/mightier_amp_EQ_no_NAM/android/app/src/main/AndroidManifest.xml:69:7-72:16
+43-->/Users/jose.hernandez/mightier_amp_EQ/android/app/src/main/AndroidManifest.xml:69:7-72:16
 44            <action android:name="android.intent.action.VIEW" />
-44-->/Users/jose.hernandez/mightier_amp_EQ_no_NAM/android/app/src/main/AndroidManifest.xml:66:9-61
-44-->/Users/jose.hernandez/mightier_amp_EQ_no_NAM/android/app/src/main/AndroidManifest.xml:66:17-58
+44-->/Users/jose.hernandez/mightier_amp_EQ/android/app/src/main/AndroidManifest.xml:66:9-61
+44-->/Users/jose.hernandez/mightier_amp_EQ/android/app/src/main/AndroidManifest.xml:66:17-58
 45
 46            <data android:scheme="http" />
-46-->/Users/jose.hernandez/mightier_amp_EQ_no_NAM/android/app/src/main/AndroidManifest.xml:67:9-40
-46-->/Users/jose.hernandez/mightier_amp_EQ_no_NAM/android/app/src/main/AndroidManifest.xml:67:15-37
+46-->/Users/jose.hernandez/mightier_amp_EQ/android/app/src/main/AndroidManifest.xml:67:9-40
+46-->/Users/jose.hernandez/mightier_amp_EQ/android/app/src/main/AndroidManifest.xml:67:15-37
 47        </intent>
 48    </queries>
 49
 50    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" /> <!-- Request legacy Bluetooth permissions on older devices. -->
-50-->[:flutter_blue_plus] /Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/flutter_blue_plus/intermediates/merged_manifest/release/processReleaseManifest/AndroidManifest.xml:12:5-76
-50-->[:flutter_blue_plus] /Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/flutter_blue_plus/intermediates/merged_manifest/release/processReleaseManifest/AndroidManifest.xml:12:22-73
+50-->[:flutter_blue_plus] /Users/jose.hernandez/mightier_amp_EQ/build/flutter_blue_plus/intermediates/merged_manifest/release/processReleaseManifest/AndroidManifest.xml:12:5-76
+50-->[:flutter_blue_plus] /Users/jose.hernandez/mightier_amp_EQ/build/flutter_blue_plus/intermediates/merged_manifest/release/processReleaseManifest/AndroidManifest.xml:12:22-73
 51    <uses-permission
-51-->[:flutter_blue_plus] /Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/flutter_blue_plus/intermediates/merged_manifest/release/processReleaseManifest/AndroidManifest.xml:15:5-17:38
+51-->[:flutter_blue_plus] /Users/jose.hernandez/mightier_amp_EQ/build/flutter_blue_plus/intermediates/merged_manifest/release/processReleaseManifest/AndroidManifest.xml:15:5-17:38
 52        android:name="android.permission.BLUETOOTH"
-52-->[:flutter_blue_plus] /Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/flutter_blue_plus/intermediates/merged_manifest/release/processReleaseManifest/AndroidManifest.xml:16:9-52
+52-->[:flutter_blue_plus] /Users/jose.hernandez/mightier_amp_EQ/build/flutter_blue_plus/intermediates/merged_manifest/release/processReleaseManifest/AndroidManifest.xml:16:9-52
 53        android:maxSdkVersion="30" />
-53-->[:flutter_blue_plus] /Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/flutter_blue_plus/intermediates/merged_manifest/release/processReleaseManifest/AndroidManifest.xml:17:9-35
+53-->[:flutter_blue_plus] /Users/jose.hernandez/mightier_amp_EQ/build/flutter_blue_plus/intermediates/merged_manifest/release/processReleaseManifest/AndroidManifest.xml:17:9-35
 54    <uses-permission
-54-->[:flutter_blue_plus] /Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/flutter_blue_plus/intermediates/merged_manifest/release/processReleaseManifest/AndroidManifest.xml:18:5-20:38
+54-->[:flutter_blue_plus] /Users/jose.hernandez/mightier_amp_EQ/build/flutter_blue_plus/intermediates/merged_manifest/release/processReleaseManifest/AndroidManifest.xml:18:5-20:38
 55        android:name="android.permission.BLUETOOTH_ADMIN"
-55-->[:flutter_blue_plus] /Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/flutter_blue_plus/intermediates/merged_manifest/release/processReleaseManifest/AndroidManifest.xml:19:9-58
+55-->[:flutter_blue_plus] /Users/jose.hernandez/mightier_amp_EQ/build/flutter_blue_plus/intermediates/merged_manifest/release/processReleaseManifest/AndroidManifest.xml:19:9-58
 56        android:maxSdkVersion="30" />
-56-->[:flutter_blue_plus] /Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/flutter_blue_plus/intermediates/merged_manifest/release/processReleaseManifest/AndroidManifest.xml:20:9-35
+56-->[:flutter_blue_plus] /Users/jose.hernandez/mightier_amp_EQ/build/flutter_blue_plus/intermediates/merged_manifest/release/processReleaseManifest/AndroidManifest.xml:20:9-35
 57
 58    <uses-feature
-58-->[:flutter_midi_command] /Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/flutter_midi_command/intermediates/merged_manifest/release/processReleaseManifest/AndroidManifest.xml:7:5-9:36
+58-->[:flutter_midi_command] /Users/jose.hernandez/mightier_amp_EQ/build/flutter_midi_command/intermediates/merged_manifest/release/processReleaseManifest/AndroidManifest.xml:7:5-9:36
 59        android:name="android.software.midi"
-59-->[:flutter_midi_command] /Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/flutter_midi_command/intermediates/merged_manifest/release/processReleaseManifest/AndroidManifest.xml:8:9-45
+59-->[:flutter_midi_command] /Users/jose.hernandez/mightier_amp_EQ/build/flutter_midi_command/intermediates/merged_manifest/release/processReleaseManifest/AndroidManifest.xml:8:9-45
 60        android:required="false" />
-60-->[:flutter_midi_command] /Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/flutter_midi_command/intermediates/merged_manifest/release/processReleaseManifest/AndroidManifest.xml:9:9-33
+60-->[:flutter_midi_command] /Users/jose.hernandez/mightier_amp_EQ/build/flutter_midi_command/intermediates/merged_manifest/release/processReleaseManifest/AndroidManifest.xml:9:9-33
 61
 62    <uses-permission android:name="android.permission.CAMERA" />
-62-->[:qr_utils] /Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/qr_utils/intermediates/merged_manifest/release/processReleaseManifest/AndroidManifest.xml:7:5-65
-62-->[:qr_utils] /Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/qr_utils/intermediates/merged_manifest/release/processReleaseManifest/AndroidManifest.xml:7:22-62
+62-->[:qr_utils] /Users/jose.hernandez/mightier_amp_EQ/build/qr_utils/intermediates/merged_manifest/release/processReleaseManifest/AndroidManifest.xml:7:5-65
+62-->[:qr_utils] /Users/jose.hernandez/mightier_amp_EQ/build/qr_utils/intermediates/merged_manifest/release/processReleaseManifest/AndroidManifest.xml:7:22-62
 63    <!--
 64    IMPORTANT PART:
 65    Include all the "features" under the camera permission,
 66    and mark them all as optional.
 67    -->
 68    <uses-feature
-68-->[:qr_utils] /Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/qr_utils/intermediates/merged_manifest/release/processReleaseManifest/AndroidManifest.xml:14:5-16:36
+68-->[:qr_utils] /Users/jose.hernandez/mightier_amp_EQ/build/qr_utils/intermediates/merged_manifest/release/processReleaseManifest/AndroidManifest.xml:14:5-16:36
 69        android:name="android.hardware.camera"
-69-->[:qr_utils] /Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/qr_utils/intermediates/merged_manifest/release/processReleaseManifest/AndroidManifest.xml:15:9-47
+69-->[:qr_utils] /Users/jose.hernandez/mightier_amp_EQ/build/qr_utils/intermediates/merged_manifest/release/processReleaseManifest/AndroidManifest.xml:15:9-47
 70        android:required="false" />
-70-->[:qr_utils] /Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/qr_utils/intermediates/merged_manifest/release/processReleaseManifest/AndroidManifest.xml:16:9-33
+70-->[:qr_utils] /Users/jose.hernandez/mightier_amp_EQ/build/qr_utils/intermediates/merged_manifest/release/processReleaseManifest/AndroidManifest.xml:16:9-33
 71
 72    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 72-->[androidx.media3:media3-common:1.4.1] /Users/jose.hernandez/.gradle/caches/8.14/transforms/9ddfc2f9a30efa637c1f6d38c1283fef/transformed/jetified-media3-common-1.4.1/AndroidManifest.xml:22:5-79
@@ -130,34 +130,34 @@
 78-->[androidx.core:core:1.17.0] /Users/jose.hernandez/.gradle/caches/8.14/transforms/1ab8e92911bc9679725033b2e18a1eca/transformed/core-1.17.0/AndroidManifest.xml:26:22-94
 79
 80    <application
-80-->/Users/jose.hernandez/mightier_amp_EQ_no_NAM/android/app/src/main/AndroidManifest.xml:20:5-62:19
+80-->/Users/jose.hernandez/mightier_amp_EQ/android/app/src/main/AndroidManifest.xml:20:5-62:19
 81        android:allowBackup="true"
-81-->/Users/jose.hernandez/mightier_amp_EQ_no_NAM/android/app/src/main/AndroidManifest.xml:23:9-35
+81-->/Users/jose.hernandez/mightier_amp_EQ/android/app/src/main/AndroidManifest.xml:23:9-35
 82        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
 82-->[androidx.core:core:1.17.0] /Users/jose.hernandez/.gradle/caches/8.14/transforms/1ab8e92911bc9679725033b2e18a1eca/transformed/core-1.17.0/AndroidManifest.xml:28:18-86
 83        android:extractNativeLibs="false"
 84        android:icon="@mipmap/launcher_icon"
-84-->/Users/jose.hernandez/mightier_amp_EQ_no_NAM/android/app/src/main/AndroidManifest.xml:22:9-45
+84-->/Users/jose.hernandez/mightier_amp_EQ/android/app/src/main/AndroidManifest.xml:22:9-45
 85        android:label="@string/app_name" >
-85-->/Users/jose.hernandez/mightier_amp_EQ_no_NAM/android/app/src/main/AndroidManifest.xml:21:9-41
+85-->/Users/jose.hernandez/mightier_amp_EQ/android/app/src/main/AndroidManifest.xml:21:9-41
 86        <activity
-86-->/Users/jose.hernandez/mightier_amp_EQ_no_NAM/android/app/src/main/AndroidManifest.xml:24:9-54:20
+86-->/Users/jose.hernandez/mightier_amp_EQ/android/app/src/main/AndroidManifest.xml:24:9-54:20
 87            android:name="com.tuntori.mightieramp.MainActivity"
-87-->/Users/jose.hernandez/mightier_amp_EQ_no_NAM/android/app/src/main/AndroidManifest.xml:25:13-41
+87-->/Users/jose.hernandez/mightier_amp_EQ/android/app/src/main/AndroidManifest.xml:25:13-41
 88            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
-88-->/Users/jose.hernandez/mightier_amp_EQ_no_NAM/android/app/src/main/AndroidManifest.xml:28:13-163
+88-->/Users/jose.hernandez/mightier_amp_EQ/android/app/src/main/AndroidManifest.xml:28:13-163
 89            android:exported="true"
-89-->/Users/jose.hernandez/mightier_amp_EQ_no_NAM/android/app/src/main/AndroidManifest.xml:31:13-36
+89-->/Users/jose.hernandez/mightier_amp_EQ/android/app/src/main/AndroidManifest.xml:31:13-36
 90            android:hardwareAccelerated="true"
-90-->/Users/jose.hernandez/mightier_amp_EQ_no_NAM/android/app/src/main/AndroidManifest.xml:29:13-47
+90-->/Users/jose.hernandez/mightier_amp_EQ/android/app/src/main/AndroidManifest.xml:29:13-47
 91            android:launchMode="singleTop"
-91-->/Users/jose.hernandez/mightier_amp_EQ_no_NAM/android/app/src/main/AndroidManifest.xml:26:13-43
+91-->/Users/jose.hernandez/mightier_amp_EQ/android/app/src/main/AndroidManifest.xml:26:13-43
 92            android:theme="@style/LaunchTheme"
-92-->/Users/jose.hernandez/mightier_amp_EQ_no_NAM/android/app/src/main/AndroidManifest.xml:27:13-47
+92-->/Users/jose.hernandez/mightier_amp_EQ/android/app/src/main/AndroidManifest.xml:27:13-47
 93            android:usesCleartextTraffic="true"
-93-->/Users/jose.hernandez/mightier_amp_EQ_no_NAM/android/app/src/main/AndroidManifest.xml:30:13-48
+93-->/Users/jose.hernandez/mightier_amp_EQ/android/app/src/main/AndroidManifest.xml:30:13-48
 94            android:windowSoftInputMode="adjustResize" >
-94-->/Users/jose.hernandez/mightier_amp_EQ_no_NAM/android/app/src/main/AndroidManifest.xml:32:13-55
+94-->/Users/jose.hernandez/mightier_amp_EQ/android/app/src/main/AndroidManifest.xml:32:13-55
 95
 96            <!--
 97                 Specifies an Android theme to apply to this Activity as soon as
@@ -166,11 +166,11 @@
 100                 to determine the Window background behind the Flutter UI.
 101            -->
 102            <meta-data
-102-->/Users/jose.hernandez/mightier_amp_EQ_no_NAM/android/app/src/main/AndroidManifest.xml:37:13-40:17
+102-->/Users/jose.hernandez/mightier_amp_EQ/android/app/src/main/AndroidManifest.xml:37:13-40:17
 103                android:name="io.flutter.embedding.android.NormalTheme"
-103-->/Users/jose.hernandez/mightier_amp_EQ_no_NAM/android/app/src/main/AndroidManifest.xml:38:15-70
+103-->/Users/jose.hernandez/mightier_amp_EQ/android/app/src/main/AndroidManifest.xml:38:15-70
 104                android:resource="@style/NormalTheme" />
-104-->/Users/jose.hernandez/mightier_amp_EQ_no_NAM/android/app/src/main/AndroidManifest.xml:39:15-52
+104-->/Users/jose.hernandez/mightier_amp_EQ/android/app/src/main/AndroidManifest.xml:39:15-52
 105            <!--
 106                 Displays an Android View that continues showing the launch screen
 107                 Drawable until Flutter paints its first frame, then this splash
@@ -179,21 +179,21 @@
 110                 Flutter's first frame.
 111            -->
 112            <meta-data
-112-->/Users/jose.hernandez/mightier_amp_EQ_no_NAM/android/app/src/main/AndroidManifest.xml:46:13-49:17
+112-->/Users/jose.hernandez/mightier_amp_EQ/android/app/src/main/AndroidManifest.xml:46:13-49:17
 113                android:name="io.flutter.embedding.android.SplashScreenDrawable"
-113-->/Users/jose.hernandez/mightier_amp_EQ_no_NAM/android/app/src/main/AndroidManifest.xml:47:15-79
+113-->/Users/jose.hernandez/mightier_amp_EQ/android/app/src/main/AndroidManifest.xml:47:15-79
 114                android:resource="@drawable/launch_background" />
-114-->/Users/jose.hernandez/mightier_amp_EQ_no_NAM/android/app/src/main/AndroidManifest.xml:48:15-61
+114-->/Users/jose.hernandez/mightier_amp_EQ/android/app/src/main/AndroidManifest.xml:48:15-61
 115
 116            <intent-filter>
-116-->/Users/jose.hernandez/mightier_amp_EQ_no_NAM/android/app/src/main/AndroidManifest.xml:50:13-53:29
+116-->/Users/jose.hernandez/mightier_amp_EQ/android/app/src/main/AndroidManifest.xml:50:13-53:29
 117                <action android:name="android.intent.action.MAIN" />
-117-->/Users/jose.hernandez/mightier_amp_EQ_no_NAM/android/app/src/main/AndroidManifest.xml:51:17-68
-117-->/Users/jose.hernandez/mightier_amp_EQ_no_NAM/android/app/src/main/AndroidManifest.xml:51:25-66
+117-->/Users/jose.hernandez/mightier_amp_EQ/android/app/src/main/AndroidManifest.xml:51:17-68
+117-->/Users/jose.hernandez/mightier_amp_EQ/android/app/src/main/AndroidManifest.xml:51:25-66
 118
 119                <category android:name="android.intent.category.LAUNCHER" />
-119-->/Users/jose.hernandez/mightier_amp_EQ_no_NAM/android/app/src/main/AndroidManifest.xml:52:17-76
-119-->/Users/jose.hernandez/mightier_amp_EQ_no_NAM/android/app/src/main/AndroidManifest.xml:52:27-74
+119-->/Users/jose.hernandez/mightier_amp_EQ/android/app/src/main/AndroidManifest.xml:52:17-76
+119-->/Users/jose.hernandez/mightier_amp_EQ/android/app/src/main/AndroidManifest.xml:52:27-74
 120            </intent-filter>
 121        </activity>
 122        <!--
@@ -201,67 +201,67 @@
 124             This is used by the Flutter tool to generate GeneratedPluginRegistrant.java
 125        -->
 126        <meta-data
-126-->/Users/jose.hernandez/mightier_amp_EQ_no_NAM/android/app/src/main/AndroidManifest.xml:57:9-59:33
+126-->/Users/jose.hernandez/mightier_amp_EQ/android/app/src/main/AndroidManifest.xml:57:9-59:33
 127            android:name="flutterEmbedding"
-127-->/Users/jose.hernandez/mightier_amp_EQ_no_NAM/android/app/src/main/AndroidManifest.xml:58:13-44
+127-->/Users/jose.hernandez/mightier_amp_EQ/android/app/src/main/AndroidManifest.xml:58:13-44
 128            android:value="2" />
-128-->/Users/jose.hernandez/mightier_amp_EQ_no_NAM/android/app/src/main/AndroidManifest.xml:59:13-30
+128-->/Users/jose.hernandez/mightier_amp_EQ/android/app/src/main/AndroidManifest.xml:59:13-30
 129
 130        <activity
-130-->[:qr_utils] /Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/qr_utils/intermediates/merged_manifest/release/processReleaseManifest/AndroidManifest.xml:19:9-22:70
+130-->[:qr_utils] /Users/jose.hernandez/mightier_amp_EQ/build/qr_utils/intermediates/merged_manifest/release/processReleaseManifest/AndroidManifest.xml:19:9-22:70
 131            android:name="com.aeologic.adhoc.qr_utils.activity.QRScannerActivity"
-131-->[:qr_utils] /Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/qr_utils/intermediates/merged_manifest/release/processReleaseManifest/AndroidManifest.xml:20:13-82
+131-->[:qr_utils] /Users/jose.hernandez/mightier_amp_EQ/build/qr_utils/intermediates/merged_manifest/release/processReleaseManifest/AndroidManifest.xml:20:13-82
 132            android:label="@string/qr_scanner"
-132-->[:qr_utils] /Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/qr_utils/intermediates/merged_manifest/release/processReleaseManifest/AndroidManifest.xml:21:13-47
+132-->[:qr_utils] /Users/jose.hernandez/mightier_amp_EQ/build/qr_utils/intermediates/merged_manifest/release/processReleaseManifest/AndroidManifest.xml:21:13-47
 133            android:theme="@style/AppTheme.NoActionBar.FullScreen" />
-133-->[:qr_utils] /Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/qr_utils/intermediates/merged_manifest/release/processReleaseManifest/AndroidManifest.xml:22:13-67
+133-->[:qr_utils] /Users/jose.hernandez/mightier_amp_EQ/build/qr_utils/intermediates/merged_manifest/release/processReleaseManifest/AndroidManifest.xml:22:13-67
 134        <!--
 135           Declares a provider which allows us to store files to share in
 136           '.../caches/share_plus' and grant the receiving action access
 137        -->
 138        <provider
-138-->[:share_plus] /Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/share_plus/intermediates/merged_manifest/release/processReleaseManifest/AndroidManifest.xml:13:9-21:20
+138-->[:share_plus] /Users/jose.hernandez/mightier_amp_EQ/build/share_plus/intermediates/merged_manifest/release/processReleaseManifest/AndroidManifest.xml:13:9-21:20
 139            android:name="dev.fluttercommunity.plus.share.ShareFileProvider"
-139-->[:share_plus] /Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/share_plus/intermediates/merged_manifest/release/processReleaseManifest/AndroidManifest.xml:14:13-77
+139-->[:share_plus] /Users/jose.hernandez/mightier_amp_EQ/build/share_plus/intermediates/merged_manifest/release/processReleaseManifest/AndroidManifest.xml:14:13-77
 140            android:authorities="com.tuntori.mightieramp.flutter.share_provider"
-140-->[:share_plus] /Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/share_plus/intermediates/merged_manifest/release/processReleaseManifest/AndroidManifest.xml:15:13-74
+140-->[:share_plus] /Users/jose.hernandez/mightier_amp_EQ/build/share_plus/intermediates/merged_manifest/release/processReleaseManifest/AndroidManifest.xml:15:13-74
 141            android:exported="false"
-141-->[:share_plus] /Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/share_plus/intermediates/merged_manifest/release/processReleaseManifest/AndroidManifest.xml:16:13-37
+141-->[:share_plus] /Users/jose.hernandez/mightier_amp_EQ/build/share_plus/intermediates/merged_manifest/release/processReleaseManifest/AndroidManifest.xml:16:13-37
 142            android:grantUriPermissions="true" >
-142-->[:share_plus] /Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/share_plus/intermediates/merged_manifest/release/processReleaseManifest/AndroidManifest.xml:17:13-47
+142-->[:share_plus] /Users/jose.hernandez/mightier_amp_EQ/build/share_plus/intermediates/merged_manifest/release/processReleaseManifest/AndroidManifest.xml:17:13-47
 143            <meta-data
-143-->[:share_plus] /Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/share_plus/intermediates/merged_manifest/release/processReleaseManifest/AndroidManifest.xml:18:13-20:68
+143-->[:share_plus] /Users/jose.hernandez/mightier_amp_EQ/build/share_plus/intermediates/merged_manifest/release/processReleaseManifest/AndroidManifest.xml:18:13-20:68
 144                android:name="android.support.FILE_PROVIDER_PATHS"
-144-->[:share_plus] /Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/share_plus/intermediates/merged_manifest/release/processReleaseManifest/AndroidManifest.xml:19:17-67
+144-->[:share_plus] /Users/jose.hernandez/mightier_amp_EQ/build/share_plus/intermediates/merged_manifest/release/processReleaseManifest/AndroidManifest.xml:19:17-67
 145                android:resource="@xml/flutter_share_file_paths" />
-145-->[:share_plus] /Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/share_plus/intermediates/merged_manifest/release/processReleaseManifest/AndroidManifest.xml:20:17-65
+145-->[:share_plus] /Users/jose.hernandez/mightier_amp_EQ/build/share_plus/intermediates/merged_manifest/release/processReleaseManifest/AndroidManifest.xml:20:17-65
 146        </provider>
 147        <!--
 148           This manifest declared broadcast receiver allows us to use an explicit
 149           Intent when creating a PendingItent to be informed of the user's choice
 150        -->
 151        <receiver
-151-->[:share_plus] /Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/share_plus/intermediates/merged_manifest/release/processReleaseManifest/AndroidManifest.xml:26:9-32:20
+151-->[:share_plus] /Users/jose.hernandez/mightier_amp_EQ/build/share_plus/intermediates/merged_manifest/release/processReleaseManifest/AndroidManifest.xml:26:9-32:20
 152            android:name="dev.fluttercommunity.plus.share.SharePlusPendingIntent"
-152-->[:share_plus] /Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/share_plus/intermediates/merged_manifest/release/processReleaseManifest/AndroidManifest.xml:27:13-82
+152-->[:share_plus] /Users/jose.hernandez/mightier_amp_EQ/build/share_plus/intermediates/merged_manifest/release/processReleaseManifest/AndroidManifest.xml:27:13-82
 153            android:exported="false" >
-153-->[:share_plus] /Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/share_plus/intermediates/merged_manifest/release/processReleaseManifest/AndroidManifest.xml:28:13-37
+153-->[:share_plus] /Users/jose.hernandez/mightier_amp_EQ/build/share_plus/intermediates/merged_manifest/release/processReleaseManifest/AndroidManifest.xml:28:13-37
 154            <intent-filter>
-154-->[:share_plus] /Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/share_plus/intermediates/merged_manifest/release/processReleaseManifest/AndroidManifest.xml:29:13-31:29
+154-->[:share_plus] /Users/jose.hernandez/mightier_amp_EQ/build/share_plus/intermediates/merged_manifest/release/processReleaseManifest/AndroidManifest.xml:29:13-31:29
 155                <action android:name="EXTRA_CHOSEN_COMPONENT" />
-155-->[:share_plus] /Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/share_plus/intermediates/merged_manifest/release/processReleaseManifest/AndroidManifest.xml:30:17-65
-155-->[:share_plus] /Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/share_plus/intermediates/merged_manifest/release/processReleaseManifest/AndroidManifest.xml:30:25-62
+155-->[:share_plus] /Users/jose.hernandez/mightier_amp_EQ/build/share_plus/intermediates/merged_manifest/release/processReleaseManifest/AndroidManifest.xml:30:17-65
+155-->[:share_plus] /Users/jose.hernandez/mightier_amp_EQ/build/share_plus/intermediates/merged_manifest/release/processReleaseManifest/AndroidManifest.xml:30:25-62
 156            </intent-filter>
 157        </receiver>
 158
 159        <activity
-159-->[:url_launcher_android] /Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/url_launcher_android/intermediates/merged_manifest/release/processReleaseManifest/AndroidManifest.xml:8:9-11:74
+159-->[:url_launcher_android] /Users/jose.hernandez/mightier_amp_EQ/build/url_launcher_android/intermediates/merged_manifest/release/processReleaseManifest/AndroidManifest.xml:8:9-11:74
 160            android:name="io.flutter.plugins.urllauncher.WebViewActivity"
-160-->[:url_launcher_android] /Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/url_launcher_android/intermediates/merged_manifest/release/processReleaseManifest/AndroidManifest.xml:9:13-74
+160-->[:url_launcher_android] /Users/jose.hernandez/mightier_amp_EQ/build/url_launcher_android/intermediates/merged_manifest/release/processReleaseManifest/AndroidManifest.xml:9:13-74
 161            android:exported="false"
-161-->[:url_launcher_android] /Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/url_launcher_android/intermediates/merged_manifest/release/processReleaseManifest/AndroidManifest.xml:10:13-37
+161-->[:url_launcher_android] /Users/jose.hernandez/mightier_amp_EQ/build/url_launcher_android/intermediates/merged_manifest/release/processReleaseManifest/AndroidManifest.xml:10:13-37
 162            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
-162-->[:url_launcher_android] /Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/url_launcher_android/intermediates/merged_manifest/release/processReleaseManifest/AndroidManifest.xml:11:13-71
+162-->[:url_launcher_android] /Users/jose.hernandez/mightier_amp_EQ/build/url_launcher_android/intermediates/merged_manifest/release/processReleaseManifest/AndroidManifest.xml:11:13-71
 163        <activity
 163-->[com.karumi:dexter:6.2.3] /Users/jose.hernandez/.gradle/caches/8.14/transforms/13ba24ff90d3bd867adb0916118ea794/transformed/jetified-dexter-6.2.3/AndroidManifest.xml:27:9-29:72
 164            android:name="com.karumi.dexter.DexterActivity"

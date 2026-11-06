@@ -5,7 +5,7 @@
     type="LIBRARY"
     maven="com.ryanheise.just_audio:just_audio:1.0"
     agpVersion="8.11.1"
-    buildFolder="/Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/just_audio"
+    buildFolder="/Users/jose.hernandez/mightier_amp_EQ/build/just_audio"
     bootClassPath="/Users/jose.hernandez/Library/Android/sdk/platforms/android-34/android.jar:/Users/jose.hernandez/Library/Android/sdk/build-tools/35.0.0/core-lambda-stubs.jar"
     javaSourceLevel="1.8"
     compileTarget="android-34"

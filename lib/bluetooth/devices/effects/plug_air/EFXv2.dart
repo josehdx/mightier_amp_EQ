@@ -8,7 +8,6 @@ import 'EFX.dart';
 class PH100EFX extends EFX {
   @override
   final name = "PH 100";
-
   @override
   int get nuxIndex => 3;
   @override
@@ -35,7 +34,6 @@ class PH100EFX extends EFX {
 class STSinger extends EFX {
   @override
   final name = "ST Singer";
-
   @override
   int get nuxIndex => 4;
   @override
@@ -65,7 +63,6 @@ class STSinger extends EFX {
         midiCC: MidiCCValues.bCC_DistLevel,
         midiControllerHandle: MidiControllerHandles.efxTone),
   ];
-
   @override
   int? getEquivalentEffect(int version) {
     if (version == PlugAirVersion.PlugAir15.index) return null;
@@ -76,10 +73,8 @@ class STSinger extends EFX {
 class Katana extends EFX {
   @override
   final name = "Katana";
-
   @override
   int get nuxIndex => 6;
-
   @override
   List<Parameter> parameters = [
     Parameter(
@@ -98,7 +93,6 @@ class Katana extends EFX {
         midiCC: MidiCCValues.bCC_DistTone,
         midiControllerHandle: MidiControllerHandles.efxLevel),
   ];
-
   @override
   int? getEquivalentEffect(int version) {
     if (version == PlugAirVersion.PlugAir15.index) return Boost().nuxIndex;
@@ -109,7 +103,6 @@ class Katana extends EFX {
 class RedDirt extends EFX {
   @override
   final name = "Red Dirt";
-
   @override
   int get nuxIndex => 10;
   @override
@@ -144,7 +137,6 @@ class RedDirt extends EFX {
 class RoseComp extends EFX {
   @override
   final name = "Rose Comp";
-
   @override
   int get nuxIndex => 13;
   @override
@@ -166,7 +158,6 @@ class RoseComp extends EFX {
         midiCC: MidiCCValues.bCC_DistGain,
         midiControllerHandle: MidiControllerHandles.efxLevel),
   ];
-
   @override
   int? getEquivalentEffect(int version) {
     if (version == PlugAirVersion.PlugAir15.index) return null;

@@ -23,8 +23,8 @@ io.flutter.plugins.urllauncher.url_launcher_android-jetified-window-1.2.0-21 /Us
 io.flutter.plugins.urllauncher.url_launcher_android-jetified-tracing-1.2.0-22 /Users/jose.hernandez/.gradle/caches/8.14/transforms/fe9cb27c90a494ba075b6c387e4ff5be/transformed/jetified-tracing-1.2.0/res
 io.flutter.plugins.urllauncher.url_launcher_android-main-23 /Users/jose.hernandez/.pub-cache/hosted/pub.dev/url_launcher_android-6.3.32/android/src/main/res
 io.flutter.plugins.urllauncher.url_launcher_android-release-24 /Users/jose.hernandez/.pub-cache/hosted/pub.dev/url_launcher_android-6.3.32/android/src/release/res
-io.flutter.plugins.urllauncher.url_launcher_android-pngs-25 /Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/url_launcher_android/generated/res/pngs/release
-io.flutter.plugins.urllauncher.url_launcher_android-resValues-26 /Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/url_launcher_android/generated/res/resValues/release
-io.flutter.plugins.urllauncher.url_launcher_android-mergeReleaseResources-27 /Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/url_launcher_android/intermediates/incremental/release/mergeReleaseResources/merged.dir
-io.flutter.plugins.urllauncher.url_launcher_android-mergeReleaseResources-28 /Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/url_launcher_android/intermediates/incremental/release/mergeReleaseResources/stripped.dir
-io.flutter.plugins.urllauncher.url_launcher_android-release-29 /Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/url_launcher_android/intermediates/merged_res/release/mergeReleaseResources
+io.flutter.plugins.urllauncher.url_launcher_android-pngs-25 /Users/jose.hernandez/mightier_amp_EQ/build/url_launcher_android/generated/res/pngs/release
+io.flutter.plugins.urllauncher.url_launcher_android-resValues-26 /Users/jose.hernandez/mightier_amp_EQ/build/url_launcher_android/generated/res/resValues/release
+io.flutter.plugins.urllauncher.url_launcher_android-mergeReleaseResources-27 /Users/jose.hernandez/mightier_amp_EQ/build/url_launcher_android/intermediates/incremental/release/mergeReleaseResources/merged.dir
+io.flutter.plugins.urllauncher.url_launcher_android-mergeReleaseResources-28 /Users/jose.hernandez/mightier_amp_EQ/build/url_launcher_android/intermediates/incremental/release/mergeReleaseResources/stripped.dir
+io.flutter.plugins.urllauncher.url_launcher_android-release-29 /Users/jose.hernandez/mightier_amp_EQ/build/url_launcher_android/intermediates/merged_res/release/mergeReleaseResources

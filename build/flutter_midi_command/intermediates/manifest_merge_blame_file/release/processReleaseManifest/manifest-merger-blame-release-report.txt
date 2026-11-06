@@ -5,26 +5,26 @@
 5    <uses-sdk android:minSdkVersion="24" />
 6
 7    <uses-feature
-7-->/Users/jose.hernandez/mightier_amp_EQ_no_NAM/plugins/flutter_midi_command/flutter_midi_command-0.3.7/android/src/main/AndroidManifest.xml:4:5-82
+7-->/Users/jose.hernandez/mightier_amp_EQ/plugins/flutter_midi_command/flutter_midi_command-0.3.7/android/src/main/AndroidManifest.xml:4:5-82
 8        android:name="android.software.midi"
-8-->/Users/jose.hernandez/mightier_amp_EQ_no_NAM/plugins/flutter_midi_command/flutter_midi_command-0.3.7/android/src/main/AndroidManifest.xml:4:19-55
+8-->/Users/jose.hernandez/mightier_amp_EQ/plugins/flutter_midi_command/flutter_midi_command-0.3.7/android/src/main/AndroidManifest.xml:4:19-55
 9        android:required="false" />
-9-->/Users/jose.hernandez/mightier_amp_EQ_no_NAM/plugins/flutter_midi_command/flutter_midi_command-0.3.7/android/src/main/AndroidManifest.xml:4:56-80
+9-->/Users/jose.hernandez/mightier_amp_EQ/plugins/flutter_midi_command/flutter_midi_command-0.3.7/android/src/main/AndroidManifest.xml:4:56-80
 10    <uses-feature
-10-->/Users/jose.hernandez/mightier_amp_EQ_no_NAM/plugins/flutter_midi_command/flutter_midi_command-0.3.7/android/src/main/AndroidManifest.xml:5:5-89
+10-->/Users/jose.hernandez/mightier_amp_EQ/plugins/flutter_midi_command/flutter_midi_command-0.3.7/android/src/main/AndroidManifest.xml:5:5-89
 11        android:name="android.hardware.bluetooth_le"
-11-->/Users/jose.hernandez/mightier_amp_EQ_no_NAM/plugins/flutter_midi_command/flutter_midi_command-0.3.7/android/src/main/AndroidManifest.xml:5:19-63
+11-->/Users/jose.hernandez/mightier_amp_EQ/plugins/flutter_midi_command/flutter_midi_command-0.3.7/android/src/main/AndroidManifest.xml:5:19-63
 12        android:required="true" />
-12-->/Users/jose.hernandez/mightier_amp_EQ_no_NAM/plugins/flutter_midi_command/flutter_midi_command-0.3.7/android/src/main/AndroidManifest.xml:5:64-87
+12-->/Users/jose.hernandez/mightier_amp_EQ/plugins/flutter_midi_command/flutter_midi_command-0.3.7/android/src/main/AndroidManifest.xml:5:64-87
 13
 14    <uses-permission android:name="android.permission.BLUETOOTH" />
-14-->/Users/jose.hernandez/mightier_amp_EQ_no_NAM/plugins/flutter_midi_command/flutter_midi_command-0.3.7/android/src/main/AndroidManifest.xml:7:5-67
-14-->/Users/jose.hernandez/mightier_amp_EQ_no_NAM/plugins/flutter_midi_command/flutter_midi_command-0.3.7/android/src/main/AndroidManifest.xml:7:22-65
+14-->/Users/jose.hernandez/mightier_amp_EQ/plugins/flutter_midi_command/flutter_midi_command-0.3.7/android/src/main/AndroidManifest.xml:7:5-67
+14-->/Users/jose.hernandez/mightier_amp_EQ/plugins/flutter_midi_command/flutter_midi_command-0.3.7/android/src/main/AndroidManifest.xml:7:22-65
 15    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
-15-->/Users/jose.hernandez/mightier_amp_EQ_no_NAM/plugins/flutter_midi_command/flutter_midi_command-0.3.7/android/src/main/AndroidManifest.xml:8:5-73
-15-->/Users/jose.hernandez/mightier_amp_EQ_no_NAM/plugins/flutter_midi_command/flutter_midi_command-0.3.7/android/src/main/AndroidManifest.xml:8:22-71
+15-->/Users/jose.hernandez/mightier_amp_EQ/plugins/flutter_midi_command/flutter_midi_command-0.3.7/android/src/main/AndroidManifest.xml:8:5-73
+15-->/Users/jose.hernandez/mightier_amp_EQ/plugins/flutter_midi_command/flutter_midi_command-0.3.7/android/src/main/AndroidManifest.xml:8:22-71
 16    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-16-->/Users/jose.hernandez/mightier_amp_EQ_no_NAM/plugins/flutter_midi_command/flutter_midi_command-0.3.7/android/src/main/AndroidManifest.xml:9:5-78
-16-->/Users/jose.hernandez/mightier_amp_EQ_no_NAM/plugins/flutter_midi_command/flutter_midi_command-0.3.7/android/src/main/AndroidManifest.xml:9:22-76
+16-->/Users/jose.hernandez/mightier_amp_EQ/plugins/flutter_midi_command/flutter_midi_command-0.3.7/android/src/main/AndroidManifest.xml:9:5-78
+16-->/Users/jose.hernandez/mightier_amp_EQ/plugins/flutter_midi_command/flutter_midi_command-0.3.7/android/src/main/AndroidManifest.xml:9:22-76
 17
 18</manifest>

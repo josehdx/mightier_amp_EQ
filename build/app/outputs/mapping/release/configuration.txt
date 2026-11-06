@@ -1,4 +1,4 @@
-# The proguard configuration file for the following section is /Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/app/intermediates/aapt_proguard_file/release/processReleaseResources/aapt_rules.txt
+# The proguard configuration file for the following section is /Users/jose.hernandez/mightier_amp_EQ/build/app/intermediates/aapt_proguard_file/release/processReleaseResources/aapt_rules.txt
 -keep class androidx.core.app.CoreComponentFactory { <init>(); }
 -keep class androidx.profileinstaller.ProfileInstallReceiver { <init>(); }
 -keep class androidx.startup.InitializationProvider { <init>(); }
@@ -65,8 +65,8 @@
 -keep class com.google.android.material.snackbar.SnackbarContentLayout { <init>(android.content.Context, android.util.AttributeSet); }
 
 
-# End of content from /Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/app/intermediates/aapt_proguard_file/release/processReleaseResources/aapt_rules.txt
-# The proguard configuration file for the following section is /Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/app/intermediates/default_proguard_files/global/proguard-android-optimize.txt-8.11.1
+# End of content from /Users/jose.hernandez/mightier_amp_EQ/build/app/intermediates/aapt_proguard_file/release/processReleaseResources/aapt_rules.txt
+# The proguard configuration file for the following section is /Users/jose.hernandez/mightier_amp_EQ/build/app/intermediates/default_proguard_files/global/proguard-android-optimize.txt-8.11.1
 # This is a configuration file for ProGuard.
 # http://proguard.sourceforge.net/index.html#manual/usage.html
 #
@@ -157,7 +157,7 @@
 # These classes are duplicated between android.jar and core-lambda-stubs.jar.
 -dontnote java.lang.invoke.**
 
-# End of content from /Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/app/intermediates/default_proguard_files/global/proguard-android-optimize.txt-8.11.1
+# End of content from /Users/jose.hernandez/mightier_amp_EQ/build/app/intermediates/default_proguard_files/global/proguard-android-optimize.txt-8.11.1
 # The proguard configuration file for the following section is /Users/jose.hernandez/flutter/packages/flutter_tools/gradle/flutter_proguard_rules.pro
 # Build the ephemeral app in a module project.
 # Prevents: Warning: library class <plugin-package> depends on program class io.flutter.plugin.**
@@ -175,18 +175,18 @@
 -keep,allowshrinking,allowobfuscation class <1>
 
 # End of content from /Users/jose.hernandez/flutter/packages/flutter_tools/gradle/flutter_proguard_rules.pro
-# The proguard configuration file for the following section is /Users/jose.hernandez/mightier_amp_EQ_no_NAM/android/app/proguard-rules.pro
+# The proguard configuration file for the following section is /Users/jose.hernandez/mightier_amp_EQ/android/app/proguard-rules.pro
 -keep class androidx.lifecycle.** { *; }
 -keep class com.boskokg.flutter_blue_plus.** { *; }
-# End of content from /Users/jose.hernandez/mightier_amp_EQ_no_NAM/android/app/proguard-rules.pro
-# The proguard configuration file for the following section is /Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/jni_flutter/intermediates/consumer_proguard_dir/release/exportReleaseConsumerProguardFiles/lib0/proguard.txt
+# End of content from /Users/jose.hernandez/mightier_amp_EQ/android/app/proguard-rules.pro
+# The proguard configuration file for the following section is /Users/jose.hernandez/mightier_amp_EQ/build/jni_flutter/intermediates/consumer_proguard_dir/release/exportReleaseConsumerProguardFiles/lib0/proguard.txt
 -keep class com.github.dart_lang.jni_flutter.** { *; }
 
-# End of content from /Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/jni_flutter/intermediates/consumer_proguard_dir/release/exportReleaseConsumerProguardFiles/lib0/proguard.txt
-# The proguard configuration file for the following section is /Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/jni/intermediates/consumer_proguard_dir/release/exportReleaseConsumerProguardFiles/lib0/proguard.txt
+# End of content from /Users/jose.hernandez/mightier_amp_EQ/build/jni_flutter/intermediates/consumer_proguard_dir/release/exportReleaseConsumerProguardFiles/lib0/proguard.txt
+# The proguard configuration file for the following section is /Users/jose.hernandez/mightier_amp_EQ/build/jni/intermediates/consumer_proguard_dir/release/exportReleaseConsumerProguardFiles/lib0/proguard.txt
 -keep class com.github.dart_lang.jni.** { *; }
 
-# End of content from /Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/jni/intermediates/consumer_proguard_dir/release/exportReleaseConsumerProguardFiles/lib0/proguard.txt
+# End of content from /Users/jose.hernandez/mightier_amp_EQ/build/jni/intermediates/consumer_proguard_dir/release/exportReleaseConsumerProguardFiles/lib0/proguard.txt
 # The proguard configuration file for the following section is /Users/jose.hernandez/.gradle/caches/8.14/transforms/13ba24ff90d3bd867adb0916118ea794/transformed/jetified-dexter-6.2.3/proguard.txt
 # Preserve all Dexter classes and method names
 

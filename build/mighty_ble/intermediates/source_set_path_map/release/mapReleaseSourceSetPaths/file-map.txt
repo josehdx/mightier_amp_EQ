@@ -19,10 +19,10 @@ com.tuntori.mighty_ble-jetified-core-1.0.0-17 /Users/jose.hernandez/.gradle/cach
 com.tuntori.mighty_ble-jetified-lifecycle-viewmodel-savedstate-2.7.0-18 /Users/jose.hernandez/.gradle/caches/8.14/transforms/c01d3f9bf800c0fbcc46ad78ad641d08/transformed/jetified-lifecycle-viewmodel-savedstate-2.7.0/res
 com.tuntori.mighty_ble-jetified-window-1.2.0-19 /Users/jose.hernandez/.gradle/caches/8.14/transforms/fbd7a1f40973efdd3e0b39325049fc32/transformed/jetified-window-1.2.0/res
 com.tuntori.mighty_ble-jetified-tracing-1.2.0-20 /Users/jose.hernandez/.gradle/caches/8.14/transforms/fe9cb27c90a494ba075b6c387e4ff5be/transformed/jetified-tracing-1.2.0/res
-com.tuntori.mighty_ble-pngs-21 /Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/mighty_ble/generated/res/pngs/release
-com.tuntori.mighty_ble-resValues-22 /Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/mighty_ble/generated/res/resValues/release
-com.tuntori.mighty_ble-mergeReleaseResources-23 /Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/mighty_ble/intermediates/incremental/release/mergeReleaseResources/merged.dir
-com.tuntori.mighty_ble-mergeReleaseResources-24 /Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/mighty_ble/intermediates/incremental/release/mergeReleaseResources/stripped.dir
-com.tuntori.mighty_ble-release-25 /Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/mighty_ble/intermediates/merged_res/release/mergeReleaseResources
-com.tuntori.mighty_ble-main-26 /Users/jose.hernandez/mightier_amp_EQ_no_NAM/plugins/mighty_ble/android/src/main/res
-com.tuntori.mighty_ble-release-27 /Users/jose.hernandez/mightier_amp_EQ_no_NAM/plugins/mighty_ble/android/src/release/res
+com.tuntori.mighty_ble-pngs-21 /Users/jose.hernandez/mightier_amp_EQ/build/mighty_ble/generated/res/pngs/release
+com.tuntori.mighty_ble-resValues-22 /Users/jose.hernandez/mightier_amp_EQ/build/mighty_ble/generated/res/resValues/release
+com.tuntori.mighty_ble-mergeReleaseResources-23 /Users/jose.hernandez/mightier_amp_EQ/build/mighty_ble/intermediates/incremental/release/mergeReleaseResources/merged.dir
+com.tuntori.mighty_ble-mergeReleaseResources-24 /Users/jose.hernandez/mightier_amp_EQ/build/mighty_ble/intermediates/incremental/release/mergeReleaseResources/stripped.dir
+com.tuntori.mighty_ble-release-25 /Users/jose.hernandez/mightier_amp_EQ/build/mighty_ble/intermediates/merged_res/release/mergeReleaseResources
+com.tuntori.mighty_ble-main-26 /Users/jose.hernandez/mightier_amp_EQ/plugins/mighty_ble/android/src/main/res
+com.tuntori.mighty_ble-release-27 /Users/jose.hernandez/mightier_amp_EQ/plugins/mighty_ble/android/src/release/res

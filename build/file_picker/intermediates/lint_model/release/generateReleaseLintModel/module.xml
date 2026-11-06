@@ -1,11 +1,11 @@
 <lint-module
     format="1"
-    dir="/Users/jose.hernandez/mightier_amp_EQ_no_NAM/plugins/file_picker/android"
+    dir="/Users/jose.hernandez/mightier_amp_EQ/plugins/file_picker/android"
     name=":file_picker"
     type="LIBRARY"
     maven="com.example.file_picker:file_picker:1.0-SNAPSHOT"
     agpVersion="8.11.1"
-    buildFolder="/Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/file_picker"
+    buildFolder="/Users/jose.hernandez/mightier_amp_EQ/build/file_picker"
     bootClassPath="/Users/jose.hernandez/Library/Android/sdk/platforms/android-34/android.jar:/Users/jose.hernandez/Library/Android/sdk/build-tools/35.0.0/core-lambda-stubs.jar"
     javaSourceLevel="17"
     compileTarget="android-34"

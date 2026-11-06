@@ -19,10 +19,10 @@ com.tuntori.audio_waveform-jetified-core-1.0.0-17 /Users/jose.hernandez/.gradle/
 com.tuntori.audio_waveform-jetified-lifecycle-viewmodel-savedstate-2.7.0-18 /Users/jose.hernandez/.gradle/caches/8.14/transforms/c01d3f9bf800c0fbcc46ad78ad641d08/transformed/jetified-lifecycle-viewmodel-savedstate-2.7.0/res
 com.tuntori.audio_waveform-jetified-window-1.2.0-19 /Users/jose.hernandez/.gradle/caches/8.14/transforms/fbd7a1f40973efdd3e0b39325049fc32/transformed/jetified-window-1.2.0/res
 com.tuntori.audio_waveform-jetified-tracing-1.2.0-20 /Users/jose.hernandez/.gradle/caches/8.14/transforms/fe9cb27c90a494ba075b6c387e4ff5be/transformed/jetified-tracing-1.2.0/res
-com.tuntori.audio_waveform-pngs-21 /Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/audio_waveform/generated/res/pngs/release
-com.tuntori.audio_waveform-resValues-22 /Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/audio_waveform/generated/res/resValues/release
-com.tuntori.audio_waveform-mergeReleaseResources-23 /Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/audio_waveform/intermediates/incremental/release/mergeReleaseResources/merged.dir
-com.tuntori.audio_waveform-mergeReleaseResources-24 /Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/audio_waveform/intermediates/incremental/release/mergeReleaseResources/stripped.dir
-com.tuntori.audio_waveform-release-25 /Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/audio_waveform/intermediates/merged_res/release/mergeReleaseResources
-com.tuntori.audio_waveform-main-26 /Users/jose.hernandez/mightier_amp_EQ_no_NAM/plugins/audio_waveform/android/src/main/res
-com.tuntori.audio_waveform-release-27 /Users/jose.hernandez/mightier_amp_EQ_no_NAM/plugins/audio_waveform/android/src/release/res
+com.tuntori.audio_waveform-pngs-21 /Users/jose.hernandez/mightier_amp_EQ/build/audio_waveform/generated/res/pngs/release
+com.tuntori.audio_waveform-resValues-22 /Users/jose.hernandez/mightier_amp_EQ/build/audio_waveform/generated/res/resValues/release
+com.tuntori.audio_waveform-mergeReleaseResources-23 /Users/jose.hernandez/mightier_amp_EQ/build/audio_waveform/intermediates/incremental/release/mergeReleaseResources/merged.dir
+com.tuntori.audio_waveform-mergeReleaseResources-24 /Users/jose.hernandez/mightier_amp_EQ/build/audio_waveform/intermediates/incremental/release/mergeReleaseResources/stripped.dir
+com.tuntori.audio_waveform-release-25 /Users/jose.hernandez/mightier_amp_EQ/build/audio_waveform/intermediates/merged_res/release/mergeReleaseResources
+com.tuntori.audio_waveform-main-26 /Users/jose.hernandez/mightier_amp_EQ/plugins/audio_waveform/android/src/main/res
+com.tuntori.audio_waveform-release-27 /Users/jose.hernandez/mightier_amp_EQ/plugins/audio_waveform/android/src/release/res

@@ -21,8 +21,8 @@ com.baseflow.permissionhandler.permission_handler_android-jetified-window-1.2.0-
 com.baseflow.permissionhandler.permission_handler_android-jetified-tracing-1.2.0-20 /Users/jose.hernandez/.gradle/caches/8.14/transforms/fe9cb27c90a494ba075b6c387e4ff5be/transformed/jetified-tracing-1.2.0/res
 com.baseflow.permissionhandler.permission_handler_android-main-21 /Users/jose.hernandez/.pub-cache/hosted/pub.dev/permission_handler_android-12.1.0/android/src/main/res
 com.baseflow.permissionhandler.permission_handler_android-release-22 /Users/jose.hernandez/.pub-cache/hosted/pub.dev/permission_handler_android-12.1.0/android/src/release/res
-com.baseflow.permissionhandler.permission_handler_android-pngs-23 /Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/permission_handler_android/generated/res/pngs/release
-com.baseflow.permissionhandler.permission_handler_android-resValues-24 /Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/permission_handler_android/generated/res/resValues/release
-com.baseflow.permissionhandler.permission_handler_android-mergeReleaseResources-25 /Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/permission_handler_android/intermediates/incremental/release/mergeReleaseResources/merged.dir
-com.baseflow.permissionhandler.permission_handler_android-mergeReleaseResources-26 /Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/permission_handler_android/intermediates/incremental/release/mergeReleaseResources/stripped.dir
-com.baseflow.permissionhandler.permission_handler_android-release-27 /Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/permission_handler_android/intermediates/merged_res/release/mergeReleaseResources
+com.baseflow.permissionhandler.permission_handler_android-pngs-23 /Users/jose.hernandez/mightier_amp_EQ/build/permission_handler_android/generated/res/pngs/release
+com.baseflow.permissionhandler.permission_handler_android-resValues-24 /Users/jose.hernandez/mightier_amp_EQ/build/permission_handler_android/generated/res/resValues/release
+com.baseflow.permissionhandler.permission_handler_android-mergeReleaseResources-25 /Users/jose.hernandez/mightier_amp_EQ/build/permission_handler_android/intermediates/incremental/release/mergeReleaseResources/merged.dir
+com.baseflow.permissionhandler.permission_handler_android-mergeReleaseResources-26 /Users/jose.hernandez/mightier_amp_EQ/build/permission_handler_android/intermediates/incremental/release/mergeReleaseResources/stripped.dir
+com.baseflow.permissionhandler.permission_handler_android-release-27 /Users/jose.hernandez/mightier_amp_EQ/build/permission_handler_android/intermediates/merged_res/release/mergeReleaseResources

@@ -23,9 +23,9 @@ com.ryanheise.just_audio-jetified-window-1.2.0-21 /Users/jose.hernandez/.gradle/
 com.ryanheise.just_audio-jetified-tracing-1.2.0-22 /Users/jose.hernandez/.gradle/caches/8.14/transforms/fe9cb27c90a494ba075b6c387e4ff5be/transformed/jetified-tracing-1.2.0/res
 com.ryanheise.just_audio-main-23 /Users/jose.hernandez/.pub-cache/hosted/pub.dev/just_audio-0.9.46/android/src/main/res
 com.ryanheise.just_audio-release-24 /Users/jose.hernandez/.pub-cache/hosted/pub.dev/just_audio-0.9.46/android/src/release/res
-com.ryanheise.just_audio-release-25 /Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/audio_session/intermediates/packaged_res/release/packageReleaseResources
-com.ryanheise.just_audio-pngs-26 /Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/just_audio/generated/res/pngs/release
-com.ryanheise.just_audio-resValues-27 /Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/just_audio/generated/res/resValues/release
-com.ryanheise.just_audio-mergeReleaseResources-28 /Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/just_audio/intermediates/incremental/release/mergeReleaseResources/merged.dir
-com.ryanheise.just_audio-mergeReleaseResources-29 /Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/just_audio/intermediates/incremental/release/mergeReleaseResources/stripped.dir
-com.ryanheise.just_audio-release-30 /Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/just_audio/intermediates/merged_res/release/mergeReleaseResources
+com.ryanheise.just_audio-release-25 /Users/jose.hernandez/mightier_amp_EQ/build/audio_session/intermediates/packaged_res/release/packageReleaseResources
+com.ryanheise.just_audio-pngs-26 /Users/jose.hernandez/mightier_amp_EQ/build/just_audio/generated/res/pngs/release
+com.ryanheise.just_audio-resValues-27 /Users/jose.hernandez/mightier_amp_EQ/build/just_audio/generated/res/resValues/release
+com.ryanheise.just_audio-mergeReleaseResources-28 /Users/jose.hernandez/mightier_amp_EQ/build/just_audio/intermediates/incremental/release/mergeReleaseResources/merged.dir
+com.ryanheise.just_audio-mergeReleaseResources-29 /Users/jose.hernandez/mightier_amp_EQ/build/just_audio/intermediates/incremental/release/mergeReleaseResources/stripped.dir
+com.ryanheise.just_audio-release-30 /Users/jose.hernandez/mightier_amp_EQ/build/just_audio/intermediates/merged_res/release/mergeReleaseResources

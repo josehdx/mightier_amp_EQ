@@ -1,9 +1,9 @@
 <libraries>
   <library
       name=":@@:jni::release"
-      jars="/Users/jose.hernandez/.gradle/caches/8.14/transforms/aaf70aa9c4bb4e73d04da49c97870180/transformed/out/jars/classes.jar:/Users/jose.hernandez/.gradle/caches/8.14/transforms/aaf70aa9c4bb4e73d04da49c97870180/transformed/out/jars/libs/R.jar"
+      jars="/Users/jose.hernandez/.gradle/caches/8.14/transforms/5514bafabde4f0818103c72696cf860f/transformed/out/jars/classes.jar:/Users/jose.hernandez/.gradle/caches/8.14/transforms/5514bafabde4f0818103c72696cf860f/transformed/out/jars/libs/R.jar"
       resolved="com.github.dart_lang.jni:jni:1.0"
-      folder="/Users/jose.hernandez/.gradle/caches/8.14/transforms/aaf70aa9c4bb4e73d04da49c97870180/transformed/out"
+      folder="/Users/jose.hernandez/.gradle/caches/8.14/transforms/5514bafabde4f0818103c72696cf860f/transformed/out"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"

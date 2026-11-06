@@ -4,10 +4,10 @@
     minSdkVersion="24"
     targetSdkVersion="34"
     shrinking="true"
-    mergedManifest="/Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/app/intermediates/merged_manifest/release/outputReleaseAppLinkSettings/AndroidManifest.xml"
-    manifestMergeReport="/Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/app/outputs/logs/manifest-merger-release-report.txt"
-    proguardFiles="/Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/app/intermediates/default_proguard_files/global/proguard-android-optimize.txt-8.11.1:/Users/jose.hernandez/flutter/packages/flutter_tools/gradle/flutter_proguard_rules.pro:proguard-rules.pro"
-    partialResultsDir="/Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/app/intermediates/lint_vital_partial_results/release/lintVitalAnalyzeRelease/out">
+    mergedManifest="/Users/jose.hernandez/mightier_amp_EQ/build/app/intermediates/merged_manifest/release/outputReleaseAppLinkSettings/AndroidManifest.xml"
+    manifestMergeReport="/Users/jose.hernandez/mightier_amp_EQ/build/app/outputs/logs/manifest-merger-release-report.txt"
+    proguardFiles="/Users/jose.hernandez/mightier_amp_EQ/build/app/intermediates/default_proguard_files/global/proguard-android-optimize.txt-8.11.1:/Users/jose.hernandez/flutter/packages/flutter_tools/gradle/flutter_proguard_rules.pro:proguard-rules.pro"
+    partialResultsDir="/Users/jose.hernandez/mightier_amp_EQ/build/app/intermediates/lint_vital_partial_results/release/lintVitalAnalyzeRelease/out">
   <buildFeatures
       namespacing="REQUIRED"/>
   <sourceProviders>
@@ -27,11 +27,11 @@
         value="android.app.Application" />
   </manifestPlaceholders>
   <artifact
-      classOutputs="/Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/app/intermediates/javac/release/compileReleaseJavaWithJavac/classes:/Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/app/tmp/kotlin-classes/release:/Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/app/kotlinToolingMetadata:/Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/app/intermediates/compile_and_runtime_not_namespaced_r_class_jar/release/processReleaseResources/R.jar"
+      classOutputs="/Users/jose.hernandez/mightier_amp_EQ/build/app/intermediates/javac/release/compileReleaseJavaWithJavac/classes:/Users/jose.hernandez/mightier_amp_EQ/build/app/tmp/kotlin-classes/release:/Users/jose.hernandez/mightier_amp_EQ/build/app/kotlinToolingMetadata:/Users/jose.hernandez/mightier_amp_EQ/build/app/intermediates/compile_and_runtime_not_namespaced_r_class_jar/release/processReleaseResources/R.jar"
       type="MAIN"
       applicationId="com.tuntori.mightieramp"
-      generatedSourceFolders="/Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/app/generated/ap_generated_sources/release/out"
-      generatedResourceFolders="/Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/app/generated/res/resValues/release"
+      generatedSourceFolders="/Users/jose.hernandez/mightier_amp_EQ/build/app/generated/ap_generated_sources/release/out"
+      generatedResourceFolders="/Users/jose.hernandez/mightier_amp_EQ/build/app/generated/res/resValues/release"
       desugaredMethodsFiles="/Users/jose.hernandez/.gradle/caches/8.14/transforms/a35d575239651e017c5c5a2e85c4b7c2/transformed/D8BackportedDesugaredMethods.txt">
   </artifact>
 </variant>

@@ -1,4 +1,0 @@
-/Users/jose.hernandez/Library/Android/sdk/cmake/3.22.1/bin/ninja \
-  -C \
-  /Users/jose.hernandez/.pub-cache/hosted/pub.dev/jni-1.0.2/android/.cxx/RelWithDebInfo/6k513o3w/x86 \
-  jni

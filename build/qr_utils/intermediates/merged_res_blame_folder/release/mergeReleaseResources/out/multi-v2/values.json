@@ -76,20 +76,20 @@
                     }
                 },
                 {
-                    "source": "/Users/jose.hernandez/mightier_amp_EQ_no_NAM/plugins/qr_utils-0.1.5/android/src/main/res/values/strings.xml",
+                    "source": "/Users/jose.hernandez/mightier_amp_EQ/plugins/qr_utils-0.1.5/android/src/main/res/values/colors.xml",
                     "from": {
-                        "startLines": "4,2,3",
-                        "startColumns": "4,4,4",
-                        "startOffsets": "163,55,113",
-                        "endColumns": "78,57,49",
-                        "endOffsets": "237,108,158"
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "39",
+                        "endOffsets": "90"
                     },
                     "to": {
-                        "startLines": "561,569,570",
-                        "startColumns": "4,4,4",
-                        "startOffsets": "34189,35304,35362",
-                        "endColumns": "78,57,49",
-                        "endOffsets": "34263,35357,35407"
+                        "startLines": "190",
+                        "startColumns": "4",
+                        "startOffsets": "10527",
+                        "endColumns": "39",
+                        "endOffsets": "10562"
                     }
                 },
                 {
@@ -145,23 +145,6 @@
                         "startOffsets": "29579",
                         "endColumns": "42",
                         "endOffsets": "29617"
-                    }
-                },
-                {
-                    "source": "/Users/jose.hernandez/mightier_amp_EQ_no_NAM/plugins/qr_utils-0.1.5/android/src/main/res/values/colors.xml",
-                    "from": {
-                        "startLines": "2",
-                        "startColumns": "4",
-                        "startOffsets": "55",
-                        "endColumns": "39",
-                        "endOffsets": "90"
-                    },
-                    "to": {
-                        "startLines": "190",
-                        "startColumns": "4",
-                        "startOffsets": "10527",
-                        "endColumns": "39",
-                        "endOffsets": "10562"
                     }
                 },
                 {
@@ -237,6 +220,25 @@
                     }
                 },
                 {
+                    "source": "/Users/jose.hernandez/mightier_amp_EQ/plugins/qr_utils-0.1.5/android/src/main/res/values/styles.xml",
+                    "from": {
+                        "startLines": "2,9,14",
+                        "startColumns": "4,4,4",
+                        "startOffsets": "64,366,517",
+                        "endLines": "7,12,18",
+                        "endColumns": "12,12,12",
+                        "endOffsets": "360,511,731"
+                    },
+                    "to": {
+                        "startLines": "582,588,592",
+                        "startColumns": "4,4,4",
+                        "startOffsets": "36255,36521,36671",
+                        "endLines": "587,591,596",
+                        "endColumns": "12,12,12",
+                        "endOffsets": "36516,36666,36885"
+                    }
+                },
+                {
                     "source": "/Users/jose.hernandez/.gradle/caches/8.14/transforms/847cc1e4e11b529cb7e52771d5e68fda/transformed/core-1.13.1/res/values/values.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,98,99,103,104,105,106,112,122,155,176,209",
@@ -256,22 +258,20 @@
                     }
                 },
                 {
-                    "source": "/Users/jose.hernandez/mightier_amp_EQ_no_NAM/plugins/qr_utils-0.1.5/android/src/main/res/values/styles.xml",
+                    "source": "/Users/jose.hernandez/mightier_amp_EQ/plugins/qr_utils-0.1.5/android/src/main/res/values/strings.xml",
                     "from": {
-                        "startLines": "2,9,14",
+                        "startLines": "4,2,3",
                         "startColumns": "4,4,4",
-                        "startOffsets": "64,366,517",
-                        "endLines": "7,12,18",
-                        "endColumns": "12,12,12",
-                        "endOffsets": "360,511,731"
+                        "startOffsets": "163,55,113",
+                        "endColumns": "78,57,49",
+                        "endOffsets": "237,108,158"
                     },
                     "to": {
-                        "startLines": "582,588,592",
+                        "startLines": "561,569,570",
                         "startColumns": "4,4,4",
-                        "startOffsets": "36255,36521,36671",
-                        "endLines": "587,591,596",
-                        "endColumns": "12,12,12",
-                        "endOffsets": "36516,36666,36885"
+                        "startOffsets": "34189,35304,35362",
+                        "endColumns": "78,57,49",
+                        "endOffsets": "34263,35357,35407"
                     }
                 },
                 {
@@ -443,20 +443,20 @@
                     }
                 },
                 {
-                    "source": "/Users/jose.hernandez/mightier_amp_EQ_no_NAM/plugins/qr_utils-0.1.5/android/src/main/res/values/strings.xml",
+                    "source": "/Users/jose.hernandez/mightier_amp_EQ/plugins/qr_utils-0.1.5/android/src/main/res/values/colors.xml",
                     "from": {
-                        "startLines": "4,2,3",
-                        "startColumns": "4,4,4",
-                        "startOffsets": "163,55,113",
-                        "endColumns": "78,57,49",
-                        "endOffsets": "237,108,158"
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "39",
+                        "endOffsets": "90"
                     },
                     "to": {
-                        "startLines": "561,569,570",
-                        "startColumns": "4,4,4",
-                        "startOffsets": "34189,35304,35362",
-                        "endColumns": "78,57,49",
-                        "endOffsets": "34263,35357,35407"
+                        "startLines": "190",
+                        "startColumns": "4",
+                        "startOffsets": "10527",
+                        "endColumns": "39",
+                        "endOffsets": "10562"
                     }
                 },
                 {
@@ -512,23 +512,6 @@
                         "startOffsets": "29579",
                         "endColumns": "42",
                         "endOffsets": "29617"
-                    }
-                },
-                {
-                    "source": "/Users/jose.hernandez/mightier_amp_EQ_no_NAM/plugins/qr_utils-0.1.5/android/src/main/res/values/colors.xml",
-                    "from": {
-                        "startLines": "2",
-                        "startColumns": "4",
-                        "startOffsets": "55",
-                        "endColumns": "39",
-                        "endOffsets": "90"
-                    },
-                    "to": {
-                        "startLines": "190",
-                        "startColumns": "4",
-                        "startOffsets": "10527",
-                        "endColumns": "39",
-                        "endOffsets": "10562"
                     }
                 },
                 {
@@ -604,6 +587,25 @@
                     }
                 },
                 {
+                    "source": "/Users/jose.hernandez/mightier_amp_EQ/plugins/qr_utils-0.1.5/android/src/main/res/values/styles.xml",
+                    "from": {
+                        "startLines": "2,9,14",
+                        "startColumns": "4,4,4",
+                        "startOffsets": "64,366,517",
+                        "endLines": "7,12,18",
+                        "endColumns": "12,12,12",
+                        "endOffsets": "360,511,731"
+                    },
+                    "to": {
+                        "startLines": "582,588,592",
+                        "startColumns": "4,4,4",
+                        "startOffsets": "36255,36521,36671",
+                        "endLines": "587,591,596",
+                        "endColumns": "12,12,12",
+                        "endOffsets": "36516,36666,36885"
+                    }
+                },
+                {
                     "source": "/Users/jose.hernandez/.gradle/caches/8.14/transforms/847cc1e4e11b529cb7e52771d5e68fda/transformed/core-1.13.1/res/values/values.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,98,99,103,104,105,106,112,122,155,176,209",
@@ -623,22 +625,20 @@
                     }
                 },
                 {
-                    "source": "/Users/jose.hernandez/mightier_amp_EQ_no_NAM/plugins/qr_utils-0.1.5/android/src/main/res/values/styles.xml",
+                    "source": "/Users/jose.hernandez/mightier_amp_EQ/plugins/qr_utils-0.1.5/android/src/main/res/values/strings.xml",
                     "from": {
-                        "startLines": "2,9,14",
+                        "startLines": "4,2,3",
                         "startColumns": "4,4,4",
-                        "startOffsets": "64,366,517",
-                        "endLines": "7,12,18",
-                        "endColumns": "12,12,12",
-                        "endOffsets": "360,511,731"
+                        "startOffsets": "163,55,113",
+                        "endColumns": "78,57,49",
+                        "endOffsets": "237,108,158"
                     },
                     "to": {
-                        "startLines": "582,588,592",
+                        "startLines": "561,569,570",
                         "startColumns": "4,4,4",
-                        "startOffsets": "36255,36521,36671",
-                        "endLines": "587,591,596",
-                        "endColumns": "12,12,12",
-                        "endOffsets": "36516,36666,36885"
+                        "startOffsets": "34189,35304,35362",
+                        "endColumns": "78,57,49",
+                        "endOffsets": "34263,35357,35407"
                     }
                 },
                 {

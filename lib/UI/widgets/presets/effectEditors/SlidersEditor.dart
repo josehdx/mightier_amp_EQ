@@ -60,6 +60,7 @@ class _SlidersEditorState extends State<SlidersEditor> {
   void _updateParameterValue(Parameter param, double val) {
     var device = NuxDeviceControl.instance().device;
     var slot = device.selectedSlot;
+
     NuxDeviceControl.instance().changes.add(
             Change<({double parameter, int selectedSlot})>(
                 (parameter: _oldValue, selectedSlot: slot), () {
@@ -103,7 +104,7 @@ class _SlidersEditorState extends State<SlidersEditor> {
               .desaturate(80)
               .darken(15)
               .color;
-    
+              
     Color textColor = bgColor.computeLuminance() > 0.5 ? Colors.black : Colors.white;
 
     return RawMaterialButton(
@@ -203,12 +204,9 @@ class _SlidersEditorState extends State<SlidersEditor> {
 
     var isPortrait = MediaQuery.of(context).orientation == Orientation.portrait;
     var layout = getEditorLayoutMode(MediaQuery.of(context));
-
     var handleVerticalDrag = isPortrait && layout != EditorLayoutMode.scroll;
-    //get all the parameters for the slot
-    List<Processor> prc = preset.getEffectsForSlot(slot);
 
-    //create the widgets to edit them
+    List<Processor> prc = preset.getEffectsForSlot(slot);
     var selected = preset.getSelectedEffectForSlot(slot);
     List<Parameter> params = prc[selected].parameters;
 
@@ -217,9 +215,8 @@ class _SlidersEditorState extends State<SlidersEditor> {
         Widget widget;
         switch (params[i].formatter.inputType) {
           case InputType.SliderInput:
-            widget = Flexible(
-                fit: FlexFit.loose,
-                child: _createSlider(params[i], handleVerticalDrag));
+            // FIX: Removed the Flexible widget to prevent RenderFlex crash in unbounded Columns
+            widget = _createSlider(params[i], handleVerticalDrag);
             break;
           case InputType.SwitchInput:
             widget = _createModeControl(params[i]);
@@ -227,12 +224,10 @@ class _SlidersEditorState extends State<SlidersEditor> {
         }
         sliders.add(widget);
 
-        //add tap tempo button
         if (params[i].formatter is TempoFormatter) {
           sliders.add(_createTapTempo(params[i]));
         }
 
-        //add cabinet rename if supported
         if (dev.cabinetSupport &&
             dev.cabinetSlotIndex == slot &&
             dev.hackableIRs) {

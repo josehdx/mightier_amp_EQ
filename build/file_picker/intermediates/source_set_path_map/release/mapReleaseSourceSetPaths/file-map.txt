@@ -19,10 +19,10 @@ com.example.file_picker-jetified-core-1.0.0-17 /Users/jose.hernandez/.gradle/cac
 com.example.file_picker-jetified-lifecycle-viewmodel-savedstate-2.7.0-18 /Users/jose.hernandez/.gradle/caches/8.14/transforms/c01d3f9bf800c0fbcc46ad78ad641d08/transformed/jetified-lifecycle-viewmodel-savedstate-2.7.0/res
 com.example.file_picker-jetified-window-1.2.0-19 /Users/jose.hernandez/.gradle/caches/8.14/transforms/fbd7a1f40973efdd3e0b39325049fc32/transformed/jetified-window-1.2.0/res
 com.example.file_picker-jetified-tracing-1.2.0-20 /Users/jose.hernandez/.gradle/caches/8.14/transforms/fe9cb27c90a494ba075b6c387e4ff5be/transformed/jetified-tracing-1.2.0/res
-com.example.file_picker-pngs-21 /Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/file_picker/generated/res/pngs/release
-com.example.file_picker-resValues-22 /Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/file_picker/generated/res/resValues/release
-com.example.file_picker-mergeReleaseResources-23 /Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/file_picker/intermediates/incremental/release/mergeReleaseResources/merged.dir
-com.example.file_picker-mergeReleaseResources-24 /Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/file_picker/intermediates/incremental/release/mergeReleaseResources/stripped.dir
-com.example.file_picker-release-25 /Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/file_picker/intermediates/merged_res/release/mergeReleaseResources
-com.example.file_picker-main-26 /Users/jose.hernandez/mightier_amp_EQ_no_NAM/plugins/file_picker/android/src/main/res
-com.example.file_picker-release-27 /Users/jose.hernandez/mightier_amp_EQ_no_NAM/plugins/file_picker/android/src/release/res
+com.example.file_picker-pngs-21 /Users/jose.hernandez/mightier_amp_EQ/build/file_picker/generated/res/pngs/release
+com.example.file_picker-resValues-22 /Users/jose.hernandez/mightier_amp_EQ/build/file_picker/generated/res/resValues/release
+com.example.file_picker-mergeReleaseResources-23 /Users/jose.hernandez/mightier_amp_EQ/build/file_picker/intermediates/incremental/release/mergeReleaseResources/merged.dir
+com.example.file_picker-mergeReleaseResources-24 /Users/jose.hernandez/mightier_amp_EQ/build/file_picker/intermediates/incremental/release/mergeReleaseResources/stripped.dir
+com.example.file_picker-release-25 /Users/jose.hernandez/mightier_amp_EQ/build/file_picker/intermediates/merged_res/release/mergeReleaseResources
+com.example.file_picker-main-26 /Users/jose.hernandez/mightier_amp_EQ/plugins/file_picker/android/src/main/res
+com.example.file_picker-release-27 /Users/jose.hernandez/mightier_amp_EQ/plugins/file_picker/android/src/release/res

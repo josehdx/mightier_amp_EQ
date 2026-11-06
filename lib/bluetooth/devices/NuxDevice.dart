@@ -4,7 +4,6 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:math' as math;
-
 import 'package:flutter/widgets.dart';
 import 'package:mighty_plug_manager/bluetooth/devices/communication/communication.dart';
 import 'package:mighty_plug_manager/platform/presetsStorage.dart';
@@ -36,7 +35,6 @@ abstract class NuxDevice extends ChangeNotifier {
   final NuxDeviceControl deviceControl;
 
   int get productVID;
-
   int get vendorID {
     return 8721;
   }
@@ -51,18 +49,13 @@ abstract class NuxDevice extends ChangeNotifier {
   String get productNameShort;
   String get productIconLabel;
   String get productStringId;
-
   String get presetClass;
   String get productNameForQR => productNameShort;
-
   int get productVersion;
   List<String> get productBLENames;
-
   int get channelsCount;
   int get effectsChainLength;
-
   List<ProcessorInfo> get processorList;
-
   int get amplifierSlotIndex;
   bool get activeChannelRetrieval;
   bool get fakeMasterVolume;
@@ -75,10 +68,12 @@ abstract class NuxDevice extends ChangeNotifier {
   bool get batterySupport;
   bool get nativeActiveChannelsSupport;
   ValueFormatter? get decibelFormatter => null;
+
   bool get jamTrackChannelChange => false;
 
   int get deviceQRId;
   int get deviceQRVersion;
+
   int get channelChangeCC;
 
   List<String> channelNames = [];
@@ -98,16 +93,13 @@ abstract class NuxDevice extends ChangeNotifier {
       StreamController<Parameter>();
 
   List<Preset> presets = <Preset>[];
-
   bool nuxPresetsReceived = false;
 
   @protected
   int selectedChannelP = 0; //nux-based channel index
-
   int get selectedChannel => selectedChannelP;
 
   void setFirmwareVersion(int ver);
-
   void setFirmwareVersionByIndex(int ver);
 
   NuxDevice(this.deviceControl) {
@@ -133,16 +125,27 @@ abstract class NuxDevice extends ChangeNotifier {
     return null;
   }
 
+  // FIX: Safely iterate instead of using direct array indexing to prevent 
+  // OutOfBounds crashes when querying custom NAM IDs (e.g., 104).
   int? getSlotByEffectKeyName(String key) {
     var pi = getProcessorInfoByKey(key);
     if (pi != null) {
-      return pi.nuxFXID.toInt();
+      var p = getPreset(selectedChannel);
+      for (int i = 0; i < effectsChainLength; i++) {
+        if (p.getFXIDFromSlot(i) == pi.nuxFXID) {
+          return i;
+        }
+      }
+      return 0; // Fallback
     }
     return null;
   }
 
   ProcessorInfo? getProcessorInfoByFXID(NuxFXID fxid) {
-    return processorList[fxid.toInt()];
+    for (var proc in processorList) {
+      if (proc.nuxFXID == fxid) return proc;
+    }
+    return null;
   }
 
   void setSelectedChannel(int chan,
@@ -162,6 +165,7 @@ abstract class NuxDevice extends ChangeNotifier {
     }
     if (sendFullPreset) deviceControl.sendFullPresetSettings();
     if (deviceControl.isConnected) sendAmpLevel();
+
     if (notifyUI) {
       deviceControl.forceNotifyListeners();
     }
@@ -187,6 +191,7 @@ abstract class NuxDevice extends ChangeNotifier {
     if (nativeActiveChannelsSupport) {
       communication.sendActiveChannels(config.activeChannels);
     }
+
     notifyListeners();
   }
 
@@ -194,12 +199,12 @@ abstract class NuxDevice extends ChangeNotifier {
   int selectedSlot = 0;
 
   //general settings
-
   bool get ecoMode => config.ecoMode;
 
   //drum stuff
   double get drumsMinTempo => 40;
   double get drumsMaxTempo => 240;
+
   bool get drumsEnabled => config.drumsEnabled;
   int get selectedDrumStyle => config.selectedDrumStyle;
   double get drumsVolume => config.drumsVolume;
@@ -207,10 +212,12 @@ abstract class NuxDevice extends ChangeNotifier {
 
   void onConnect() {
     nuxPresetsReceived = false;
+
     //reset nux data
     for (int i = 0; i < presets.length; i++) {
       presets[i].resetNuxData();
     }
+
     resetDrumSettings();
   }
 
@@ -220,6 +227,7 @@ abstract class NuxDevice extends ChangeNotifier {
   }
 
   dynamic getDrumStyles();
+
   int getDrumStylesCount() {
     return (getDrumStyles() as List).length;
   }
@@ -250,6 +258,7 @@ abstract class NuxDevice extends ChangeNotifier {
 
   void setDrumsTempo(double tempo, bool send) {
     if (config.drumsTempo == tempo) return;
+
     tempo = math.min(math.max(tempo, drumsMinTempo), drumsMaxTempo);
     config.drumsTempo = tempo;
     if (send) communication.sendDrumsTempo(tempo);
@@ -333,6 +342,7 @@ abstract class NuxDevice extends ChangeNotifier {
     }
 
     getPreset(selectedChannel).setupPresetFromNuxData();
+
     //immediately set the amp level
     sendAmpLevel();
   }
@@ -342,16 +352,20 @@ abstract class NuxDevice extends ChangeNotifier {
 
     //scan through the effects to find which one is controlled
     var preset = getPreset(selectedChannel);
+
     for (int i = 0; i < effectsChainLength; i++) {
       var selected = preset.getSelectedEffectForSlot(i);
       var effect = preset.getEffectsForSlot(i)[selected];
+
       var cmdCC = data[1];
+
       bool enable = ((data[2] & 0xc0) != 0) ^ effect.nuxEnableInverted;
       int effectIndex = data[2] & 0x3f;
 
       if (effect.midiCCEnableValue == effect.midiCCSelectionValue &&
           cmdCC == effect.midiCCEnableValue) {
         var procIndex = preset.getFXIDFromSlot(i);
+
         var nuxIndex =
             preset.getEffectArrayIndexFromNuxIndex(procIndex, effectIndex);
         preset.setSelectedEffectForSlot(i, nuxIndex, false);
@@ -364,8 +378,10 @@ abstract class NuxDevice extends ChangeNotifier {
         return;
       } else if (cmdCC == effect.midiCCSelectionValue) {
         var procIndex = preset.getFXIDFromSlot(i);
+
         var nuxIndex =
             preset.getEffectArrayIndexFromNuxIndex(procIndex, effectIndex);
+
         preset.setSelectedEffectForSlot(i, nuxIndex, false);
         notifyListeners();
         return;
@@ -446,13 +462,11 @@ abstract class NuxDevice extends ChangeNotifier {
     if (result == PresetQRError.Ok) {
       deviceControl.clearPresetData();
     }
-
     return result;
   }
 
   Preset? setupDetachedPresetFromQRData(String qrData) {
     var p = getCustomPreset(selectedChannel);
-
     var result = p.setupPresetFromQRData(qrData);
     if (result == PresetQRError.Ok) return p;
     return null;
@@ -493,9 +507,12 @@ abstract class NuxDevice extends ChangeNotifier {
       double? overrideLevel) {
     int fxTypeNuxIndex = effect["fx_type"];
     bool enabled = unselected ? false : effect["enabled"];
+
     NuxFXID nuxSlotIndex = devicePreset.getFXIDFromSlot(slotIndex);
+
     int fxIndex = devicePreset.getEffectArrayIndexFromNuxIndex(
         nuxSlotIndex, fxTypeNuxIndex);
+
     //check if preset conversion is needed
     if (presetVersion != productVersion) {
       //temporarily switch the preset to the other version
@@ -516,14 +533,12 @@ abstract class NuxDevice extends ChangeNotifier {
         fxIndex = 0;
         enabled = false;
       }
-
       //revert the preset back
       devicePreset.setFirmwareVersion(productVersion);
     }
 
     if (!unselected) {
       devicePreset.setSelectedEffectForSlot(slotIndex, fxIndex, false);
-
       devicePreset.setSlotEnabled(slotIndex, enabled, false);
     }
 
@@ -537,6 +552,7 @@ abstract class NuxDevice extends ChangeNotifier {
       fx = devicePreset.getEffectsForSlot(
           slotIndex)[devicePreset.getSelectedEffectForSlot(slotIndex)];
     }
+
     if (fx == null) return;
 
     for (int f = 0; f < fx.parameters.length; f++) {
@@ -570,7 +586,6 @@ abstract class NuxDevice extends ChangeNotifier {
     var pVersion = preset["version"] ?? 0;
 
     var nuxChannel = preset["channel"];
-
     if (!qrOnly) {
       BLEMidiHandler.instance().clearDataQueue();
       if (!dontChangeChannel || jamTrackChannelChange) {
@@ -590,7 +605,6 @@ abstract class NuxDevice extends ChangeNotifier {
     } else {
       p = getCustomPreset(nuxChannel);
     }
-
     if (preset.containsKey("volume")) p.setVolume(preset["volume"], !qrOnly);
 
     //set the chain order first, if the device supports it
@@ -611,8 +625,8 @@ abstract class NuxDevice extends ChangeNotifier {
       if (index != null) {
         //get effect
         Map<String, dynamic> effect = preset[key];
-
         parseEffect(effect, index, p, pVersion, false, overrideLevel);
+
         if (!qrOnly) deviceControl.sendFullEffectSettings(index, false);
       }
     }
@@ -642,7 +656,6 @@ abstract class NuxDevice extends ChangeNotifier {
     } else {
       return p;
     }
-
     return null;
   }
 
@@ -652,24 +665,21 @@ abstract class NuxDevice extends ChangeNotifier {
       "product_id": presetClass,
       "version": productVersion
     };
-
     Preset p = customPreset ?? getPreset(selectedChannel);
 
     if (!fakeMasterVolume) mainJson["volume"] = p.volume;
+
     //parse all effects
     for (int i = 0; i < effectsChainLength; i++) {
       Processor fx;
 
       fx = p.getEffectsForSlot(i)[p.getSelectedEffectForSlot(i)];
-
       var fxData = <String, dynamic>{};
       fxData["fx_type"] = fx.nuxIndex;
       fxData["enabled"] = p.slotEnabled(i);
-
       for (int f = 0; f < fx.parameters.length; f++) {
         fxData[fx.parameters[f].handle] = fx.parameters[f].value;
       }
-
       var proc = p.getFXIDFromSlot(i);
       var effect = getProcessorInfoByFXID(proc);
       mainJson[effect!.keyName] = fxData;
@@ -677,39 +687,33 @@ abstract class NuxDevice extends ChangeNotifier {
 
     // Save settings for not selected effects
     var inactiveFX = <String, dynamic>{};
-
     for (int i = 0; i < effectsChainLength; i++) {
       List fxSlotList = [];
-
       //skip cab block, because it makes the preset huge
       //while not being very useful
       if (i == cabinetSlotIndex) continue;
-
       List<Processor> effectsForslot = p.getEffectsForSlot(i);
+
       for (int j = 0; j < effectsForslot.length; j++) {
         if (j == p.getSelectedEffectForSlot(i)) continue;
-
         var fxData = <String, dynamic>{};
         fxData["fx_type"] = effectsForslot[j].nuxIndex;
 
         // Generic processing of not selected effects
         Processor fx;
         fx = effectsForslot[j];
-
         for (int f = 0; f < fx.parameters.length; f++) {
           fxData[fx.parameters[f].handle] = fx.parameters[f].value;
         }
 
         fxSlotList.add(fxData);
       }
-
       if (fxSlotList.isNotEmpty) {
         var proc = p.getFXIDFromSlot(i);
         var effect = getProcessorInfoByFXID(proc);
         inactiveFX[effect!.keyName] = fxSlotList;
       }
     }
-
     mainJson[PresetsStorage.inactiveEffectsKey] = inactiveFX;
     return mainJson;
   }

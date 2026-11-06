@@ -3,7 +3,6 @@
 
 import 'package:mighty_plug_manager/bluetooth/devices/NuxMightyPlugAir.dart';
 import 'package:mighty_plug_manager/bluetooth/devices/effects/plug_air/EFXv2.dart';
-
 import '../../NuxConstants.dart';
 import '../../value_formatters/ValueFormatter.dart';
 import '../MidiControllerHandles.dart';
@@ -44,10 +43,8 @@ abstract class EFX extends Processor {
 class TouchWah extends EFX {
   @override
   final name = "Touch Wah";
-
   @override
   int get nuxIndex => 0;
-
   @override
   List<Parameter> parameters = [
     Parameter(
@@ -80,7 +77,6 @@ class TouchWah extends EFX {
 class UniVibe extends EFX {
   @override
   final name = "Uni Vibe";
-
   @override
   int get nuxIndex => 1;
   @override
@@ -115,7 +111,6 @@ class UniVibe extends EFX {
 class TremoloEFX extends EFX {
   @override
   final name = "Tremolo";
-
   @override
   int get nuxIndex => 2;
   @override
@@ -142,7 +137,6 @@ class TremoloEFX extends EFX {
 class PhaserEFX extends EFX {
   @override
   final name = "Phaser";
-
   @override
   int get nuxIndex => 3;
   @override
@@ -177,7 +171,6 @@ class PhaserEFX extends EFX {
 class Boost extends EFX {
   @override
   final name = "Boost";
-
   @override
   int get nuxIndex => 4;
   @override
@@ -199,7 +192,6 @@ class Boost extends EFX {
         midiCC: MidiCCValues.bCC_DistTone,
         midiControllerHandle: MidiControllerHandles.efxLevel),
   ];
-
   @override
   int? getEquivalentEffect(int version) {
     if (version == PlugAirVersion.PlugAir21.index) return Katana().nuxIndex;
@@ -210,7 +202,6 @@ class Boost extends EFX {
 class TSDrive extends EFX {
   @override
   final name = "T Screamer";
-
   @override
   int get nuxIndex => 5;
   @override
@@ -245,7 +236,6 @@ class TSDrive extends EFX {
 class BassTS extends EFX {
   @override
   final name = "Bass TS";
-
   @override
   int get nuxIndex => 6;
   @override
@@ -275,7 +265,6 @@ class BassTS extends EFX {
         midiCC: MidiCCValues.bCC_DistLevel,
         midiControllerHandle: MidiControllerHandles.efxGain),
   ];
-
   @override
   int? getEquivalentEffect(int version) {
     if (version == PlugAirVersion.PlugAir21.index) return null;
@@ -286,7 +275,6 @@ class BassTS extends EFX {
 class ThreeBandEQ extends EFX {
   @override
   final name = "3 Band EQ";
-
   @override
   int get nuxIndex => 7;
   @override
@@ -321,7 +309,6 @@ class ThreeBandEQ extends EFX {
 class Muff extends EFX {
   @override
   final name = "Muff Fuzz";
-
   @override
   int get nuxIndex => 8;
   @override
@@ -356,7 +343,6 @@ class Muff extends EFX {
 class Crunch extends EFX {
   @override
   final name = "Crunch";
-
   @override
   int get nuxIndex => 9;
   @override
@@ -391,7 +377,6 @@ class Crunch extends EFX {
 class RedDist extends EFX {
   @override
   final name = "Red Dist";
-
   @override
   int get nuxIndex => 10;
   @override
@@ -426,7 +411,6 @@ class RedDist extends EFX {
 class MorningDrive extends EFX {
   @override
   final name = "Morning Drive";
-
   @override
   int get nuxIndex => 11;
   @override
@@ -461,7 +445,6 @@ class MorningDrive extends EFX {
 class DistOne extends EFX {
   @override
   final name = "Dist One";
-
   @override
   int get nuxIndex => 12;
   @override

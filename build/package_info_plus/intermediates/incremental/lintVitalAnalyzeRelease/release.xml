@@ -3,9 +3,9 @@
     package="dev.fluttercommunity.plus.packageinfo"
     minSdkVersion="19"
     targetSdkVersion="19"
-    mergedManifest="/Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/package_info_plus/intermediates/merged_manifest/release/processReleaseManifest/AndroidManifest.xml"
-    proguardFiles="/Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/package_info_plus/intermediates/default_proguard_files/global/proguard-android.txt-8.11.1"
-    partialResultsDir="/Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/package_info_plus/intermediates/lint_vital_partial_results/release/lintVitalAnalyzeRelease/out"
+    mergedManifest="/Users/jose.hernandez/mightier_amp_EQ/build/package_info_plus/intermediates/merged_manifest/release/processReleaseManifest/AndroidManifest.xml"
+    proguardFiles="/Users/jose.hernandez/mightier_amp_EQ/build/package_info_plus/intermediates/default_proguard_files/global/proguard-android.txt-8.11.1"
+    partialResultsDir="/Users/jose.hernandez/mightier_amp_EQ/build/package_info_plus/intermediates/lint_vital_partial_results/release/lintVitalAnalyzeRelease/out"
     desugaredMethodsFiles="/Users/jose.hernandez/.gradle/caches/8.14/transforms/86e5f94569c46611814ef590c310eb84/transformed/D8BackportedDesugaredMethods.txt">
   <buildFeatures
       namespacing="REQUIRED"/>
@@ -21,11 +21,11 @@
   <testFixturesSourceProviders>
   </testFixturesSourceProviders>
   <artifact
-      classOutputs="/Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/package_info_plus/intermediates/javac/release/compileReleaseJavaWithJavac/classes:/Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/package_info_plus/tmp/kotlin-classes/release:/Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/package_info_plus/intermediates/compile_r_class_jar/release/generateReleaseRFile/R.jar"
+      classOutputs="/Users/jose.hernandez/mightier_amp_EQ/build/package_info_plus/intermediates/javac/release/compileReleaseJavaWithJavac/classes:/Users/jose.hernandez/mightier_amp_EQ/build/package_info_plus/tmp/kotlin-classes/release:/Users/jose.hernandez/mightier_amp_EQ/build/package_info_plus/intermediates/compile_r_class_jar/release/generateReleaseRFile/R.jar"
       type="MAIN"
       applicationId="dev.fluttercommunity.plus.packageinfo"
-      generatedSourceFolders="/Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/package_info_plus/generated/ap_generated_sources/release/out"
-      generatedResourceFolders="/Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/package_info_plus/generated/res/resValues/release"
+      generatedSourceFolders="/Users/jose.hernandez/mightier_amp_EQ/build/package_info_plus/generated/ap_generated_sources/release/out"
+      generatedResourceFolders="/Users/jose.hernandez/mightier_amp_EQ/build/package_info_plus/generated/res/resValues/release"
       desugaredMethodsFiles="/Users/jose.hernandez/.gradle/caches/8.14/transforms/86e5f94569c46611814ef590c310eb84/transformed/D8BackportedDesugaredMethods.txt">
   </artifact>
 </variant>

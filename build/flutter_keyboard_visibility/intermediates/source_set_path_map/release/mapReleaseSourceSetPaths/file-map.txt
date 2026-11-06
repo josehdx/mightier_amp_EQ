@@ -21,8 +21,8 @@ com.jrai.flutter_keyboard_visibility-jetified-window-1.2.0-19 /Users/jose.hernan
 com.jrai.flutter_keyboard_visibility-jetified-tracing-1.2.0-20 /Users/jose.hernandez/.gradle/caches/8.14/transforms/fe9cb27c90a494ba075b6c387e4ff5be/transformed/jetified-tracing-1.2.0/res
 com.jrai.flutter_keyboard_visibility-main-21 /Users/jose.hernandez/.pub-cache/hosted/pub.dev/flutter_keyboard_visibility-6.0.0/android/src/main/res
 com.jrai.flutter_keyboard_visibility-release-22 /Users/jose.hernandez/.pub-cache/hosted/pub.dev/flutter_keyboard_visibility-6.0.0/android/src/release/res
-com.jrai.flutter_keyboard_visibility-pngs-23 /Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/flutter_keyboard_visibility/generated/res/pngs/release
-com.jrai.flutter_keyboard_visibility-resValues-24 /Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/flutter_keyboard_visibility/generated/res/resValues/release
-com.jrai.flutter_keyboard_visibility-mergeReleaseResources-25 /Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/flutter_keyboard_visibility/intermediates/incremental/release/mergeReleaseResources/merged.dir
-com.jrai.flutter_keyboard_visibility-mergeReleaseResources-26 /Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/flutter_keyboard_visibility/intermediates/incremental/release/mergeReleaseResources/stripped.dir
-com.jrai.flutter_keyboard_visibility-release-27 /Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/flutter_keyboard_visibility/intermediates/merged_res/release/mergeReleaseResources
+com.jrai.flutter_keyboard_visibility-pngs-23 /Users/jose.hernandez/mightier_amp_EQ/build/flutter_keyboard_visibility/generated/res/pngs/release
+com.jrai.flutter_keyboard_visibility-resValues-24 /Users/jose.hernandez/mightier_amp_EQ/build/flutter_keyboard_visibility/generated/res/resValues/release
+com.jrai.flutter_keyboard_visibility-mergeReleaseResources-25 /Users/jose.hernandez/mightier_amp_EQ/build/flutter_keyboard_visibility/intermediates/incremental/release/mergeReleaseResources/merged.dir
+com.jrai.flutter_keyboard_visibility-mergeReleaseResources-26 /Users/jose.hernandez/mightier_amp_EQ/build/flutter_keyboard_visibility/intermediates/incremental/release/mergeReleaseResources/stripped.dir
+com.jrai.flutter_keyboard_visibility-release-27 /Users/jose.hernandez/mightier_amp_EQ/build/flutter_keyboard_visibility/intermediates/merged_res/release/mergeReleaseResources

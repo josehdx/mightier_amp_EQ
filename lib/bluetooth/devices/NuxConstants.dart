@@ -46,7 +46,7 @@ class DeviceMessageID {
   static const devReqCurCCMsgID = 3;
   static const devReqCurNRPNMsgID = 4;
   static const devSysCtrlMsgID = 5;
-  static const devReqPresetMsgID = 6; //request preset
+  static const devReqPresetMsgID = 6;
   static const devGetPresetMsgID = 7;
   static const devSetPresetMsgID = 8;
   static const devReqCurLoopMsgID = 9;
@@ -118,14 +118,11 @@ class PresetDataIndexPlugAir {
   static const reverbvar3mix = 33;
 }
 
-class PresetDataIndex8BT {
-  //use PresetDataIndexLite for most of the constants
-}
+class PresetDataIndex8BT {}
 
 class PresetDataIndex2040BT {
   static const ngenable = 0;
   static const ngthresold = 1;
-
   static const wah_enable = 2;
   static const wah_pedal = 3;
   static const amp_type = 4;
@@ -158,7 +155,6 @@ class PresetDataIndexLite {
   static const ngenable = 0;
   static const ngthresold = 1;
   static const ngsustain = 2;
-
   static const drivetype = 3;
   static const drivesubtype1 = 4;
   static const drivesubtype2 = 5;
@@ -169,24 +165,20 @@ class PresetDataIndexLite {
   static const drivemid = 10;
   static const drivetreble = 11;
   static const drivetone = 12;
-
   static const modfxenable = 13;
   static const modfxtype = 14;
   static const modfxrate = 15;
   static const modfxdepth = 16;
   static const modfxmix = 17;
-
   static const efxenable = 18;
   static const efxtype = 19;
   static const reverbtype = 20;
   static const reverbdecay = 21;
   static const reverbmix = 22;
-
   static const delaytype = 23;
   static const delaytime = 24;
   static const delayfeedback = 25;
   static const delaymix = 26;
-
   static const tap_time_flag = 27;
   static const tap_time_bpm_h = 28;
   static const tap_time_bpm_l = 29;
@@ -198,6 +190,9 @@ class PresetDataIndexLite {
   static const micambsend = 35;
 }
 
+// -------------------------------------------------------------
+// STOCK MIGHTY PLUG PRO / SPACE TOPOLOGY
+// -------------------------------------------------------------
 class PresetDataIndexPlugPro {
   static const effectTypesIndex = [
     Head_iCMP,
@@ -209,19 +204,18 @@ class PresetDataIndexPlugPro {
     Head_iDLY,
     Head_iRVB,
     Head_iCAB,
-    //Head_iSR
   ];
 
   static const defaultEffects = [
-    PlugProFXID.gate,
     PlugProFXID.comp,
-    PlugProFXID.mod,
     PlugProFXID.efx,
     PlugProFXID.amp,
-    PlugProFXID.cab,
     PlugProFXID.eq,
+    PlugProFXID.gate,
+    PlugProFXID.mod,
+    PlugProFXID.delay,
     PlugProFXID.reverb,
-    PlugProFXID.delay
+    PlugProFXID.cab,
   ];
 
   static const Head_iWAH = 0;
@@ -235,6 +229,7 @@ class PresetDataIndexPlugPro {
   static const Head_iRVB = 8;
   static const Head_iCAB = 9;
   static const Head_iSR = 10;
+  
   static const WAH_Count = 11;
   static const WAH_Para1 = 12;
   static const WAH_Para2 = 13;
@@ -358,91 +353,8 @@ class MidiMessageValues {
   static const sysExEnd = 0xf7;
 }
 
-class SysexPrivacy {
-  final int _value;
-  const SysexPrivacy._internal(this._value);
-  @override
-  toString() => '$_value';
-  toInt() => _value;
-
-  static const kSYSEX_PUBLIC = 0x0;
-  static const kSYSEX_PUBLICREPLY = 0x10;
-  static const kSYSEX_RDCTRL = 0x20;
-  static const kSYSEX_IRCTRL = 0x30;
-  static const kSYSEX_PRIVATE = 0x70;
-}
-
-class SyxMsg {
-  final int _value;
-  const SyxMsg._internal(this._value);
-  @override
-  toString() => '$_value';
-  toInt() => _value;
-
-  static const kSYX_BPM = 0x03;
-  static const kSYX_LANGUAGE = 0x04;
-  static const kSYX_CPURUN = 0x05;
-  static const kSYX_SWAPPRESET = 0x06;
-  static const kSYX_CPYPRESET = 0x07;
-  static const kSYX_IRSAVEAS = 0x08;
-  static const kSYX_CRCNAME = 0x09;
-  static const kSYX_MANUAL = 0x0A;
-  static const kSYX_PRESET = 0x0B;
-  static const kSYX_CURPRESET = 0x0C;
-  static const kSYX_MODULELINK = 0x0D;
-  static const kSYX_GLOBLE = 0x0E;
-  static const kSYX_MIDICC = 0x0F;
-  static const kSYX_CABDATA = 0x10;
-  static const kSYX_CABCURVE = 0x11;
-  static const kSYX_PRESETNAME = 0x12;
-  static const kSYX_PEDALSET = 0x13;
-  static const kSYX_SYSTEMSET = 0x14;
-  static const kSYX_CURSTATE = 0x15;
-  static const kSYX_IRDELETE = 0x16;
-  static const kSYX_CUTOVER = 0x17;
-  static const kSYX_LOOP = 0x18;
-  static const kSYX_DRUM = 0x19;
-  static const kSYX_CABNAME = 0x1A;
-  static const kSYX_BTSET =
-      0x1B; //bluetooth eq groups 1-3, however use group 4 to retrieve mute and phase
-
-  static const kSYX_AUXEQ = 27;
-  static const kSYX_SPKEQ = 28;
-
-  static const kSYX_SPKSET = 0x1C;
-
-  static const kSYX_STICKY = 95;
-  static const kSYX_PARAINIT = 0x60;
-  static const kSYX_WELCOME = 0x61;
-  static const kSYX_QTVERSION = 0x62;
-  static const kSYX_UAC_EFFECT = 0x63;
-  static const kSYX_UAC_TRANS = 0x64;
-  static const kSYX_UAC_SAVE = 0x65;
-  static const kSYX_TUNER_SETTINGS = 0x6F;
-  static const kSYX_VOLDISPLAY = 0x74;
-  static const kSYX_SPEC_CMD = 0x75;
-  static const kSYX_HW_VERSION = 0x76;
-  static const kSYX_CODEC_SET = 0x77;
-  static const kSYX_TFT_SET = 0x78;
-  static const kSYX_SNAPSHOTCMD = 0x79;
-  static const kSYX_SNAPSHOT = 0x7A;
-  static const kSYX_RESET = 0x7B;
-  static const kSYX_IRINFO = 0x7C;
-  static const kSYX_DEVINFO = 0x7D;
-  static const kSYX_SENDCMD = 0x7E;
-  static const kSYX_NOUSE = 0x7F;
-}
-
-class SyxDir {
-  static const kSYXDIR_GET = 0;
-  static const kSYXDIR_SET = 1;
-  static const kSYXDIR_REQ = 2;
-  static const kSYXDIR_ACK = 3;
-  static const kSYXDIR_CMD = 4;
-}
-
 class MidiCCValues {
-  static const bCC_NotUsed = -1; //for LITE amp
+  static const bCC_NotUsed = -1; 
   static const bCC_OverDriveEnable = 111;
   static const bCC_OverDriveDrive = 13;
   static const bCC_OverDriveTone = 14;
@@ -526,6 +438,86 @@ class MidiCCValues {
   static const bcc_mRevType = 39;
 }
 
+class SysexPrivacy {
+  final int _value;
+  const SysexPrivacy._internal(this._value);
+  @override
+  toString() => '$_value';
+  toInt() => _value;
+
+  static const kSYSEX_PUBLIC = 0x0;
+  static const kSYSEX_PUBLICREPLY = 0x10;
+  static const kSYSEX_RDCTRL = 0x20;
+  static const kSYSEX_IRCTRL = 0x30;
+  static const kSYSEX_PRIVATE = 0x70;
+}
+
+class SyxMsg {
+  final int _value;
+  const SyxMsg._internal(this._value);
+  @override
+  toString() => '$_value';
+  toInt() => _value;
+
+  static const kSYX_BPM = 0x03;
+  static const kSYX_LANGUAGE = 0x04;
+  static const kSYX_CPURUN = 0x05;
+  static const kSYX_SWAPPRESET = 0x06;
+  static const kSYX_CPYPRESET = 0x07;
+  static const kSYX_IRSAVEAS = 0x08;
+  static const kSYX_CRCNAME = 0x09;
+  static const kSYX_MANUAL = 0x0A;
+  static const kSYX_PRESET = 0x0B;
+  static const kSYX_CURPRESET = 0x0C;
+  static const kSYX_MODULELINK = 0x0D;
+  static const kSYX_GLOBLE = 0x0E;
+  static const kSYX_MIDICC = 0x0F;
+  static const kSYX_CABDATA = 0x10;
+  static const kSYX_CABCURVE = 0x11;
+  static const kSYX_PRESETNAME = 0x12;
+  static const kSYX_PEDALSET = 0x13;
+  static const kSYX_SYSTEMSET = 0x14;
+  static const kSYX_CURSTATE = 0x15;
+  static const kSYX_IRDELETE = 0x16;
+  static const kSYX_CUTOVER = 0x17;
+  static const kSYX_LOOP = 0x18;
+  static const kSYX_DRUM = 0x19;
+  static const kSYX_CABNAME = 0x1A;
+  static const kSYX_BTSET =
+      0x1B; 
+  static const kSYX_AUXEQ = 27;
+  static const kSYX_SPKEQ = 28;
+  static const kSYX_SPKSET = 0x1C;
+  static const kSYX_STICKY = 95;
+  static const kSYX_PARAINIT = 0x60;
+  static const kSYX_WELCOME = 0x61;
+  static const kSYX_QTVERSION = 0x62;
+  static const kSYX_UAC_EFFECT = 0x63;
+  static const kSYX_UAC_TRANS = 0x64;
+  static const kSYX_UAC_SAVE = 0x65;
+  static const kSYX_TUNER_SETTINGS = 0x6F;
+  static const kSYX_VOLDISPLAY = 0x74;
+  static const kSYX_SPEC_CMD = 0x75;
+  static const kSYX_HW_VERSION = 0x76;
+  static const kSYX_CODEC_SET = 0x77;
+  static const kSYX_TFT_SET = 0x78;
+  static const kSYX_SNAPSHOTCMD = 0x79;
+  static const kSYX_SNAPSHOT = 0x7A;
+  static const kSYX_RESET = 0x7B;
+  static const kSYX_IRINFO = 0x7C;
+  static const kSYX_DEVINFO = 0x7D;
+  static const kSYX_SENDCMD = 0x7E;
+  static const kSYX_NOUSE = 0x7F;
+}
+
+class SyxDir {
+  static const kSYXDIR_GET = 0;
+  static const kSYXDIR_SET = 1;
+  static const kSYXDIR_REQ = 2;
+  static const kSYXDIR_ACK = 3;
+  static const kSYXDIR_CMD = 4;
+}
+
 class MidiCCValuesPro {
   static const CC_Unknown = 0;
   static const Head_iWAH = 0;
@@ -541,6 +533,7 @@ class MidiCCValuesPro {
   static const Head_iSR = 10;
   static const TUNER_State = 11;
   static const TUNER_Note = 12;
+
   static const CMP_Para1 = 13;
   static const CMP_Para2 = 14;
   static const CMP_Para3 = 15;
@@ -601,27 +594,25 @@ class MidiCCValuesPro {
   static const CAB_Para6 = 70;
   static const TUNER_Number = 71;
   static const TUNER_Cent = 72;
-  static const MASTER = 73; //patch level
+  static const MASTER = 73; 
   static const MSELECT = 74;
   static const PEDAL = 75;
   static const SCENE = 76;
   static const DRUMENABLE = 77;
-  static const DRUMTYPE = 78; //drum styles - 0 to xx(66?)
+  static const DRUMTYPE = 78; 
   static const DRUMLEVEL = 79;
-  static const LOOPLEVEL = 80; //Looper level - confirmed
+  static const LOOPLEVEL = 80; 
   static const LOOPSTATE = 81;
-  static const AUXEQENABLE = 82; //aux eq group 0-3
-  static const PRESETRANGE = 83; //this sets/receives Active bitfield
+  static const AUXEQENABLE = 82; 
+  static const PRESETRANGE = 83; 
   static const MICVOLUME = 84;
   static const MICMUTE = 85;
-  static const USBROUNT_1 = 86; //Recording LV
-  static const USBROUNT_2 = 87; //Playback LV
-  static const USBROUNT_3 = 88; //Audio Mode 0-2
-  //0-dry out, 1 - normal, 2 - reamp, ---x ---- - this bit is for loopback
-  //the loopback is supposed to work with normal only, but I can set it with everything
-  static const USBROUNT_4 = 89; //Dry/Wet
+  static const USBROUNT_1 = 86; 
+  static const USBROUNT_2 = 87; 
+  static const USBROUNT_3 = 88; 
+  static const USBROUNT_4 = 89; 
   static const AUX_MUTE = 90;
-  static const AUX_PHASE = 91; //phase invert
+  static const AUX_PHASE = 91; 
   static const AUX_BAND_1 = 92;
   static const AUX_BAND_2 = 93;
   static const AUX_BAND_3 = 94;
@@ -633,7 +624,7 @@ class MidiCCValuesPro {
   static const AUX_BAND_9 = 100;
   static const AUX_BAND_10 = 101;
   static const AUX_BAND_11 = 102;
-  static const AUX_BAND_12 = 103; //NOT USED
+  static const AUX_BAND_12 = 103; 
   static const DRUM_BASS = 104;
   static const DRUM_MIDDLE = 105;
   static const DRUM_TREBLE = 106;
@@ -655,9 +646,55 @@ class MidiCCValuesPro {
   static const SPK_EQ_10 = 122;
   static const SPK_EQ_11 = 123;
   static const AUX_SAVE = 125;
-
   static const TunerLiteMK2_State = 112;
   static const TunerLiteMK2_Note = 113;
   static const TunerLiteMK2_Number = 114;
   static const TunerLiteMK2_Cent = 115;
+}
+
+// -------------------------------------------------------------
+// ISOLATED MIGHTY NAM (11-BLOCK) TOPOLOGY
+// -------------------------------------------------------------
+class PresetDataIndexNamPro {
+  static const effectTypesIndex = [
+    Head_iFXA,
+    Head_iFXB,
+    Head_iPITCH,
+    Head_iDAISY,
+    Head_iNAM,
+    Head_iCUTEQ,
+    Head_iCAB,
+    Head_iMOD,
+    Head_iDLY,
+    Head_iRVB,
+    Head_iNG
+  ];
+
+  static const defaultEffects = [
+    MightyNamFXID.fxA,
+    MightyNamFXID.fxB,
+    MightyNamFXID.pitch,
+    MightyNamFXID.daisyWah,
+    MightyNamFXID.nam,
+    MightyNamFXID.cutEq,
+    PlugProFXID.cab,
+    PlugProFXID.mod,
+    PlugProFXID.delay,
+    PlugProFXID.reverb,
+    PlugProFXID.gate
+  ];
+
+  // CRITICAL FIX: The indices must correctly map sequentially 0-10 so the 
+  // UI array mapping doesn't overwrite itself or leave null spaces.
+  static const Head_iFXA = 0;
+  static const Head_iFXB = 1;
+  static const Head_iPITCH = 2;
+  static const Head_iDAISY = 3;
+  static const Head_iNAM = 4;
+  static const Head_iCUTEQ = 5;
+  static const Head_iCAB = 6; 
+  static const Head_iMOD = 7;
+  static const Head_iDLY = 8;
+  static const Head_iRVB = 9;
+  static const Head_iNG = 10;
 }

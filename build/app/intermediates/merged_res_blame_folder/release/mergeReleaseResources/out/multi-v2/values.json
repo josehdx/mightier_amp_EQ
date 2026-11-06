@@ -93,25 +93,6 @@
                     }
                 },
                 {
-                    "source": "/Users/jose.hernandez/mightier_amp_EQ_no_NAM/android/app/src/main/res/values/styles.xml",
-                    "from": {
-                        "startLines": "3,15",
-                        "startColumns": "4,4",
-                        "startOffsets": "134,848",
-                        "endLines": "8,17",
-                        "endColumns": "12,12",
-                        "endOffsets": "497,1008"
-                    },
-                    "to": {
-                        "startLines": "2078,2083",
-                        "startColumns": "4,4",
-                        "startOffsets": "132194,132446",
-                        "endLines": "2082,2085",
-                        "endColumns": "12,12",
-                        "endOffsets": "132441,132606"
-                    }
-                },
-                {
                     "source": "/Users/jose.hernandez/.gradle/caches/8.14/transforms/43d6cc4af487f89c47e707e526d7c98e/transformed/coordinatorlayout-1.0.0/res/values/values.xml",
                     "from": {
                         "startLines": "2,102,3,13",
@@ -128,6 +109,42 @@
                         "endLines": "12,3022,3879,3963",
                         "endColumns": "60,12,24,24",
                         "endOffsets": "757,196260,229296,233812"
+                    }
+                },
+                {
+                    "source": "/Users/jose.hernandez/mightier_amp_EQ/build/qr_utils/intermediates/packaged_res/release/packageReleaseResources/values/values.xml",
+                    "from": {
+                        "startLines": "2,3,4,5,6,12,16",
+                        "startColumns": "4,4,4,4,4,4,4",
+                        "startOffsets": "55,95,174,232,282,548,698",
+                        "endLines": "2,3,4,5,11,15,20",
+                        "endColumns": "39,78,57,49,12,12,12",
+                        "endOffsets": "90,169,227,277,543,693,912"
+                    },
+                    "to": {
+                        "startLines": "198,588,596,597,609,615,619",
+                        "startColumns": "4,4,4,4,4,4,4",
+                        "startOffsets": "11043,36002,37117,37175,38068,38334,38484",
+                        "endLines": "198,588,596,597,614,618,623",
+                        "endColumns": "39,78,57,49,12,12,12",
+                        "endOffsets": "11078,36076,37170,37220,38329,38479,38698"
+                    }
+                },
+                {
+                    "source": "/Users/jose.hernandez/mightier_amp_EQ/android/app/src/main/res/values/colors.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "56",
+                        "endOffsets": "107"
+                    },
+                    "to": {
+                        "startLines": "151",
+                        "startColumns": "4",
+                        "startOffsets": "7976",
+                        "endColumns": "56",
+                        "endOffsets": "8028"
                     }
                 },
                 {
@@ -203,20 +220,22 @@
                     }
                 },
                 {
-                    "source": "/Users/jose.hernandez/mightier_amp_EQ_no_NAM/android/app/src/main/res/values/colors.xml",
+                    "source": "/Users/jose.hernandez/mightier_amp_EQ/android/app/src/main/res/values/styles.xml",
                     "from": {
-                        "startLines": "2",
-                        "startColumns": "4",
-                        "startOffsets": "55",
-                        "endColumns": "56",
-                        "endOffsets": "107"
+                        "startLines": "3,15",
+                        "startColumns": "4,4",
+                        "startOffsets": "134,848",
+                        "endLines": "8,17",
+                        "endColumns": "12,12",
+                        "endOffsets": "497,1008"
                     },
                     "to": {
-                        "startLines": "151",
-                        "startColumns": "4",
-                        "startOffsets": "7976",
-                        "endColumns": "56",
-                        "endOffsets": "8028"
+                        "startLines": "2078,2083",
+                        "startColumns": "4,4",
+                        "startOffsets": "132194,132446",
+                        "endLines": "2082,2085",
+                        "endColumns": "12,12",
+                        "endOffsets": "132441,132606"
                     }
                 },
                 {
@@ -311,25 +330,6 @@
                     }
                 },
                 {
-                    "source": "/Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/qr_utils/intermediates/packaged_res/release/packageReleaseResources/values/values.xml",
-                    "from": {
-                        "startLines": "2,3,4,5,6,12,16",
-                        "startColumns": "4,4,4,4,4,4,4",
-                        "startOffsets": "55,95,174,232,282,548,698",
-                        "endLines": "2,3,4,5,11,15,20",
-                        "endColumns": "39,78,57,49,12,12,12",
-                        "endOffsets": "90,169,227,277,543,693,912"
-                    },
-                    "to": {
-                        "startLines": "198,588,596,597,609,615,619",
-                        "startColumns": "4,4,4,4,4,4,4",
-                        "startOffsets": "11043,36002,37117,37175,38068,38334,38484",
-                        "endLines": "198,588,596,597,614,618,623",
-                        "endColumns": "39,78,57,49,12,12,12",
-                        "endOffsets": "11078,36076,37170,37220,38329,38479,38698"
-                    }
-                },
-                {
                     "source": "/Users/jose.hernandez/.gradle/caches/8.14/transforms/13ba24ff90d3bd867adb0916118ea794/transformed/jetified-dexter-6.2.3/res/values/values.xml",
                     "from": {
                         "startLines": "3",
@@ -363,6 +363,23 @@
                         "startOffsets": "33643",
                         "endColumns": "82",
                         "endOffsets": "33721"
+                    }
+                },
+                {
+                    "source": "/Users/jose.hernandez/mightier_amp_EQ/android/app/src/main/res/values/strings.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "1",
+                        "startOffsets": "52",
+                        "endColumns": "46",
+                        "endOffsets": "97"
+                    },
+                    "to": {
+                        "startLines": "561",
+                        "startColumns": "4",
+                        "startOffsets": "33726",
+                        "endColumns": "49",
+                        "endOffsets": "33771"
                     }
                 },
                 {
@@ -433,23 +450,6 @@
                         "startOffsets": "5788,5846,5912,5975,16532,16603,34759,35787,35854,35933",
                         "endColumns": "57,65,62,61,70,71,67,66,78,68",
                         "endOffsets": "5841,5907,5970,6032,16598,16670,34822,35849,35928,35997"
-                    }
-                },
-                {
-                    "source": "/Users/jose.hernandez/mightier_amp_EQ_no_NAM/android/app/src/main/res/values/strings.xml",
-                    "from": {
-                        "startLines": "2",
-                        "startColumns": "1",
-                        "startOffsets": "52",
-                        "endColumns": "46",
-                        "endOffsets": "97"
-                    },
-                    "to": {
-                        "startLines": "561",
-                        "startColumns": "4",
-                        "startOffsets": "33726",
-                        "endColumns": "49",
-                        "endOffsets": "33771"
                     }
                 }
             ]

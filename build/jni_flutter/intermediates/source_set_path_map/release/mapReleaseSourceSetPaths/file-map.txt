@@ -21,9 +21,9 @@ com.github.dart_lang.jni_flutter-jetified-window-1.2.0-19 /Users/jose.hernandez/
 com.github.dart_lang.jni_flutter-jetified-tracing-1.2.0-20 /Users/jose.hernandez/.gradle/caches/8.14/transforms/fe9cb27c90a494ba075b6c387e4ff5be/transformed/jetified-tracing-1.2.0/res
 com.github.dart_lang.jni_flutter-main-21 /Users/jose.hernandez/.pub-cache/hosted/pub.dev/jni_flutter-1.0.2/android/src/main/res
 com.github.dart_lang.jni_flutter-release-22 /Users/jose.hernandez/.pub-cache/hosted/pub.dev/jni_flutter-1.0.2/android/src/release/res
-com.github.dart_lang.jni_flutter-release-23 /Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/jni/intermediates/packaged_res/release/packageReleaseResources
-com.github.dart_lang.jni_flutter-pngs-24 /Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/jni_flutter/generated/res/pngs/release
-com.github.dart_lang.jni_flutter-resValues-25 /Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/jni_flutter/generated/res/resValues/release
-com.github.dart_lang.jni_flutter-mergeReleaseResources-26 /Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/jni_flutter/intermediates/incremental/release/mergeReleaseResources/merged.dir
-com.github.dart_lang.jni_flutter-mergeReleaseResources-27 /Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/jni_flutter/intermediates/incremental/release/mergeReleaseResources/stripped.dir
-com.github.dart_lang.jni_flutter-release-28 /Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/jni_flutter/intermediates/merged_res/release/mergeReleaseResources
+com.github.dart_lang.jni_flutter-release-23 /Users/jose.hernandez/mightier_amp_EQ/build/jni/intermediates/packaged_res/release/packageReleaseResources
+com.github.dart_lang.jni_flutter-pngs-24 /Users/jose.hernandez/mightier_amp_EQ/build/jni_flutter/generated/res/pngs/release
+com.github.dart_lang.jni_flutter-resValues-25 /Users/jose.hernandez/mightier_amp_EQ/build/jni_flutter/generated/res/resValues/release
+com.github.dart_lang.jni_flutter-mergeReleaseResources-26 /Users/jose.hernandez/mightier_amp_EQ/build/jni_flutter/intermediates/incremental/release/mergeReleaseResources/merged.dir
+com.github.dart_lang.jni_flutter-mergeReleaseResources-27 /Users/jose.hernandez/mightier_amp_EQ/build/jni_flutter/intermediates/incremental/release/mergeReleaseResources/stripped.dir
+com.github.dart_lang.jni_flutter-release-28 /Users/jose.hernandez/mightier_amp_EQ/build/jni_flutter/intermediates/merged_res/release/mergeReleaseResources

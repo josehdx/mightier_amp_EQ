@@ -7,7 +7,6 @@ import 'package:mighty_plug_manager/bluetooth/devices/NuxMightyPlugAir.dart';
 import 'package:mighty_plug_manager/bluetooth/devices/effects/plug_air/Ampsv2.dart';
 import 'package:mighty_plug_manager/bluetooth/devices/presets/preset_constants.dart';
 
-import '../NuxDevice.dart';
 import '../effects/Processor.dart';
 import '../effects/NoiseGate.dart';
 import '../effects/plug_air/EFX.dart';
@@ -20,13 +19,6 @@ import '../effects/plug_air/Reverb.dart';
 import 'Preset.dart';
 
 class PlugAirPreset extends Preset {
-  @override
-  NuxDevice device;
-  @override
-  int channel;
-  @override
-  String channelName;
-
   @override
   List<Color> get channelColorsList {
     if ((device as NuxMightyPlug).ampVariant == PlugAirVariant.MightyAir) {
@@ -86,8 +78,7 @@ class PlugAirPreset extends Preset {
   PlugAirVersion version = PlugAirVersion.PlugAir15;
 
   PlugAirPreset(
-      {required this.device, required this.channel, required this.channelName})
-      : super(channel: channel, channelName: channelName, device: device) {
+      {required super.device, required super.channel, required super.channelName}) {
     modulationListv1
         .addAll([Phaser(), Chorus(), STChorus(), Flanger(), Vibe(), Tremolo()]);
     modulationListv2

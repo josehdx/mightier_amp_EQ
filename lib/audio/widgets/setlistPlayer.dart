@@ -30,23 +30,22 @@ class _SetlistPlayerState extends State<SetlistPlayer> {
     super.initState();
     playerState.addListener(_onPlayerStateChange);
     _positionSub = playerState.positionStream.listen(_onPlayerPosition);
-    NuxDeviceControl().addListener(_onPlayerStateChange);
+    // Removed NuxDeviceControl listener to prevent BLE flood from blocking audio transport UI updates
   }
 
   @override
   void dispose() {
     super.dispose();
     playerState.removeListener(_onPlayerStateChange);
-    NuxDeviceControl().removeListener(_onPlayerStateChange);
     _positionSub?.cancel();
   }
 
   void _onPlayerPosition(Duration position) {
-    setState(() {});
+    if (mounted) setState(() {});
   }
 
   void _onPlayerStateChange() {
-    setState(() {});
+    if (mounted) setState(() {});
   }
 
   @override
@@ -69,6 +68,11 @@ class _SetlistPlayerState extends State<SetlistPlayer> {
     bool isDark = Theme.of(context).brightness == Brightness.dark;
 
     return LayoutBuilder(builder: (context, constraints) {
+      double maxDur = playerState.getDuration().inMilliseconds.toDouble();
+      double currentPos = playerState.currentPosition.inMilliseconds.toDouble();
+      if (maxDur <= 0) maxDur = 1.0;
+      if (currentPos > maxDur) currentPos = maxDur;
+
       return Material(
         color: Theme.of(context).scaffoldBackgroundColor,
         child: ListView(
@@ -98,14 +102,15 @@ class _SetlistPlayerState extends State<SetlistPlayer> {
                     data: SliderThemeData(
                         trackShape: SliderRepeatTrackShape(state: playerState)),
                     child: Slider(
-                      value:
-                          playerState.currentPosition.inMilliseconds.toDouble(),
+                      value: currentPos,
+                      max: maxDur,
                       onChanged: (value) {
-                        setState(() {
-                          playerState.setPosition(value.round());
-                        });
+                        if (mounted) {
+                          setState(() {
+                            playerState.setPosition(value.round());
+                          });
+                        }
                       },
-                      max: playerState.getDuration().inMilliseconds.toDouble(),
                       onChangeStart: (val) {
                         playerState.setPositionUpdateMode(true);
                       },
@@ -124,7 +129,7 @@ class _SetlistPlayerState extends State<SetlistPlayer> {
                 value: playerState.autoAdvance,
                 onChanged: (value) {
                   playerState.autoAdvance = value ?? true;
-                  setState(() {});
+                  if (mounted) setState(() {});
                 }),
             if (playerState.automation != null &&
                 playerState.automation!.loopEnable &&
@@ -135,8 +140,7 @@ class _SetlistPlayerState extends State<SetlistPlayer> {
                   child: const Text("Cancel Loop"),
                   onPressed: () {
                     playerState.automation?.forceLoopDisable();
-
-                    setState(() {});
+                    if (mounted) setState(() {});
                   },
                 ),
               ),
@@ -145,12 +149,12 @@ class _SetlistPlayerState extends State<SetlistPlayer> {
               onSemitonesChanged: (val) {
                 playerState.pitch = val;
                 playerState.automation?.setPitch(val);
-                setState(() {});
+                if (mounted) setState(() {});
               },
               onSpeedChanged: (speed) {
                 playerState.speed = speed;
                 playerState.automation?.setSpeed(speed);
-                setState(() {});
+                if (mounted) setState(() {});
               },
               semitones: playerState.pitch,
               speed: playerState.speed,
@@ -167,11 +171,11 @@ class _SetlistPlayerState extends State<SetlistPlayer> {
                 min: -20,
                 max: 20,
                 snapToCenter: true,
-                labelFormatter: (val) =>
-                    "${playerState.gain.toStringAsFixed(1)} db",
+                // FIX: Corrected raw string interpolation syntax error
+                labelFormatter: (val) => val.toStringAsFixed(1) + " dB",
                 onChanged: (value, skip) {
                   playerState.gain = value;
-                  setState(() {});
+                  if (mounted) setState(() {});
                 },
                 onDragEnd: (value) {
                   SharedPrefs()
@@ -211,9 +215,7 @@ class _SetlistPlayerState extends State<SetlistPlayer> {
     return [
       IconButton(
         padding: padding,
-        onPressed: () {
-          playerState.previous();
-        },
+        onPressed: playerState.previous,
         iconSize: iconSize,
         icon: Icon(Icons.skip_previous, color: iconColor),
       ),
@@ -229,9 +231,7 @@ class _SetlistPlayerState extends State<SetlistPlayer> {
       ),
       IconButton(
         padding: padding,
-        onPressed: () {
-          playerState.playPause();
-        },
+        onPressed: playerState.playPause,
         iconSize: iconSize,
         icon: Icon(
           playerState.state == PlayerState.play
@@ -283,7 +283,7 @@ class SliderRepeatTrackShape extends RoundedRectSliderTrackShape {
       loopEnabled = true;
       var points = state.automation!.getLoopPoints();
       var dur = state.automation!.duration.inMicroseconds;
-      if (points.length == 2 && state.automation!.useLoopPoints) {
+      if (dur > 0 && points.length == 2 && state.automation!.useLoopPoints) {
         p1 = points[0].eventTime.inMicroseconds / dur;
         p2 = points[1].eventTime.inMicroseconds / dur;
       } else if (!state.automation!.useLoopPoints) {
@@ -315,7 +315,7 @@ class SliderRepeatTrackShape extends RoundedRectSliderTrackShape {
       isDiscrete: isDiscrete,
     );
 
-    if (state.automation != null && loopEnabled) {
+    if (state.automation != null && loopEnabled && state.automation!.duration.inMicroseconds > 0) {
       var pos1 = (trackRect.right - trackRect.left) * p1 + trackRect.left;
       var pos2 = (trackRect.right - trackRect.left) * p2 + trackRect.left;
       var posPercentage = state.currentPosition.inMicroseconds /
@@ -375,11 +375,11 @@ class SetlistMiniPlayerState extends State<SetlistMiniPlayer> {
   }
 
   void _opPlayerPosition(Duration position) {
-    setState(() {});
+    if (mounted) setState(() {});
   }
 
   void _onPlayerStateChange() {
-    setState(() {});
+    if (mounted) setState(() {});
   }
 
   Widget? createTitle() {
@@ -398,7 +398,7 @@ class SetlistMiniPlayerState extends State<SetlistMiniPlayer> {
 
     return [
       IconButton(
-        onPressed: playerState.previous, // ADDED: Previous Track Button
+        onPressed: playerState.previous,
         icon: Icon(
           Icons.skip_previous,
           color: iconColor,

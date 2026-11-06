@@ -30,10 +30,10 @@ com.aeologic.adhoc.qr_utils-cardview-1.0.0-28 /Users/jose.hernandez/.gradle/cach
 com.aeologic.adhoc.qr_utils-jetified-appcompat-resources-1.6.1-29 /Users/jose.hernandez/.gradle/caches/8.14/transforms/eef768c767159916068dfc3e6719800a/transformed/jetified-appcompat-resources-1.6.1/res
 com.aeologic.adhoc.qr_utils-jetified-window-1.2.0-30 /Users/jose.hernandez/.gradle/caches/8.14/transforms/fbd7a1f40973efdd3e0b39325049fc32/transformed/jetified-window-1.2.0/res
 com.aeologic.adhoc.qr_utils-jetified-tracing-1.2.0-31 /Users/jose.hernandez/.gradle/caches/8.14/transforms/fe9cb27c90a494ba075b6c387e4ff5be/transformed/jetified-tracing-1.2.0/res
-com.aeologic.adhoc.qr_utils-pngs-32 /Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/qr_utils/generated/res/pngs/release
-com.aeologic.adhoc.qr_utils-resValues-33 /Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/qr_utils/generated/res/resValues/release
-com.aeologic.adhoc.qr_utils-mergeReleaseResources-34 /Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/qr_utils/intermediates/incremental/release/mergeReleaseResources/merged.dir
-com.aeologic.adhoc.qr_utils-mergeReleaseResources-35 /Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/qr_utils/intermediates/incremental/release/mergeReleaseResources/stripped.dir
-com.aeologic.adhoc.qr_utils-release-36 /Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/qr_utils/intermediates/merged_res/release/mergeReleaseResources
-com.aeologic.adhoc.qr_utils-main-37 /Users/jose.hernandez/mightier_amp_EQ_no_NAM/plugins/qr_utils-0.1.5/android/src/main/res
-com.aeologic.adhoc.qr_utils-release-38 /Users/jose.hernandez/mightier_amp_EQ_no_NAM/plugins/qr_utils-0.1.5/android/src/release/res
+com.aeologic.adhoc.qr_utils-pngs-32 /Users/jose.hernandez/mightier_amp_EQ/build/qr_utils/generated/res/pngs/release
+com.aeologic.adhoc.qr_utils-resValues-33 /Users/jose.hernandez/mightier_amp_EQ/build/qr_utils/generated/res/resValues/release
+com.aeologic.adhoc.qr_utils-mergeReleaseResources-34 /Users/jose.hernandez/mightier_amp_EQ/build/qr_utils/intermediates/incremental/release/mergeReleaseResources/merged.dir
+com.aeologic.adhoc.qr_utils-mergeReleaseResources-35 /Users/jose.hernandez/mightier_amp_EQ/build/qr_utils/intermediates/incremental/release/mergeReleaseResources/stripped.dir
+com.aeologic.adhoc.qr_utils-release-36 /Users/jose.hernandez/mightier_amp_EQ/build/qr_utils/intermediates/merged_res/release/mergeReleaseResources
+com.aeologic.adhoc.qr_utils-main-37 /Users/jose.hernandez/mightier_amp_EQ/plugins/qr_utils-0.1.5/android/src/main/res
+com.aeologic.adhoc.qr_utils-release-38 /Users/jose.hernandez/mightier_amp_EQ/plugins/qr_utils-0.1.5/android/src/release/res

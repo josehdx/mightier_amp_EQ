@@ -22,8 +22,8 @@ com.lucasjosino.on_audio_query.on_audio_query_android_v1_8-jetified-window-1.2.0
 com.lucasjosino.on_audio_query.on_audio_query_android_v1_8-jetified-tracing-1.2.0-21 /Users/jose.hernandez/.gradle/caches/8.14/transforms/fe9cb27c90a494ba075b6c387e4ff5be/transformed/jetified-tracing-1.2.0/res
 com.lucasjosino.on_audio_query.on_audio_query_android_v1_8-main-22 /Users/jose.hernandez/.pub-cache/hosted/pub.dev/on_audio_query_android_v1_8-1.1.1/android/src/main/res
 com.lucasjosino.on_audio_query.on_audio_query_android_v1_8-release-23 /Users/jose.hernandez/.pub-cache/hosted/pub.dev/on_audio_query_android_v1_8-1.1.1/android/src/release/res
-com.lucasjosino.on_audio_query.on_audio_query_android_v1_8-pngs-24 /Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/on_audio_query_android_v1_8/generated/res/pngs/release
-com.lucasjosino.on_audio_query.on_audio_query_android_v1_8-resValues-25 /Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/on_audio_query_android_v1_8/generated/res/resValues/release
-com.lucasjosino.on_audio_query.on_audio_query_android_v1_8-mergeReleaseResources-26 /Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/on_audio_query_android_v1_8/intermediates/incremental/release/mergeReleaseResources/merged.dir
-com.lucasjosino.on_audio_query.on_audio_query_android_v1_8-mergeReleaseResources-27 /Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/on_audio_query_android_v1_8/intermediates/incremental/release/mergeReleaseResources/stripped.dir
-com.lucasjosino.on_audio_query.on_audio_query_android_v1_8-release-28 /Users/jose.hernandez/mightier_amp_EQ_no_NAM/build/on_audio_query_android_v1_8/intermediates/merged_res/release/mergeReleaseResources
+com.lucasjosino.on_audio_query.on_audio_query_android_v1_8-pngs-24 /Users/jose.hernandez/mightier_amp_EQ/build/on_audio_query_android_v1_8/generated/res/pngs/release
+com.lucasjosino.on_audio_query.on_audio_query_android_v1_8-resValues-25 /Users/jose.hernandez/mightier_amp_EQ/build/on_audio_query_android_v1_8/generated/res/resValues/release
+com.lucasjosino.on_audio_query.on_audio_query_android_v1_8-mergeReleaseResources-26 /Users/jose.hernandez/mightier_amp_EQ/build/on_audio_query_android_v1_8/intermediates/incremental/release/mergeReleaseResources/merged.dir
+com.lucasjosino.on_audio_query.on_audio_query_android_v1_8-mergeReleaseResources-27 /Users/jose.hernandez/mightier_amp_EQ/build/on_audio_query_android_v1_8/intermediates/incremental/release/mergeReleaseResources/stripped.dir
+com.lucasjosino.on_audio_query.on_audio_query_android_v1_8-release-28 /Users/jose.hernandez/mightier_amp_EQ/build/on_audio_query_android_v1_8/intermediates/merged_res/release/mergeReleaseResources

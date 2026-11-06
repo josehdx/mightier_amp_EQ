@@ -15,11 +15,11 @@ abstract class EFXPro extends Processor {
   int get nuxEnableMask => 0x40;
   @override
   bool get nuxEnableInverted => true;
+
   @override
   EffectEditorUI get editorUI => EffectEditorUI.Sliders;
   @override
   int get midiCCEnableValue => MidiCCValuesPro.Head_iEFX;
-
   @override
   int get midiCCSelectionValue => MidiCCValuesPro.Head_iEFX;
 
@@ -40,7 +40,6 @@ abstract class EFXPro extends Processor {
 class DistortionPlus extends EFXPro {
   @override
   final name = "Distortion+";
-
   @override
   int get nuxIndex => 1;
   @override
@@ -67,7 +66,6 @@ class DistortionPlus extends EFXPro {
 class RCBoost extends EFXPro {
   @override
   final name = "RC Boost";
-
   @override
   int get nuxIndex => 2;
   @override
@@ -110,7 +108,6 @@ class RCBoost extends EFXPro {
 class ACBoost extends EFXPro {
   @override
   final name = "AC Boost";
-
   @override
   int get nuxIndex => 3;
   @override
@@ -153,7 +150,6 @@ class ACBoost extends EFXPro {
 class DistOne extends EFXPro {
   @override
   final name = "Dist One";
-
   @override
   int get nuxIndex => 4;
   @override
@@ -222,7 +218,6 @@ class TSDrive extends EFXPro {
 class BluesDrive extends EFXPro {
   @override
   final name = "Blues Drive";
-
   @override
   int get nuxIndex => 6;
   @override
@@ -257,7 +252,6 @@ class BluesDrive extends EFXPro {
 class MorningDrive extends EFXPro {
   @override
   final name = "Morning Drive";
-
   @override
   int get nuxIndex => 7;
   @override
@@ -292,7 +286,6 @@ class MorningDrive extends EFXPro {
 class EatDist extends EFXPro {
   @override
   final name = "Eat Dist";
-
   @override
   int get nuxIndex => 8;
   @override
@@ -327,7 +320,6 @@ class EatDist extends EFXPro {
 class RedDirt extends EFXPro {
   @override
   final name = "Red Dirt";
-
   @override
   int get nuxIndex => 9;
   @override
@@ -362,7 +354,6 @@ class RedDirt extends EFXPro {
 class Crunch extends EFXPro {
   @override
   final name = "Crunch";
-
   @override
   int get nuxIndex => 10;
   @override
@@ -397,7 +388,6 @@ class Crunch extends EFXPro {
 class MuffFuzz extends EFXPro {
   @override
   final name = "Muff Fuzz";
-
   @override
   int get nuxIndex => 11;
   @override
@@ -432,10 +422,8 @@ class MuffFuzz extends EFXPro {
 class Katana extends EFXPro {
   @override
   final name = "Katana";
-
   @override
   int get nuxIndex => 12;
-
   @override
   List<Parameter> parameters = [
     Parameter(
@@ -460,7 +448,6 @@ class Katana extends EFXPro {
 class STSinger extends EFXPro {
   @override
   final name = "ST Singer";
-
   @override
   int get nuxIndex => 13;
   @override
@@ -494,18 +481,17 @@ class STSinger extends EFXPro {
 
 class TouchWahPro extends EFXPro {
   @override
-  int get nuxIndex => 14;
-
+  int get nuxIndex => 0; // Fixed index to match the hardware addressing
   @override
   final name = "Touch Wah";
-
   @override
   List<Parameter> parameters = [
     Parameter(
         name: "Type",
         handle: "type",
         value: 1,
-        formatter: ValueFormatters.touchWahFormatterLiteMk2,
+        // REVERTED TO AVOID COMPILER CRASH - Ensure this matches the existing definition in your ValueFormatter.dart
+        formatter: ValueFormatters.touchWahFormatterLiteMk2, 
         devicePresetIndex: PresetDataIndexPlugPro.EFX_Para1,
         midiCC: MidiCCValuesPro.EFX_Para1,
         midiControllerHandle: MidiControllerHandles.efxMode),

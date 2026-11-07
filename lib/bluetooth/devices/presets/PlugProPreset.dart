@@ -39,8 +39,7 @@ class PlugProPreset extends Preset {
     return Colors.blue; 
   }
 
-  // CACHED INSTANCES: This prevents the UI from generating new objects on every rebuild,
-  // which stops sliders from snapping back to default values.
+  // CACHED INSTANCES
   final NoiseGatePro _noiseGate = NoiseGatePro();
   final WahDummyPro _wahDummy = WahDummyPro();
 
@@ -59,7 +58,8 @@ class PlugProPreset extends Preset {
   ];
   
   late final List<Processor> _delayList = [
-    AnalogDelay(), DigitalDelay(), ModDelay(), TapeEcho(), PanDelay(), PhiDelayPro()
+    AnalogDelay(), AnalogDelayV2(), DigitalDelay(), 
+    ModDelay(), TapeEcho(), PanDelay(), PhiDelayPro()
   ];
   
   late final List<Processor> _reverbList = [
@@ -191,49 +191,56 @@ class PlugProPreset extends Preset {
     super.setSlotEnabled(index, value, false); 
   }
 
-  @override
-  List<Processor> getEffectsForSlot(int slot) {
-    var proc = getFXIDFromSlot(slot);
-    // Return the cached lists instead of instantiating new objects
-    switch (proc.value) {
-      case PresetDataIndexPlugPro.Head_iWAH:
-        return [_wahDummy];
-      case PresetDataIndexPlugPro.Head_iCMP:
-        return _cmpList;
-      case PresetDataIndexPlugPro.Head_iEFX:
-        return _efxList;
-      case PresetDataIndexPlugPro.Head_iAMP:
-        return amplifierList;
-      case PresetDataIndexPlugPro.Head_iCAB:
-        return cabinetList;
-      case PresetDataIndexPlugPro.Head_iEQ:
-        return eqList;
-      case PresetDataIndexPlugPro.Head_iNG:
-        return [_noiseGate];
-      case PresetDataIndexPlugPro.Head_iMOD:
-        return _modList;
-      case PresetDataIndexPlugPro.Head_iDLY:
-        return _delayList;
-      case PresetDataIndexPlugPro.Head_iRVB:
-        return _reverbList;
+  // CRITICAL FIX: Safe mapping helper function for retrieving lists
+  List<Processor> _effectsForFXID(NuxFXID fxid) {
+    switch (fxid.value) {
+      case PresetDataIndexPlugPro.Head_iWAH: return [_wahDummy];
+      case PresetDataIndexPlugPro.Head_iCMP: return _cmpList;
+      case PresetDataIndexPlugPro.Head_iEFX: return _efxList;
+      case PresetDataIndexPlugPro.Head_iAMP: return amplifierList;
+      case PresetDataIndexPlugPro.Head_iCAB: return cabinetList;
+      case PresetDataIndexPlugPro.Head_iEQ:  return eqList;
+      case PresetDataIndexPlugPro.Head_iNG:  return [_noiseGate];
+      case PresetDataIndexPlugPro.Head_iMOD: return _modList;
+      case PresetDataIndexPlugPro.Head_iDLY: return _delayList;
+      case PresetDataIndexPlugPro.Head_iRVB: return _reverbList;
     }
     return [];
   }
 
   @override
+  List<Processor> getEffectsForSlot(int slot) => _effectsForFXID(getFXIDFromSlot(slot));
+
+  // CRITICAL FIX: Actively scan the array for the correct matching hardware ID
+  @override
+  int getEffectArrayIndexFromNuxIndex(NuxFXID fxid, int nuxIndex) {
+    final list = _effectsForFXID(fxid);
+    for (int i = 0; i < list.length; i++) {
+      if (list[i].nuxIndex == nuxIndex) return i;
+    }
+    return 0; // Fall back to first effect instead of crashing
+  }
+
+  @override
   int getSelectedEffectForSlot(int slot) {
     var proc = getFXIDFromSlot(slot);
+    int selected = 0;
+
     switch (proc.value) {
-      case PresetDataIndexPlugPro.Head_iCMP: return selectedComp;
-      case PresetDataIndexPlugPro.Head_iEFX: return selectedEfx;
-      case PresetDataIndexPlugPro.Head_iAMP: return selectedAmp;
-      case PresetDataIndexPlugPro.Head_iCAB: return selectedCabinet;
-      case PresetDataIndexPlugPro.Head_iEQ: return selectedEQ;
-      case PresetDataIndexPlugPro.Head_iMOD: return selectedMod;
-      case PresetDataIndexPlugPro.Head_iDLY: return selectedDelay;
-      case PresetDataIndexPlugPro.Head_iRVB: return selectedReverb;
-      default: return 0;
+      case PresetDataIndexPlugPro.Head_iCMP: selected = selectedComp; break;
+      case PresetDataIndexPlugPro.Head_iEFX: selected = selectedEfx; break;
+      case PresetDataIndexPlugPro.Head_iAMP: selected = selectedAmp; break;
+      case PresetDataIndexPlugPro.Head_iCAB: selected = selectedCabinet; break;
+      case PresetDataIndexPlugPro.Head_iEQ: selected = selectedEQ; break;
+      case PresetDataIndexPlugPro.Head_iMOD: selected = selectedMod; break;
+      case PresetDataIndexPlugPro.Head_iDLY: selected = selectedDelay; break;
+      case PresetDataIndexPlugPro.Head_iRVB: selected = selectedReverb; break;
     }
+
+    // UI HARDENING: Prevent crash if hardware sends corrupted/out-of-bounds selection
+    final listLength = getEffectsForSlot(slot).length;
+    if (listLength == 0) return 0;
+    return selected.clamp(0, listLength - 1);
   }
 
   @override

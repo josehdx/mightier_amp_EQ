@@ -18,6 +18,8 @@ import 'NuxFXID.dart';
 import 'effects/Processor.dart';
 import 'presets/Preset.dart';
 import 'value_formatters/ValueFormatter.dart';
+import 'presets/PlugProPreset.dart'; // SYNCDEBUG / volume
+import 'package:mighty_plug_manager/utilities/SyncDebug.dart';
 
 class NuxDeviceConfiguration {
   bool ecoMode = false;
@@ -341,10 +343,14 @@ abstract class NuxDevice extends ChangeNotifier {
           notifyBT: true, sendFullPreset: false, notifyUI: true);
     }
 
+    SyncDebug.log('CHANNEL CHANGE from amp: hw=$index selected=$selectedChannel');
     getPreset(selectedChannel).setupPresetFromNuxData();
 
     //immediately set the amp level
     sendAmpLevel();
+
+    // RESYNC: the amp loaded its stored patch on its own (button / footswitch)
+    deviceControl.scheduleChannelResync(selectedChannel, 'amp');
   }
 
   void _handleKnobReceiveData(List<int> data) {
@@ -389,7 +395,11 @@ abstract class NuxDevice extends ChangeNotifier {
         for (var param in effect.parameters) {
           if (param.midiCC == data[1]) {
             //this is the one to change
+            final dbgBefore = param.midiValue; // SYNCDEBUG
             param.midiValue = data[2];
+            SyncDebug.log('KNOB hw cc=${data[1]}=${data[2]} ${param.handle} '
+                'appBefore=$dbgBefore appAfter=${param.midiValue} '
+                'limits=[${param.limitMin},${param.limitMax}]');
             notifyListeners();
             return;
           }
@@ -498,6 +508,19 @@ abstract class NuxDevice extends ChangeNotifier {
 
   bool checkQRValid(int deviceId, int ver);
 
+  /// A preset effect entry had no value for this parameter. Logs it, and (if
+  /// SyncDebug.defaultMissingKeys) resets it to its default instead of leaving
+  /// a value carried over from an earlier preset.
+  void _handleMissingKey(
+      Parameter prm, int fxType, int slot, bool unselected) {
+    final was = prm.value;
+    if (SyncDebug.defaultMissingKeys) prm.value = prm.defaultValue;
+    SyncDebug.log('PARSE missing key "${prm.handle}" fx=$fxType slot=$slot '
+        'unselected=$unselected was=$was now=${prm.value} '
+        'default=${prm.defaultValue} '
+        '${SyncDebug.defaultMissingKeys ? '(reset to default)' : '<<< CARRIED OVER from an earlier preset'}');
+  }
+
   void parseEffect(
       Map<String, dynamic> effect,
       int slotIndex,
@@ -569,21 +592,48 @@ abstract class NuxDevice extends ChangeNotifier {
           } else {
             debugPrint(
                 "Warning: No key ${fx.parameters[f].handle} for effect $fxTypeNuxIndex in slot $fxTypeNuxIndex");
+            _handleMissingKey(
+                fx.parameters[f], fxTypeNuxIndex, slotIndex, unselected);
           }
         } else {
           //ask the effect for the proper handle
           var handle = fx.parameters[f].handle;
           if (effect.containsKey(handle)) {
             fx.parameters[f].value = effect[handle];
+          } else {
+            _handleMissingKey(
+                fx.parameters[f], fxTypeNuxIndex, slotIndex, unselected);
           }
         }
       }
     }
   }
 
+  /// Applies a library (categorized) preset. Wrapper: marks the library-apply
+  /// window so the channel resync does not read the amp's STORED patch back
+  /// over the library preset, and re-asserts the volume afterwards.
   Preset? presetFromJson(Map<String, dynamic> preset, double? overrideLevel,
       {bool qrOnly = false, bool dontChangeChannel = false}) {
+    if (qrOnly) {
+      return _presetFromJsonImpl(preset, overrideLevel,
+          qrOnly: qrOnly, dontChangeChannel: dontChangeChannel);
+    }
+    deviceControl.beginLibraryApply();
+    try {
+      return _presetFromJsonImpl(preset, overrideLevel,
+          qrOnly: qrOnly, dontChangeChannel: dontChangeChannel);
+    } finally {
+      deviceControl.endLibraryApply(selectedChannel);
+    }
+  }
+
+  Preset? _presetFromJsonImpl(Map<String, dynamic> preset, double? overrideLevel,
+      {bool qrOnly = false, bool dontChangeChannel = false}) {
     var pVersion = preset["version"] ?? 0;
+    if (!qrOnly) {
+      SyncDebug.log('LIBRARY apply "${preset["name"]}" ch=${preset["channel"]} '
+          'volumeMidi=${preset["volumeMidi"]} legacyVolume=${preset["volume"]}');
+    }
 
     var nuxChannel = preset["channel"];
     if (!qrOnly) {
@@ -605,7 +655,17 @@ abstract class NuxDevice extends ChangeNotifier {
     } else {
       p = getCustomPreset(nuxChannel);
     }
-    if (preset.containsKey("volume")) p.setVolume(preset["volume"], !qrOnly);
+    if (p is PlugProPreset) {
+      // Pro / Space: presets saved before the fix carry volume 0.0 by mistake,
+      // so only presets that carry a real volume byte ("volumeMidi") apply it.
+      // Older presets keep whatever volume the amp has, as before.
+      if (preset.containsKey("volumeMidi")) {
+        p.setVolumeRaw((preset["volumeMidi"] as num).round());
+        if (!qrOnly) p.sendVolume();
+      }
+    } else if (preset.containsKey("volume")) {
+      p.setVolume(preset["volume"], !qrOnly);
+    }
 
     //set the chain order first, if the device supports it
     if (reorderableFXChain) {
@@ -668,6 +728,7 @@ abstract class NuxDevice extends ChangeNotifier {
     Preset p = customPreset ?? getPreset(selectedChannel);
 
     if (!fakeMasterVolume) mainJson["volume"] = p.volume;
+    if (p is PlugProPreset) mainJson["volumeMidi"] = p.volumeMidi;
 
     //parse all effects
     for (int i = 0; i < effectsChainLength; i++) {

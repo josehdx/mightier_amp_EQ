@@ -7,6 +7,7 @@ import 'package:mighty_plug_manager/bluetooth/devices/NuxMighty8BT.dart';
 import 'package:mighty_plug_manager/bluetooth/devices/NuxMighty8BTMk2.dart';
 import 'package:mighty_plug_manager/platform/simpleSharedPrefs.dart';
 import 'package:mighty_plug_manager/utilities/list_extenstions.dart';
+import 'package:mighty_plug_manager/utilities/SyncDebug.dart';
 import 'package:undo/undo.dart';
 import 'bleMidiHandler.dart';
 import 'ble_controllers/BLEController.dart';
@@ -19,6 +20,7 @@ import 'devices/NuxMightyPlugAir.dart';
 import 'devices/NuxMightyNamPro.dart';
 import 'devices/communication/namProCommunication.dart';
 import 'devices/presets/NamProPreset.dart';
+import 'devices/presets/PlugProPreset.dart'; // SYNCDEBUG
 import 'devices/NuxMightyPlugPro.dart';
 import 'devices/NuxMightySpace.dart';
 import 'devices/effects/Processor.dart';
@@ -325,6 +327,7 @@ class NuxDeviceControl extends ChangeNotifier {
   }
 
   void _onDataReceive(List<int> data) {
+    SyncDebug.rx(data); // SYNCDEBUG: raw RX tap
     if (developer) onDataReceiveDebug?.call(data);
     _device.communication.onDataReceive(data);
   }
@@ -403,6 +406,173 @@ class NuxDeviceControl extends ChangeNotifier {
   void changeDeviceChannel(int channel) {
     if (!isConnected) return;
     sendBLEData(device.communication.setChannel(channel));
+    scheduleChannelResync(channel, 'app'); // RESYNC (skipped for library presets)
+  }
+
+  // ===========================================================================
+  // CHANNEL RESYNC (Pro / Space only, not NAM)
+  //
+  // Two kinds of channel switch, which must be treated differently:
+  //
+  //  STORED   LED button, amp button, hotkeys. The amp loads the patch stored on
+  //           the device. After a settle delay the app reads that patch back,
+  //           shows it, then re-sends its volume values.
+  //
+  //  LIBRARY  a categorized preset applied by NuxDevice.presetFromJson. Its
+  //           values exist only live on the amp and on screen. The app NEVER
+  //           reads back here: the amp answers a preset request with its STORED
+  //           patch and that would overwrite the library preset on screen. It
+  //           only re-sends the displayed volume values after a delay.
+  // ===========================================================================
+  int _resyncToken = 0;
+  int? _resyncRequested; // channel whose readback is in flight
+  final Map<int, DateTime> _ignoreReadback = {};
+  Map<String, int>? _resyncBefore;
+  bool _libraryApplying = false;
+
+  void _cancelResync(String why) {
+    _resyncToken++;
+    final req = _resyncRequested;
+    if (req != null) {
+      _ignoreReadback[req] = DateTime.now();
+      _resyncRequested = null;
+      SyncDebug.log('RESYNC cancelled ($why): readback for ch=$req will be ignored');
+    }
+  }
+
+  bool _resyncSupported(Object? preset) =>
+      SyncDebug.resyncEnabled &&
+      isConnected &&
+      device.nuxPresetsReceived &&
+      preset is PlugProPreset &&
+      preset is! NamProPreset;
+
+  /// Called at the start of NuxDevice.presetFromJson (library preset).
+  void beginLibraryApply() {
+    _libraryApplying = true;
+    _cancelResync('library preset apply');
+  }
+
+  /// Called when presetFromJson has finished (also on error).
+  void endLibraryApply(int channel) {
+    _libraryApplying = false;
+    final preset = device.presets[channel];
+    if (preset is PlugProPreset && PlugProPreset.volumeFixEnabled) {
+      masterVolumeNotifier.value = preset.volume; // slider follows the preset
+    }
+    scheduleLibraryReassert(channel);
+  }
+
+  void scheduleLibraryReassert(int channel) {
+    final preset = device.presets[channel];
+    if (!_resyncSupported(preset) || !SyncDebug.reassert) return;
+    final token = _resyncToken;
+    SyncDebug.log('REASSERT scheduled (library preset) ch=$channel '
+        'in ${SyncDebug.libraryReassertMs}ms');
+    Future.delayed(Duration(milliseconds: SyncDebug.libraryReassertMs), () {
+      if (token != _resyncToken || !isConnected) return;
+      if (device.selectedChannel != channel) return;
+      _resyncSend(channel, preset as PlugProPreset, 'library');
+    });
+  }
+
+  /// STORED path: called after the app asked the amp to change channel (or the
+  /// amp changed channel itself).
+  void scheduleChannelResync(int channel, String origin) {
+    if (_libraryApplying) {
+      SyncDebug.log('RESYNC skipped ch=$channel origin=$origin '
+          '(library preset being applied: no readback)');
+      return;
+    }
+    final preset = device.presets[channel];
+    if (!_resyncSupported(preset)) return;
+
+    _cancelResync('newer channel change');
+    final token = _resyncToken;
+    SyncDebug.log('RESYNC scheduled (stored patch) ch=$channel origin=$origin '
+        'settle=${SyncDebug.settleMs}ms refresh=${SyncDebug.storedRefresh} '
+        'reassert=${SyncDebug.reassert}');
+
+    Future.delayed(Duration(milliseconds: SyncDebug.settleMs), () {
+      if (token != _resyncToken || !isConnected) return;
+      if (device.selectedChannel != channel) return;
+      final p = preset as PlugProPreset;
+
+      if (!SyncDebug.storedRefresh) {
+        _resyncSend(channel, p, 'stored');
+        return;
+      }
+
+      _resyncBefore = SyncDebug.snapshot(p); // what the app showed
+      _ignoreReadback.remove(channel);
+      _resyncRequested = channel;
+      SyncDebug.log('RESYNC request preset ch=$channel');
+      requestPreset(channel);
+
+      Future.delayed(Duration(milliseconds: SyncDebug.readbackTimeoutMs), () {
+        if (token == _resyncToken && _resyncRequested == channel) {
+          _resyncRequested = null;
+          SyncDebug.log('RESYNC TIMEOUT ch=$channel: no readback, nothing sent');
+        }
+      });
+    });
+  }
+
+  /// Called by the communication layer BEFORE it applies a received preset to
+  /// the displayed one. false = a superseded readback: refresh the cache only.
+  bool shouldApplyReadback(int channel) {
+    final ts = _ignoreReadback.remove(channel);
+    if (ts != null && DateTime.now().difference(ts).inMilliseconds < 3000) {
+      SyncDebug.log('readback ch=$channel IGNORED (superseded): display untouched');
+      return false;
+    }
+    return true;
+  }
+
+  /// Called after a received preset was applied to the displayed one.
+  void onPresetReadback(int channel) {
+    if (_resyncRequested != channel) return;
+    _resyncRequested = null;
+    if (device.selectedChannel != channel) return;
+    final preset = device.presets[channel];
+    if (preset is! PlugProPreset) return;
+
+    final before = _resyncBefore;
+    if (before != null) {
+      SyncDebug.diff('RESYNC ch=$channel', before, SyncDebug.snapshot(preset));
+    }
+    if (PlugProPreset.volumeFixEnabled) {
+      masterVolumeNotifier.value = preset.volume;
+    }
+    forceNotifyListeners(); // show the amp's patch on screen
+    _resyncSend(channel, preset, 'stored');
+  }
+
+  /// Re-send the volume-related values the app DISPLAYS for this channel.
+  void _resyncSend(int channel, PlugProPreset preset, String kind) {
+    if (!SyncDebug.reassert) {
+      SyncDebug.log('REASSERT ch=$channel ($kind) skipped (reassert=false)');
+      return;
+    }
+    final list = preset.amplifierList;
+    final amp = list[preset.selectedAmp.clamp(0, list.length - 1).toInt()];
+    SyncDebug.log('REASSERT ch=$channel ($kind) amp="${amp.name}"');
+
+    if (PlugProPreset.volumeFixEnabled) {
+      preset.sendVolume();
+      SyncDebug.log('REASSERT sent channel volume CC ${MidiCCValuesPro.MASTER}=${preset.volumeMidi}');
+    } else {
+      SyncDebug.log('REASSERT channel volume NOT sent (volumeFixEnabled=false)');
+    }
+
+    for (final prm in amp.parameters) {
+      if (SyncDebug.reassertAllAmp ||
+          (SyncDebug.reassertAmpMaster && prm.masterVolume)) {
+        sendParameter(prm, false);
+        SyncDebug.log('REASSERT sent ${prm.handle} CC ${prm.midiCC}=${prm.midiValue}');
+      }
+    }
+    SyncDebug.log('REASSERT DONE ch=$channel ($kind) ${SyncDebug.snapshot(preset)}');
   }
 
   void effectChangedListener(int slot) {
@@ -464,6 +634,8 @@ class NuxDeviceControl extends ChangeNotifier {
 
   void sendFullPresetSettings() {
     if (!isConnected) return;
+    final dbgPreset = device.presets[device.selectedChannel]; // SYNCDEBUG
+    if (dbgPreset is PlugProPreset) SyncDebug.dumpApp('TX-FULL', dbgPreset);
     clearDataQueue();
     if (!device.fakeMasterVolume) {
       device.presets[device.selectedChannel].sendVolume();
@@ -562,6 +734,7 @@ class NuxDeviceControl extends ChangeNotifier {
     } else if (data[0] == 0xF0) {
       data = [0x80, 0x80, ...data];
     }
+    SyncDebug.tx(data); // SYNCDEBUG: raw TX tap (after framing)
     _midiHandler.sendData(data);
   }
 

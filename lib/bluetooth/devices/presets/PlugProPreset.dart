@@ -22,6 +22,7 @@ import '../effects/plug_pro/EmptyEffects.dart';
 import 'Preset.dart';
 import 'preset_constants.dart';
 import 'package:convert/convert.dart';
+import 'package:mighty_plug_manager/utilities/SyncDebug.dart';
 
 class PlugProPreset extends Preset {
   @override
@@ -97,6 +98,55 @@ class PlugProPreset extends Preset {
   int selectedMod = 0;
   int selectedDelay = 0;
   int selectedReverb = 0;
+
+  // ---------------------------------------------------------------------
+  // Channel volume (mirrors MightyMk2Preset).
+  //
+  // Before this change PlugProPreset inherited the empty Preset versions:
+  // volume was always 0, setVolume/sendVolume did nothing, the on-screen
+  // volume slider sent nothing and saved presets always carried volume 0.
+  //
+  // volumeFixEnabled = false restores that original behaviour for A/B tests.
+  // ---------------------------------------------------------------------
+  static bool volumeFixEnabled = true;
+
+  double _volume = 0; // dB, -12..+12 (DecibelFormatterMPPro)
+
+  // Exact byte last reported by the amp. Avoids the dB round trip, which
+  // shifts some values by one step. Cleared whenever the app changes volume.
+  int? _volumeRaw;
+
+  /// The 0..100 byte that represents this preset's volume on the wire.
+  int get volumeMidi {
+    final raw = _volumeRaw;
+    if (volumeFixEnabled && raw != null) return raw;
+    return device.decibelFormatter!.valueToMidi7Bit(volume);
+  }
+
+  @override
+  double get volume => volumeFixEnabled ? _volume : 0;
+
+  @override
+  set volume(double vol) {
+    setVolume(vol, true);
+  }
+
+  @override
+  void setVolume(double vol, bool btTransmit) {
+    if (!volumeFixEnabled) return; // original: no-op
+    _volume = vol;
+    _volumeRaw = null; // app-originated value: no exact byte any more
+    if (btTransmit) sendVolume();
+  }
+
+  @override
+  void sendVolume() {
+    if (!volumeFixEnabled) return; // original: no-op
+    final comm = device.communication;
+    if (comm is PlugProCommunication) {
+      comm.sendChannelVolume(volumeMidi);
+    }
+  }
 
   @override
   int get qrDataLength => 114;
@@ -315,12 +365,19 @@ class PlugProPreset extends Preset {
   }
 
   void setVolumeRaw(int vol) {
+    // SAFEGUARD: Catch buggy legacy presets that saved MIDI 0 (-12 dB) 
+    // and force them to MIDI 50 (0.0 dB) to prevent the DSP race condition.
+    if (vol == 0) vol = 50;
+
     setVolume(device.decibelFormatter!.midi7BitToValue(vol), false);
+    if (volumeFixEnabled) _volumeRaw = vol; // keep the exact amp byte
   }
 
   @override
   void setupPresetFromNuxDataArray(List<int> nuxData) {
     if (nuxData.length < 10) return;
+
+    SyncDebug.dumpApp('PRE-PARSE ch$channel', this); // SYNCDEBUG
 
     var loadedPreset = hex.encode(nuxData);
 
@@ -357,8 +414,23 @@ class PlugProPreset extends Preset {
       }
     }
 
-    double masterVol = nuxData[PresetDataIndexPlugPro.MASTER].toDouble();
-    setVolume(masterVol, false);
+    if (volumeFixEnabled) {
+      if (nuxData.length > PresetDataIndexPlugPro.MASTER) {
+        setVolumeRaw(nuxData[PresetDataIndexPlugPro.MASTER]);
+        if (device.presets[device.selectedChannel] == this) {
+          // let the on-screen volume slider follow the amp
+          device.deviceControl.masterVolumeNotifier.value = _volume;
+        }
+      } else {
+        debugPrint("Error: master volume outside of preset data!");
+      }
+    } else {
+      // original behaviour (volume dropped)
+      double masterVol = nuxData[PresetDataIndexPlugPro.MASTER].toDouble();
+      setVolume(masterVol, false);
+    }
+
+    SyncDebug.compare('POST-PARSE ch$channel', this, nuxData); // SYNCDEBUG
   }
 
   @override
@@ -368,8 +440,7 @@ class PlugProPreset extends Preset {
     qrData.add(device.deviceQRId);
     qrData.add(device.deviceQRVersion);
 
-    data[PresetDataIndexPlugPro.MASTER] =
-        device.decibelFormatter!.valueToMidi7Bit(volume);
+    data[PresetDataIndexPlugPro.MASTER] = volumeMidi;
 
     for (int i = 0; i < PresetDataIndexPlugPro.effectTypesIndex.length; i++) {
       var nuxSlot = PresetDataIndexPlugPro.effectTypesIndex[i];

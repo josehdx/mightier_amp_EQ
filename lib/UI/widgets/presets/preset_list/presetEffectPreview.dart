@@ -39,6 +39,8 @@ class PresetEffectPreview extends StatelessWidget {
     }
 
     bool isNamPro = dev.presetClass == "mighty_nam_pro";
+    // Define our 9-block devices
+    bool is9BlockDevice = dev.presetClass == "mighty_plug_pro" || dev.presetClass == "mighty_space";
 
     List<ProcessorInfo> dynamicChainOrder = [];
     for (String key in preset.keys) {
@@ -68,24 +70,32 @@ class PresetEffectPreview extends StatelessWidget {
             name = "Unknown";
           }
           
+          // Insert the amp text at the beginning of the row
           widgets.insert(
               0,
               Padding(
                 padding: const EdgeInsets.only(right: 8.0),
                 child: Text(name, style: ampStyle),
               ));
-        } else if (!isNamPro && pi.keyName == "cabinet") {
+        } 
+        
+        // Unhide the cabinet icon for NamPro, Plug Pro, and Space.
+        // It will still be hidden for older 7-block devices.
+        if (!isNamPro && !is9BlockDevice && pi.keyName == "cabinet") {
           continue;
-        } else {
-          bool fxEnabled = fxData["enabled"] as bool? ?? false;
-          widgets.add(Icon(
-            pi.icon,
-            color: fxEnabled
-                ? color
-                : (isDark ? Colors.grey[700]! : Colors.grey[400]!),
-            size: 16,
-          ));
-        }
+        } 
+        
+        // Because we unlinked the if/else chain, this now safely renders 
+        // the small icons for all blocks, including Amp and Cab!
+        bool fxEnabled = fxData["enabled"] as bool? ?? false;
+        widgets.add(Icon(
+          pi.icon,
+          color: fxEnabled
+              ? color
+              : (isDark ? Colors.grey[700]! : Colors.grey[400]!),
+          size: 16,
+        ));
+        
       }
     }
     return widgets;

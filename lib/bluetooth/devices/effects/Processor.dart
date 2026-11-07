@@ -23,6 +23,10 @@ class Parameter {
   bool masterVolume = false;
   MidiControllerHandle? midiControllerHandle;
 
+  /// Value the parameter was constructed with. Used to make preset loading
+  /// deterministic when a preset does not contain a value for it.
+  final double defaultValue;
+
   Parameter(
       {required double value,
       required this.handle,
@@ -32,7 +36,8 @@ class Parameter {
       required this.devicePresetIndex,
       this.midiControllerHandle,
       this.masterVolume = false})
-      : _value = value;
+      : _value = value,
+        defaultValue = value;
 
   double get value => _value;
 

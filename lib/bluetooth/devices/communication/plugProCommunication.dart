@@ -16,6 +16,7 @@ import '../NuxConstants.dart';
 import '../NuxMightyPlugPro.dart';
 import 'communication.dart';
 import 'namProCommunication.dart'; // FIX: Imported missing class
+import 'package:mighty_plug_manager/utilities/SyncDebug.dart';
 
 class PlugProCommunication extends DeviceCommunication {
   PlugProCommunication(NuxDevice device, NuxDeviceConfiguration config)
@@ -518,7 +519,7 @@ class PlugProCommunication extends DeviceCommunication {
       var total = (data[3] & 0xf0) >> 4;
       var current = data[3] & 0x0f;
 
-      debugPrint('preset \${data[2] + 1}, piece ${current + 1} of$total');
+      debugPrint('preset ${data[2] + 1}, piece ${current + 1} of $total');
 
       var preset = device.getPreset(data[2]);
       if (current == 0) preset.resetNuxData();
@@ -526,7 +527,14 @@ class PlugProCommunication extends DeviceCommunication {
       preset.addNuxPayloadPiece(data.sublist(4), current, total);
 
       if (preset.payloadPiecesReady()) {
-        preset.setupPresetFromNuxData();
+        SyncDebug.log('preset complete: payloadCh=${data[2]} '
+            'deviceSelectedCh=${device.selectedChannel}');
+        // A readback requested by a channel resync that was superseded by a
+        // library preset (or a newer switch) must NOT overwrite the display.
+        if (device.deviceControl.shouldApplyReadback(data[2])) {
+          preset.setupPresetFromNuxData();
+          device.deviceControl.onPresetReadback(data[2]);
+        }
         if (!device.nuxPresetsReceived) {
           readyPresetsCount++;
 
@@ -677,7 +685,13 @@ class PlugProCommunication extends DeviceCommunication {
   }
 
   void _handleVolumeData(int vol) {
-    (device.presets[device.selectedChannel] as PlugProPreset).setVolumeRaw(vol);
+    final p = device.presets[device.selectedChannel] as PlugProPreset;
+    SyncDebug.log('VOL CC hw=$vol appBefore=${p.volumeMidi}'); // SYNCDEBUG
+    p.setVolumeRaw(vol);
+    SyncDebug.log('VOL CC appAfter=${p.volumeMidi}');
+    if (PlugProPreset.volumeFixEnabled) {
+      device.deviceControl.masterVolumeNotifier.value = p.volume;
+    }
     device.deviceControl.forceNotifyListeners();
   }
 

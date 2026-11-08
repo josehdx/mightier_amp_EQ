@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 class PresetConstants {
@@ -6,10 +5,10 @@ class PresetConstants {
     Color.fromARGB(255, 0, 255, 0),
     Color.fromARGB(255, 240, 160, 10),
     Color.fromARGB(255, 255, 0, 0),
-    Color.fromARGB(220, 230, 230, 255),
+    Color.fromARGB(255, 71, 167, 245), // Swapped from index 6 (Blue)
     Color.fromARGB(255, 130, 225, 255),
     Color.fromARGB(255, 210, 140, 250),
-    Color.fromARGB(255, 71, 167, 245),
+    Color.fromARGB(220, 230, 230, 255), // Swapped from index 3 (White)
     Color.fromARGB(230, 230, 230, 255),
   ];
 

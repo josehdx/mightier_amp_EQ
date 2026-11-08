@@ -101,19 +101,11 @@ class PlugProPreset extends Preset {
 
   // ---------------------------------------------------------------------
   // Channel volume (mirrors MightyMk2Preset).
-  //
-  // Before this change PlugProPreset inherited the empty Preset versions:
-  // volume was always 0, setVolume/sendVolume did nothing, the on-screen
-  // volume slider sent nothing and saved presets always carried volume 0.
-  //
-  // volumeFixEnabled = false restores that original behaviour for A/B tests.
   // ---------------------------------------------------------------------
   static bool volumeFixEnabled = true;
 
   double _volume = 0; // dB, -12..+12 (DecibelFormatterMPPro)
 
-  // Exact byte last reported by the amp. Avoids the dB round trip, which
-  // shifts some values by one step. Cleared whenever the app changes volume.
   int? _volumeRaw;
 
   /// The 0..100 byte that represents this preset's volume on the wire.
@@ -133,15 +125,15 @@ class PlugProPreset extends Preset {
 
   @override
   void setVolume(double vol, bool btTransmit) {
-    if (!volumeFixEnabled) return; // original: no-op
+    if (!volumeFixEnabled) return;
     _volume = vol;
-    _volumeRaw = null; // app-originated value: no exact byte any more
+    _volumeRaw = null;
     if (btTransmit) sendVolume();
   }
 
   @override
   void sendVolume() {
-    if (!volumeFixEnabled) return; // original: no-op
+    if (!volumeFixEnabled) return;
     final comm = device.communication;
     if (comm is PlugProCommunication) {
       comm.sendChannelVolume(volumeMidi);
@@ -241,7 +233,6 @@ class PlugProPreset extends Preset {
     super.setSlotEnabled(index, value, false); 
   }
 
-  // CRITICAL FIX: Safe mapping helper function for retrieving lists
   List<Processor> _effectsForFXID(NuxFXID fxid) {
     switch (fxid.value) {
       case PresetDataIndexPlugPro.Head_iWAH: return [_wahDummy];
@@ -261,14 +252,27 @@ class PlugProPreset extends Preset {
   @override
   List<Processor> getEffectsForSlot(int slot) => _effectsForFXID(getFXIDFromSlot(slot));
 
-  // CRITICAL FIX: Actively scan the array for the correct matching hardware ID
   @override
   int getEffectArrayIndexFromNuxIndex(NuxFXID fxid, int nuxIndex) {
     final list = _effectsForFXID(fxid);
     for (int i = 0; i < list.length; i++) {
       if (list[i].nuxIndex == nuxIndex) return i;
     }
-    return 0; // Fall back to first effect instead of crashing
+    return 0;
+  }
+
+  // DIRECT AMP LOOKUP FIX: Decouple amp name resolution from slot ordering
+  @override
+  String getAmpNameByNuxIndex(int index, int version) {
+    for (int i = 0; i < amplifierList.length; i++) {
+      if (amplifierList[i].nuxIndex == index) {
+        return amplifierList[i].name;
+      }
+    }
+    if (index >= 0 && index < amplifierList.length) {
+      return amplifierList[index].name;
+    }
+    return amplifierList.isNotEmpty ? amplifierList[0].name : "";
   }
 
   @override
@@ -287,7 +291,6 @@ class PlugProPreset extends Preset {
       case PresetDataIndexPlugPro.Head_iRVB: selected = selectedReverb; break;
     }
 
-    // UI HARDENING: Prevent crash if hardware sends corrupted/out-of-bounds selection
     final listLength = getEffectsForSlot(slot).length;
     if (listLength == 0) return 0;
     return selected.clamp(0, listLength - 1);
@@ -365,19 +368,15 @@ class PlugProPreset extends Preset {
   }
 
   void setVolumeRaw(int vol) {
-    // SAFEGUARD: Catch buggy legacy presets that saved MIDI 0 (-12 dB) 
-    // and force them to MIDI 50 (0.0 dB) to prevent the DSP race condition.
-    if (vol == 0) vol = 50;
-
     setVolume(device.decibelFormatter!.midi7BitToValue(vol), false);
-    if (volumeFixEnabled) _volumeRaw = vol; // keep the exact amp byte
+    if (volumeFixEnabled) _volumeRaw = vol;
   }
 
   @override
   void setupPresetFromNuxDataArray(List<int> nuxData) {
     if (nuxData.length < 10) return;
 
-    SyncDebug.dumpApp('PRE-PARSE ch$channel', this); // SYNCDEBUG
+    SyncDebug.dumpApp('PRE-PARSE ch$channel', this);
 
     var loadedPreset = hex.encode(nuxData);
 
@@ -388,7 +387,6 @@ class PlugProPreset extends Preset {
       int nuxSlot = PresetDataIndexPlugPro.effectTypesIndex[i];
       NuxFXID fxid = NuxFXID.fromInt(nuxSlot);
 
-      //set proper effect
       int effectParam = nuxData[nuxSlot];
       int effectIndex = effectParam & 0x3f;
       bool effectOn = (effectParam & 0x40) == 0;
@@ -418,19 +416,17 @@ class PlugProPreset extends Preset {
       if (nuxData.length > PresetDataIndexPlugPro.MASTER) {
         setVolumeRaw(nuxData[PresetDataIndexPlugPro.MASTER]);
         if (device.presets[device.selectedChannel] == this) {
-          // let the on-screen volume slider follow the amp
           device.deviceControl.masterVolumeNotifier.value = _volume;
         }
       } else {
         debugPrint("Error: master volume outside of preset data!");
       }
     } else {
-      // original behaviour (volume dropped)
       double masterVol = nuxData[PresetDataIndexPlugPro.MASTER].toDouble();
       setVolume(masterVol, false);
     }
 
-    SyncDebug.compare('POST-PARSE ch$channel', this, nuxData); // SYNCDEBUG
+    SyncDebug.compare('POST-PARSE ch$channel', this, nuxData);
   }
 
   @override

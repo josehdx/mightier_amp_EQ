@@ -5,7 +5,7 @@ import '../../../theme.dart';
 
 enum PresetsTopMenuActions { ExportAll, Import }
 
-enum CategoryMenuActions { Delete, Rename, Export }
+enum CategoryMenuActions { Delete, Rename, ChangeChannel, Export }
 
 enum PresetItemActions {
   Delete,
@@ -65,6 +65,16 @@ class PresetsPopupMenus {
       ),
     ),
     const PopupMenuItem(
+      value: CategoryMenuActions.ChangeChannel,
+      child: Row(
+        children: <Widget>[
+          Icon(Icons.palette),
+          SizedBox(width: 5),
+          Text("Change Color (All Presets)"),
+        ],
+      ),
+    ),
+    const PopupMenuItem(
       value: CategoryMenuActions.Export,
       child: Row(
         children: <Widget>[
@@ -93,7 +103,7 @@ class PresetsPopupMenus {
         children: <Widget>[
           Icon(Icons.circle),
           SizedBox(width: 5),
-          Text("Change Channel"),
+          Text("Change Color / Channel"),
         ],
       ),
     ),

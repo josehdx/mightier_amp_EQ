@@ -178,8 +178,8 @@ class BLEMidiHandler {
     return bleController.registerDataListener(listener);
   }
 
-  void clearDataQueue() {
-    bleController.clearDataQueue();
+  void clearDataQueue({bool keepChannelChange = false}) {
+    bleController.clearDataQueue(keepChannelChange: keepChannelChange);
   }
 
   void onDataQueueEmpty(VoidCallback onEmpty) {

@@ -20,7 +20,7 @@ import 'devices/NuxMightyPlugAir.dart';
 import 'devices/NuxMightyNamPro.dart';
 import 'devices/communication/namProCommunication.dart';
 import 'devices/presets/NamProPreset.dart';
-import 'devices/presets/PlugProPreset.dart'; // SYNCDEBUG
+import 'devices/presets/PlugProPreset.dart';
 import 'devices/NuxMightyPlugPro.dart';
 import 'devices/NuxMightySpace.dart';
 import 'devices/effects/Processor.dart';
@@ -36,7 +36,6 @@ class NuxDiagnosticData {
   String device = "";
   bool connected = false;
   String lastNuxPreset = "";
-
   Map<String, dynamic> toMap(bool includeJsonPreset) {
     var data = <String, dynamic>{};
     data['device'] = device;
@@ -58,12 +57,9 @@ class NuxDeviceControl extends ChangeNotifier {
   }
 
   NuxDiagnosticData diagData = NuxDiagnosticData();
-
   late NuxDevice _device;
-
   StreamSubscription<List<int>>? rxSubscription;
   Timer? batteryTimer;
-
   String _presetName = "";
   String presetCategory = "";
   String presetUUID = "";
@@ -74,12 +70,9 @@ class NuxDeviceControl extends ChangeNotifier {
   }
 
   ValueNotifier presetNameNotifier = ValueNotifier<String>("");
-
   ValueNotifier<double> masterVolumeNotifier = ValueNotifier<double>(100);
   double _masterVolume = 100;
-
   ChangeStack get changes => device.presets[device.selectedChannel].changes;
-
   bool developer = false;
   Function(List<int>)? onDataReceiveDebug;
 
@@ -110,7 +103,6 @@ class NuxDeviceControl extends ChangeNotifier {
 
   Stream<DeviceConnectionState> get connectStatus => _connectStatus.stream;
   Stream<int> get batteryPercentage => _batteryPercentage.stream;
-
   bool get isConnected => _midiHandler.connectedDevice != null;
 
   final List<NuxDevice> _deviceInstances = <NuxDevice>[];
@@ -238,7 +230,6 @@ class NuxDeviceControl extends ChangeNotifier {
   NuxDeviceControl._() {
     _midiHandler.setAmpDeviceIdProvider(deviceBLEName);
     _midiHandler.status.listen(_statusListener);
-
     _deviceInstances.add(NuxMightyPlug(this));
     _deviceInstances.add(NuxMightyPlugPro(this));
     _deviceInstances.add(NuxMightyNamPro(this));
@@ -252,11 +243,9 @@ class NuxDeviceControl extends ChangeNotifier {
     String dev = SharedPrefs()
         .getValue(SettingsKeys.device, _deviceInstances[0].productStringId);
     _device = getDeviceFromId(dev) ?? _deviceInstances[0];
-
     int ver = SharedPrefs().getValue(
         SettingsKeys.deviceVersion, _device.getAvailableVersions() - 1);
     _device.setFirmwareVersionByIndex(ver);
-
     updateDiagnosticsData(connected: false);
 
     if (device.fakeMasterVolume) {
@@ -327,7 +316,7 @@ class NuxDeviceControl extends ChangeNotifier {
   }
 
   void _onDataReceive(List<int> data) {
-    SyncDebug.rx(data); // SYNCDEBUG: raw RX tap
+    SyncDebug.rx(data);
     if (developer) onDataReceiveDebug?.call(data);
     _device.communication.onDataReceive(data);
   }
@@ -406,29 +395,17 @@ class NuxDeviceControl extends ChangeNotifier {
   void changeDeviceChannel(int channel) {
     if (!isConnected) return;
     sendBLEData(device.communication.setChannel(channel));
-    scheduleChannelResync(channel, 'app'); // RESYNC (skipped for library presets)
+    scheduleChannelResync(channel, 'app');
   }
 
-  // ===========================================================================
-  // CHANNEL RESYNC (Pro / Space only, not NAM)
-  //
-  // Two kinds of channel switch, which must be treated differently:
-  //
-  //  STORED   LED button, amp button, hotkeys. The amp loads the patch stored on
-  //           the device. After a settle delay the app reads that patch back,
-  //           shows it, then re-sends its volume values.
-  //
-  //  LIBRARY  a categorized preset applied by NuxDevice.presetFromJson. Its
-  //           values exist only live on the amp and on screen. The app NEVER
-  //           reads back here: the amp answers a preset request with its STORED
-  //           patch and that would overwrite the library preset on screen. It
-  //           only re-sends the displayed volume values after a delay.
-  // ===========================================================================
   int _resyncToken = 0;
-  int? _resyncRequested; // channel whose readback is in flight
+  int? _resyncRequested;
   final Map<int, DateTime> _ignoreReadback = {};
   Map<String, int>? _resyncBefore;
+
   bool _libraryApplying = false;
+  bool get isLibraryApplying => _libraryApplying;
+  Timer? _libraryApplyTimer;
 
   void _cancelResync(String why) {
     _resyncToken++;
@@ -447,20 +424,33 @@ class NuxDeviceControl extends ChangeNotifier {
       preset is PlugProPreset &&
       preset is! NamProPreset;
 
-  /// Called at the start of NuxDevice.presetFromJson (library preset).
   void beginLibraryApply() {
+    _libraryApplyTimer?.cancel();
     _libraryApplying = true;
     _cancelResync('library preset apply');
   }
 
-  /// Called when presetFromJson has finished (also on error).
   void endLibraryApply(int channel) {
-    _libraryApplying = false;
     final preset = device.presets[channel];
     if (preset is PlugProPreset && PlugProPreset.volumeFixEnabled) {
-      masterVolumeNotifier.value = preset.volume; // slider follows the preset
+      masterVolumeNotifier.value = preset.volume;
     }
     scheduleLibraryReassert(channel);
+
+    // Keep the guard active until the queue (incl. the 200 ms DSP settle) has
+    // drained plus an echo grace period; the long timer is only a safety net.
+    void closeWindow() {
+      _libraryApplying = false;
+      SyncDebug.log('LIBRARY apply window closed ch=$channel');
+    }
+
+    _libraryApplyTimer?.cancel();
+    _libraryApplyTimer = Timer(const Duration(seconds: 5), closeWindow);
+    _midiHandler.onDataQueueEmpty(() {
+      _libraryApplyTimer?.cancel();
+      _libraryApplyTimer =
+          Timer(const Duration(milliseconds: 500), closeWindow);
+    });
   }
 
   void scheduleLibraryReassert(int channel) {
@@ -476,8 +466,6 @@ class NuxDeviceControl extends ChangeNotifier {
     });
   }
 
-  /// STORED path: called after the app asked the amp to change channel (or the
-  /// amp changed channel itself).
   void scheduleChannelResync(int channel, String origin) {
     if (_libraryApplying) {
       SyncDebug.log('RESYNC skipped ch=$channel origin=$origin '
@@ -486,29 +474,24 @@ class NuxDeviceControl extends ChangeNotifier {
     }
     final preset = device.presets[channel];
     if (!_resyncSupported(preset)) return;
-
     _cancelResync('newer channel change');
     final token = _resyncToken;
     SyncDebug.log('RESYNC scheduled (stored patch) ch=$channel origin=$origin '
         'settle=${SyncDebug.settleMs}ms refresh=${SyncDebug.storedRefresh} '
         'reassert=${SyncDebug.reassert}');
-
     Future.delayed(Duration(milliseconds: SyncDebug.settleMs), () {
       if (token != _resyncToken || !isConnected) return;
       if (device.selectedChannel != channel) return;
       final p = preset as PlugProPreset;
-
       if (!SyncDebug.storedRefresh) {
         _resyncSend(channel, p, 'stored');
         return;
       }
-
-      _resyncBefore = SyncDebug.snapshot(p); // what the app showed
+      _resyncBefore = SyncDebug.snapshot(p);
       _ignoreReadback.remove(channel);
       _resyncRequested = channel;
       SyncDebug.log('RESYNC request preset ch=$channel');
       requestPreset(channel);
-
       Future.delayed(Duration(milliseconds: SyncDebug.readbackTimeoutMs), () {
         if (token == _resyncToken && _resyncRequested == channel) {
           _resyncRequested = null;
@@ -518,8 +501,6 @@ class NuxDeviceControl extends ChangeNotifier {
     });
   }
 
-  /// Called by the communication layer BEFORE it applies a received preset to
-  /// the displayed one. false = a superseded readback: refresh the cache only.
   bool shouldApplyReadback(int channel) {
     final ts = _ignoreReadback.remove(channel);
     if (ts != null && DateTime.now().difference(ts).inMilliseconds < 3000) {
@@ -529,14 +510,12 @@ class NuxDeviceControl extends ChangeNotifier {
     return true;
   }
 
-  /// Called after a received preset was applied to the displayed one.
   void onPresetReadback(int channel) {
     if (_resyncRequested != channel) return;
     _resyncRequested = null;
     if (device.selectedChannel != channel) return;
     final preset = device.presets[channel];
     if (preset is! PlugProPreset) return;
-
     final before = _resyncBefore;
     if (before != null) {
       SyncDebug.diff('RESYNC ch=$channel', before, SyncDebug.snapshot(preset));
@@ -544,11 +523,10 @@ class NuxDeviceControl extends ChangeNotifier {
     if (PlugProPreset.volumeFixEnabled) {
       masterVolumeNotifier.value = preset.volume;
     }
-    forceNotifyListeners(); // show the amp's patch on screen
+    forceNotifyListeners();
     _resyncSend(channel, preset, 'stored');
   }
 
-  /// Re-send the volume-related values the app DISPLAYS for this channel.
   void _resyncSend(int channel, PlugProPreset preset, String kind) {
     if (!SyncDebug.reassert) {
       SyncDebug.log('REASSERT ch=$channel ($kind) skipped (reassert=false)');
@@ -557,14 +535,12 @@ class NuxDeviceControl extends ChangeNotifier {
     final list = preset.amplifierList;
     final amp = list[preset.selectedAmp.clamp(0, list.length - 1).toInt()];
     SyncDebug.log('REASSERT ch=$channel ($kind) amp="${amp.name}"');
-
     if (PlugProPreset.volumeFixEnabled) {
       preset.sendVolume();
       SyncDebug.log('REASSERT sent channel volume CC ${MidiCCValuesPro.MASTER}=${preset.volumeMidi}');
     } else {
       SyncDebug.log('REASSERT channel volume NOT sent (volumeFixEnabled=false)');
     }
-
     for (final prm in amp.parameters) {
       if (SyncDebug.reassertAllAmp ||
           (SyncDebug.reassertAmpMaster && prm.masterVolume)) {
@@ -600,7 +576,6 @@ class NuxDeviceControl extends ChangeNotifier {
     bool distinctCCodes =
         effect.midiCCSelectionValue != effect.midiCCEnableValue;
     bool send = !switchable || (switchable && enabled) || force;
-
     if (effect.midiCCSelectionValue >= 0) {
       if (distinctCCodes) {
         if (device.presets[0].getEffectsForSlot(slot).length > 1) {
@@ -610,7 +585,6 @@ class NuxDeviceControl extends ChangeNotifier {
         device.communication.sendSlotEnabledState(slot);
       }
     }
-
     if (send) {
       bool isCustomSysEx = effect.parameters.isNotEmpty &&
           effect.parameters.any((p) => p.midiCC < 0);
@@ -626,7 +600,6 @@ class NuxDeviceControl extends ChangeNotifier {
         }
       }
     }
-
     if (switchable && distinctCCodes) {
       device.communication.sendSlotEnabledState(slot);
     }
@@ -634,13 +607,13 @@ class NuxDeviceControl extends ChangeNotifier {
 
   void sendFullPresetSettings() {
     if (!isConnected) return;
-    final dbgPreset = device.presets[device.selectedChannel]; // SYNCDEBUG
+    final dbgPreset = device.presets[device.selectedChannel];
     if (dbgPreset is PlugProPreset) SyncDebug.dumpApp('TX-FULL', dbgPreset);
-    clearDataQueue();
+    // keep a just-queued channel change (see BLEController.clearDataQueue)
+    clearDataQueue(keepChannelChange: true);
     if (!device.fakeMasterVolume) {
       device.presets[device.selectedChannel].sendVolume();
     }
-
     bool sentCustomSysEx = false;
     for (var i = 0; i < device.processorList.length; i++) {
       var preset = device.getPreset(device.selectedChannel);
@@ -648,7 +621,6 @@ class NuxDeviceControl extends ChangeNotifier {
           preset.getEffectsForSlot(i)[preset.getSelectedEffectForSlot(i)];
       bool isCustomSysEx = effect.parameters.isNotEmpty &&
           effect.parameters.any((p) => p.midiCC < 0);
-
       if (isCustomSysEx) {
         if (!sentCustomSysEx) {
           sendFullEffectSettings(i, false);
@@ -658,7 +630,6 @@ class NuxDeviceControl extends ChangeNotifier {
         sendFullEffectSettings(i, false);
       }
     }
-
     if (device.reorderableFXChain) {
       device.communication.sendSlotOrder();
     }
@@ -720,8 +691,8 @@ class NuxDeviceControl extends ChangeNotifier {
     }
   }
 
-  void clearDataQueue() {
-    _midiHandler.clearDataQueue();
+  void clearDataQueue({bool keepChannelChange = false}) {
+    _midiHandler.clearDataQueue(keepChannelChange: keepChannelChange);
   }
 
   void sendBLEData(List<int> data) {
@@ -734,7 +705,7 @@ class NuxDeviceControl extends ChangeNotifier {
     } else if (data[0] == 0xF0) {
       data = [0x80, 0x80, ...data];
     }
-    SyncDebug.tx(data); // SYNCDEBUG: raw TX tap (after framing)
+    SyncDebug.tx(data);
     _midiHandler.sendData(data);
   }
 

@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:drag_and_drop_lists/drag_and_drop_list_interface.dart';
 import 'package:drag_and_drop_lists/drag_and_drop_lists.dart';
 import 'package:file_picker/file_picker.dart';
@@ -19,6 +20,7 @@ import '/UI/popups/alertDialogs.dart';
 import '../trackEventsBlockInfo.dart';
 import 'presetListMethods.dart';
 import 'presets_popup_menus.dart';
+import '/bluetooth/devices/presets/preset_constants.dart';
 
 class PresetList extends StatefulWidget {
   final void Function(dynamic)? onTap;
@@ -44,21 +46,27 @@ class _PresetListState extends State<PresetList>
   final TextEditingController _searchText = TextEditingController(text: "");
   late ScrollController _scrollController;
 
-  // Variables for Expand/Collapse All
   bool _expandAll = false;
   int _expandToggleCount = 0;
 
-  // Variables for Dynamic Selection Scrolling
   final GlobalKey _selectedPresetKey = GlobalKey();
   String _lastPresetUuid = "";
   bool _isVisible = true;
+
+  // FIX: Maps UI Drag indices to actual Database Array indices
+  final List<int> _uiCategoryIndexToDataIndex = [];
+  final List<List<int>> _uiPresetIndexToDataIndex = [];
+
+  bool _isTouchBlocked = false;
+  bool _needsRefresh = false;
+  Timer? _touchBlockTimer;
 
   @override
   void initState() {
     super.initState();
 
     if (widget.visibilityEventHandler != null) {
-      _isVisible = false; 
+      _isVisible = false;
       widget.visibilityEventHandler!.onTabSelected = _onTabSelected;
       widget.visibilityEventHandler!.onTabDeselected = _onTabDeselected;
     }
@@ -73,6 +81,7 @@ class _PresetListState extends State<PresetList>
     super.dispose();
     _onTabDeselected();
     _searchText.removeListener(refreshPresets);
+    _touchBlockTimer?.cancel();
   }
 
   void _registerListeners() {
@@ -89,9 +98,7 @@ class _PresetListState extends State<PresetList>
     _registerListeners();
     if (mounted) {
       setState(() {});
-      
-      // Always attempt to center the preset when coming back to the tab, 
-      // especially after a cold start where the layout wasn't ready yet.
+
       String currentUuid = NuxDeviceControl.instance().presetUUID;
       _lastPresetUuid = currentUuid;
       _scrollToSelected();
@@ -112,9 +119,14 @@ class _PresetListState extends State<PresetList>
 
   void refreshPresets() {
     if (mounted) {
+      if (_isTouchBlocked) {
+        _needsRefresh = true;
+        return;
+      }
+      _needsRefresh = false;
+
       setState(() {});
 
-      // Only Auto-Scroll if the Preset List tab is actually visible on screen
       if (_isVisible) {
         String currentUuid = NuxDeviceControl.instance().presetUUID;
         if (currentUuid != _lastPresetUuid) {
@@ -126,32 +138,53 @@ class _PresetListState extends State<PresetList>
   }
 
   void _scrollToSelected() {
-    // Add an initial delay to allow tab slide transitions and category 
-    // expansion animations to finish before looking for the widget.
     Future.delayed(const Duration(milliseconds: 350), () {
-      _tryScroll(15); // Try 15 times, waiting 150ms between each attempt
+      _tryScroll(15);
     });
   }
 
   void _tryScroll(int attemptsLeft) {
     if (attemptsLeft <= 0 || !mounted) return;
-    
-    // If the widget has finally rendered in the tree, scroll to it
+
     if (_selectedPresetKey.currentContext != null) {
       Scrollable.ensureVisible(
         _selectedPresetKey.currentContext!,
         duration: const Duration(milliseconds: 300),
         curve: Curves.easeInOut,
-        alignment: 0.5, // Center the item vertically
+        alignment: 0.5,
       ).catchError((e) {
         debugPrint("Scroll error caught: $e");
       });
     } else {
-      // If it hasn't rendered yet (still animating open), try again shortly
       Future.delayed(const Duration(milliseconds: 150), () {
         _tryScroll(attemptsLeft - 1);
       });
     }
+  }
+
+  Widget _wrapWithTouchListener(Widget child) {
+    return Listener(
+      behavior: HitTestBehavior.translucent,
+      onPointerDown: (_) {
+        _touchBlockTimer?.cancel();
+        _isTouchBlocked = true;
+      },
+      onPointerUp: (_) {
+        _touchBlockTimer?.cancel();
+        _touchBlockTimer = Timer(const Duration(milliseconds: 500), () {
+          _isTouchBlocked = false;
+          if (_needsRefresh && mounted) refreshPresets();
+        });
+      },
+      onPointerCancel: (_) {
+        _touchBlockTimer?.cancel();
+        _touchBlockTimer = Timer(const Duration(milliseconds: 500), () {
+          _isTouchBlocked = false;
+          if (_needsRefresh && mounted) refreshPresets();
+        });
+      },
+      child: child,
+    );
   }
 
   Widget _mainPopupMenu() {
@@ -193,10 +226,7 @@ class _PresetListState extends State<PresetList>
                   _expandToggleCount++;
                   setState(() {});
                 },
-                icon: const Icon(
-                  Icons.expand_more,
-                  size: 28,
-                )),
+                icon: const Icon(Icons.expand_more, size: 28)),
             IconButton(
                 tooltip: "Collapse All",
                 onPressed: () {
@@ -204,19 +234,13 @@ class _PresetListState extends State<PresetList>
                   _expandToggleCount++;
                   setState(() {});
                 },
-                icon: const Icon(
-                  Icons.expand_less,
-                  size: 28,
-                )),
+                icon: const Icon(Icons.expand_less, size: 28)),
             IconButton(
                 onPressed: () {
                   _showSearch = true;
                   setState(() {});
                 },
-                icon: const Icon(
-                  Icons.search,
-                  size: 28,
-                )),
+                icon: const Icon(Icons.search, size: 28)),
             _mainPopupMenu()
           ],
         ),
@@ -247,11 +271,7 @@ class _PresetListState extends State<PresetList>
         return Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const Icon(
-              Icons.keyboard_arrow_right,
-              size: 30,
-              color: Colors.grey,
-            ),
+            const Icon(Icons.keyboard_arrow_right, size: 30, color: Colors.grey),
             Expanded(child: Opacity(opacity: 0.4, child: item))
           ],
         );
@@ -264,16 +284,12 @@ class _PresetListState extends State<PresetList>
           padding: const EdgeInsets.symmetric(vertical: 8.0),
           child: Center(
             child: Container(
-              padding:
-                  const EdgeInsets.symmetric(vertical: 8.0, horizontal: 100.0),
+              padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 100.0),
               decoration: BoxDecoration(
                 border: Border.all(color: Colors.white),
                 borderRadius: BorderRadius.circular(7.0),
               ),
-              child: const Icon(
-                Icons.add_box,
-                color: Colors.white,
-              ),
+              child: const Icon(Icons.add_box, color: Colors.white),
             ),
           ),
         ),
@@ -290,7 +306,7 @@ class _PresetListState extends State<PresetList>
 
     return SafeArea(
       child: CustomScrollView(
-        cacheExtent: 10000, 
+        cacheExtent: 10000,
         slivers: [
           if (header != null)
             SliverAppBar(
@@ -329,7 +345,7 @@ class _PresetListState extends State<PresetList>
     presetList.sort((a, b) => a["name"].compareTo(b["name"]));
     return SafeArea(
       child: CustomScrollView(
-        cacheExtent: 10000, 
+        cacheExtent: 10000,
         slivers: [
           SliverAppBar(
             backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -361,9 +377,29 @@ class _PresetListState extends State<PresetList>
     bool hideNonApplicable =
         SharedPrefs().getInt(SettingsKeys.hideNotApplicablePresets, 0) == 1;
 
+    // FIX: Generate the exact UI-to-Database index mappings right before the tree builds
+    _uiCategoryIndexToDataIndex.clear();
+    _uiPresetIndexToDataIndex.clear();
+
+    for (int c = 0; c < _lists.length; c++) {
+      List presets = _lists[c]["presets"];
+      List<int> visiblePresets = [];
+      for (int p = 0; p < presets.length; p++) {
+        if (!hideNonApplicable || device.isPresetSupported(presets[p])) {
+          visiblePresets.add(p);
+        }
+      }
+      
+      if (visiblePresets.isNotEmpty || !hideNonApplicable) {
+        _uiCategoryIndexToDataIndex.add(c);
+        _uiPresetIndexToDataIndex.add(visiblePresets);
+      }
+    }
+
     Widget? header = _createHeader();
 
-    if (widget.simplified) return _createPresetTreeSimple(hideNonApplicable);
+    if (widget.simplified) return _wrapWithTouchListener(_createPresetTreeSimple(hideNonApplicable));
+
     Widget ui;
     if (_searchText.text.isEmpty) {
       ui = _createPresetTree(header, hideNonApplicable);
@@ -374,15 +410,77 @@ class _PresetListState extends State<PresetList>
     var sps = SetlistPlayerState.instance();
     if (sps.state != PlayerState.play ||
         (sps.automation?.presetChangeEventsAvailable == false)) {
-      return ui;
+      return _wrapWithTouchListener(ui);
     } else {
-      return TrackEventsBlockInfo(
+      return _wrapWithTouchListener(TrackEventsBlockInfo(
         child: ui,
         onBypass: () {
           setState(() {});
         },
-      );
+      ));
     }
+  }
+
+  void _showCategoryColorPickerDialog(String categoryName) {
+    var device = NuxDeviceControl.instance().device;
+    int channelsCount = device.channelsCount;
+
+    List<Color> colors;
+    if (device.productStringId == "mighty_plug_pro" ||
+        device.productStringId == "mighty_space" ||
+        device.productStringId == "mighty_nam_pro") {
+      colors = PresetConstants.channelColorsPro;
+    } else if (device.productStringId == "mighty_plug_air") {
+      colors = PresetConstants.channelColorsAir;
+    } else {
+      colors = PresetConstants.channelColorsPlug;
+    }
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text("Select Category Color"),
+          content: Wrap(
+            spacing: 10,
+            runSpacing: 10,
+            alignment: WrapAlignment.center,
+            children: List.generate(channelsCount, (index) {
+              return GestureDetector(
+                onTap: () {
+                  PresetsStorage().changeCategoryChannel(categoryName, index);
+                  Navigator.of(context).pop();
+                },
+                child: Container(
+                  width: 40,
+                  height: 40,
+                  decoration: BoxDecoration(
+                    color: colors[index % colors.length],
+                    shape: BoxShape.circle,
+                    border: Border.all(color: Colors.white, width: 2),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.3),
+                        blurRadius: 4,
+                        offset: const Offset(2, 2),
+                      )
+                    ],
+                  ),
+                ),
+              );
+            }),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text("Cancel"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 
   void _categoryMenu(CategoryMenuActions action, String item) {
@@ -396,6 +494,9 @@ class _PresetListState extends State<PresetList>
       case CategoryMenuActions.Export:
         _exportCategory(item);
         break;
+      case CategoryMenuActions.ChangeChannel:
+        _showCategoryColorPickerDialog(item);
+        break;
     }
   }
 
@@ -403,7 +504,6 @@ class _PresetListState extends State<PresetList>
     Map category = _lists[outerIndex];
     List allPresets = category["presets"];
 
-    // 1. Pre-filter the presets if hideNonApplicable is active
     List presets = [];
     if (hideNonApplicable) {
       for (var p in allPresets) {
@@ -415,8 +515,6 @@ class _PresetListState extends State<PresetList>
       presets = List.from(allPresets);
     }
 
-    // 2. If the category is completely empty after filtering, return null to drop it from the tree.
-    // The library builder must filter out nulls before rendering.
     if (presets.isEmpty && hideNonApplicable) {
       return null;
     }
@@ -431,8 +529,7 @@ class _PresetListState extends State<PresetList>
     }
 
     bool shouldExpand = _expandAll || containsSelected;
-    Key tileKey = Key(
-        "${category["name"]}_${_expandToggleCount}_${containsSelected ? "active" : "inactive"}");
+    Key tileKey = Key("${category["name"]}_$_expandToggleCount");
 
     bool isDark = Theme.of(context).brightness == Brightness.dark;
 
@@ -494,14 +591,15 @@ class _PresetListState extends State<PresetList>
 
   _buildPresetItem(Map<String, dynamic> item, bool hideNonApplicable) {
     bool isDark = Theme.of(context).brightness == Brightness.dark;
-    
+
     return DragAndDropItem(
       canDrag: !widget.simplified,
       feedbackWidget: ListTile(
-        tileColor: isDark 
-            ? const Color.fromARGB(127, 127, 127, 127) 
+        tileColor: isDark
+            ? const Color.fromARGB(127, 127, 127, 127)
             : const Color.fromARGB(200, 240, 240, 240),
-        title: Text(item["name"], style: TextStyle(color: Theme.of(context).colorScheme.onSurface)),
+        title: Text(item["name"],
+            style: TextStyle(color: Theme.of(context).colorScheme.onSurface)),
       ),
       child: _presetWidget(item, hideNonApplicable),
     );
@@ -509,24 +607,85 @@ class _PresetListState extends State<PresetList>
 
   _onItemReorder(
       int oldItemIndex, int oldListIndex, int newItemIndex, int newListIndex) {
-    if (PresetsStorage().reorderPresets(
-        oldItemIndex, oldListIndex, newItemIndex, newListIndex)) {
-      setState(() {});
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          backgroundColor: Colors.deepOrange,
-          content: Text(
-            "Destination category contains preset with the same name!",
-            textAlign: TextAlign.center,
-            style: TextStyle(color: Colors.white, fontSize: 20),
-          )));
+    try {
+      // FIX: Translate UI drag indexes to Database Array indexes using the Map
+      int actualOldListIndex = _uiCategoryIndexToDataIndex[oldListIndex];
+      int actualNewListIndex = _uiCategoryIndexToDataIndex[newListIndex];
+      
+      int actualOldItemIndex = _uiPresetIndexToDataIndex[oldListIndex][oldItemIndex];
+      int actualNewItemIndex;
+
+      if (actualOldListIndex == actualNewListIndex) {
+        List<int> actualIndices = _uiPresetIndexToDataIndex[oldListIndex];
+        if (newItemIndex >= actualIndices.length - 1) {
+          actualNewItemIndex = _lists[actualNewListIndex]["presets"].length - 1;
+        } else {
+          int targetUiIndex = newItemIndex >= oldItemIndex ? newItemIndex + 1 : newItemIndex;
+          int targetItemActual = actualIndices[targetUiIndex];
+          actualNewItemIndex = actualOldItemIndex < targetItemActual 
+              ? targetItemActual - 1 
+              : targetItemActual;
+        }
+      } else {
+        List<int> actualIndices = _uiPresetIndexToDataIndex[newListIndex];
+        if (newItemIndex >= actualIndices.length) {
+          actualNewItemIndex = _lists[actualNewListIndex]["presets"].length;
+        } else {
+          actualNewItemIndex = actualIndices[newItemIndex];
+        }
+      }
+
+      bool success = PresetsStorage().reorderPresets(
+          actualOldItemIndex, actualOldListIndex, actualNewItemIndex, actualNewListIndex);
+
+      // Give library 100ms to clear drag artifact before the view resets
+      Future.delayed(const Duration(milliseconds: 100), () {
+        if (mounted) setState(() {});
+      });
+
+      if (!success) {
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+            backgroundColor: Colors.deepOrange,
+            content: Text(
+              "Destination category contains preset with the same name!",
+              textAlign: TextAlign.center,
+              style: TextStyle(color: Colors.white, fontSize: 20),
+            )));
+      }
+    } catch (e) {
+      Future.delayed(const Duration(milliseconds: 100), () {
+        if (mounted) setState(() {});
+      });
     }
   }
 
   _onListReorder(int oldListIndex, int newListIndex) {
-    setState(() {
-      PresetsStorage().reorderCategories(oldListIndex, newListIndex);
-    });
+    try {
+      int actualOldListIndex = _uiCategoryIndexToDataIndex[oldListIndex];
+      int actualNewListIndex;
+      
+      if (newListIndex >= _uiCategoryIndexToDataIndex.length - 1) {
+          actualNewListIndex = _lists.length - 1;
+      } else {
+          int targetUiIndex = newListIndex >= oldListIndex ? newListIndex + 1 : newListIndex;
+          int targetActualIndex = _uiCategoryIndexToDataIndex[targetUiIndex];
+          actualNewListIndex = actualOldListIndex < targetActualIndex 
+              ? targetActualIndex - 1 
+              : targetActualIndex;
+      }
+
+      Future.delayed(const Duration(milliseconds: 100), () {
+          if (mounted) {
+            setState(() {
+              PresetsStorage().reorderCategories(actualOldListIndex, actualNewListIndex);
+            });
+          }
+      });
+    } catch (e) {
+      Future.delayed(const Duration(milliseconds: 100), () {
+        if (mounted) setState(() {});
+      });
+    }
   }
 
   @override

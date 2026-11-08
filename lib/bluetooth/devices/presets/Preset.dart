@@ -197,10 +197,17 @@ abstract class Preset {
     return PresetQRError.UnsupportedFormat;
   }
 
+  // DIRECT AMP LOOKUP FIX: Scans amplifierList directly by nuxIndex without querying slot ordering
   String getAmpNameByNuxIndex(int index, int version) {
-    var ampIndex = getFXIDFromSlot(device.amplifierSlotIndex);
-    index = getEffectArrayIndexFromNuxIndex(ampIndex, index);
-    return amplifierList[index].name;
+    for (int i = 0; i < amplifierList.length; i++) {
+      if (amplifierList[i].nuxIndex == index) {
+        return amplifierList[i].name;
+      }
+    }
+    if (index >= 0 && index < amplifierList.length) {
+      return amplifierList[index].name;
+    }
+    return amplifierList.isNotEmpty ? amplifierList[0].name : "";
   }
 
   double get volume => 0;

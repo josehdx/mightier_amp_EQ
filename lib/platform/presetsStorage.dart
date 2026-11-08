@@ -316,6 +316,18 @@ class PresetsStorage extends ChangeNotifier {
     return _savePresets();
   }
 
+  // BULK COLOR UPDATE: Changes the hardware channel for all presets in a category
+  Future changeCategoryChannel(String category, int channel) {
+    var cat = _findCategory(category);
+    if (cat != null) {
+      for (var preset in cat["presets"]) {
+        preset["channel"] = channel;
+      }
+      return _savePresets();
+    }
+    return Future.error("Category not found");
+  }
+
   Future changePresetCategory(
       String category, String name, String newCategory) {
     var cat1 = _findCategory(category);
@@ -386,7 +398,6 @@ class PresetsStorage extends ChangeNotifier {
   //converts a category to json
   //if parameter left empty, then the full preset list is converted
   String? presetsToJson([String? category]) {
-    //TODO: These presets don't have the category key
     List presets = [];
     if (category == null || category.isEmpty) {
       for (var cat in presetsData) {
@@ -590,7 +601,7 @@ class PresetsStorage extends ChangeNotifier {
       }
     }
 
-    List<Map<String, dynamic>> categories = [];
+    var categories = [];
 
     for (var cat in categoriesList) {
       Map<String, dynamic> category = {};

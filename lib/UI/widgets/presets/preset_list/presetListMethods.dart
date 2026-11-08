@@ -8,8 +8,72 @@ import '../../../../platform/platformUtils.dart';
 import '../../../../platform/presetsStorage.dart';
 import '../../../popups/alertDialogs.dart';
 import '../../../popups/exportQRCode.dart';
+import '../../../../bluetooth/devices/presets/preset_constants.dart'; // Added import
 
 class PresetListMethods {
+
+  // --- NEW DIALOG: SINGLE PRESET COLOR PICKER ---
+  static void showChangeChannelDialog(BuildContext context, Map<String, dynamic> preset) {
+    var dev = NuxDeviceControl.instance().getDeviceFromPresetClass(preset["product_id"]);
+    if (dev == null) return;
+    int channelsCount = dev.channelsCount;
+
+    List<Color> colors;
+    if (dev.productStringId == "mighty_plug_pro" || 
+        dev.productStringId == "mighty_space" || 
+        dev.productStringId == "mighty_nam_pro") {
+      colors = PresetConstants.channelColorsPro;
+    } else if (dev.productStringId == "mighty_plug_air") {
+      colors = PresetConstants.channelColorsAir;
+    } else {
+      colors = PresetConstants.channelColorsPlug;
+    }
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text("Select Preset Color"),
+          content: Wrap(
+            spacing: 10,
+            runSpacing: 10,
+            alignment: WrapAlignment.center,
+            children: List.generate(channelsCount, (index) {
+              return GestureDetector(
+                onTap: () {
+                  PresetsStorage().changeChannel(preset, index);
+                  Navigator.of(context).pop();
+                },
+                child: Container(
+                  width: 40,
+                  height: 40,
+                  decoration: BoxDecoration(
+                    color: colors[index % colors.length],
+                    shape: BoxShape.circle,
+                    border: Border.all(color: Colors.white, width: 2),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.3),
+                        blurRadius: 4,
+                        offset: const Offset(2, 2),
+                      )
+                    ],
+                  ),
+                ),
+              );
+            }),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text("Cancel"),
+              onPressed: () => Navigator.of(context).pop(),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   static void exportQR(Map<String, dynamic> preset, BuildContext context) {
     var dev = NuxDeviceControl.instance()
         .getDeviceFromPresetClass(preset["product_id"]);

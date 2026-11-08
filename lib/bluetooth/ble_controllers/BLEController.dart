@@ -114,7 +114,6 @@ abstract class BLEController {
   }
 
   void sendData(List<int> data) {
-    var queueLength = dataQueue.length;
     if (data.length > 3 &&
         data[2] == MidiMessageValues.controlChange &&
         dataQueue.isNotEmpty) {
@@ -132,11 +131,24 @@ abstract class BLEController {
     }
 
     dataQueue.addLast(data);
-    if (queueLength == 0) _queueSender();
+    // Single-flight: _queueSender() returns immediately if a loop is already
+    // running (even one that is asleep inside a DSP settle delay).
+    _queueSender();
   }
 
-  void clearDataQueue() {
-    dataQueue.clear();
+  bool _isProgramChange(List<int> d) =>
+      d.length > 2 && d[2] == MidiMessageValues.programChange;
+
+  /// Drops queued messages. With [keepChannelChange] a Program Change that has
+  /// not been written yet survives, so that "channel change + full preset
+  /// resend" does not lose the channel change (the amp would then apply the
+  /// parameters to the wrong channel).
+  void clearDataQueue({bool keepChannelChange = false}) {
+    if (keepChannelChange) {
+      dataQueue.removeWhere((e) => !_isProgramChange(e));
+    } else {
+      dataQueue.clear();
+    }
   }
 
   VoidCallback? _onQueueEmpty;
@@ -151,7 +163,27 @@ abstract class BLEController {
 
   void dispose();
 
-  void _queueSender() async {
+  /// Time the amp's DSP needs to load a channel after a Program Change.
+  /// Any CC/SysEx that arrives earlier is dropped or overwritten by the amp.
+  static const Duration dspSettleDelay = Duration(milliseconds: 200);
+
+  /// True while a send loop is alive. Guards against a second concurrent loop
+  /// (which would bypass the DSP settle delay of the first one).
+  bool _isSending = false;
+
+  Future<void> _queueSender() async {
+    if (_isSending) return;
+    _isSending = true;
+    try {
+      await _drainQueue();
+    } finally {
+      _isSending = false;
+    }
+    _onQueueEmpty?.call();
+    _onQueueEmpty = null;
+  }
+
+  Future<void> _drainQueue() async {
     while (dataQueue.isNotEmpty) {
       if (connectedDevice == null) {
         dataQueue.clear();
@@ -175,7 +207,14 @@ abstract class BLEController {
           
           await writeToCharacteristic(data, noResponse);
 
-          if (Platform.isAndroid || Platform.isIOS) {
+          // --- NEW: DSP SETTLE DELAY ---
+          if (data.length > 2 && data[2] == MidiMessageValues.programChange) {
+            // Give the amp time to load the preset from memory 
+            // before blasting it with the new parameter CCs
+            await Future.delayed(dspSettleDelay);
+          } 
+          // Existing dynamic pacing
+          else if (Platform.isAndroid || Platform.isIOS) {
             // SysEx payload pacing to save the audio stream
             if (data.length > 20) {
               await Future.delayed(const Duration(milliseconds: 25));
@@ -195,8 +234,6 @@ abstract class BLEController {
         }
       }
     }
-    _onQueueEmpty?.call();
-    _onQueueEmpty = null;
   }
 
   @protected

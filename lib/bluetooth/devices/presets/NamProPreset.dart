@@ -269,20 +269,16 @@ class NamProPreset extends PlugProPreset {
     }
   }
 
+  // FIXED: Rely on the superclass to perform the array modification safely
+  // and trigger the specific NAM Bluetooth notification directly after.
   @override
   void swapProcessorSlots(int from, int to, notifyBT) {
-    var fxFrom = processorAtSlot[from];
-
-    for (int i = from; i < device.effectsChainLength - 1; i++) {
-      processorAtSlot[i] = processorAtSlot[i + 1];
-    }
-
-    for (int i = device.effectsChainLength - 1; i > to; i--) {
-      processorAtSlot[i] = processorAtSlot[i - 1];
-    }
-
-    processorAtSlot[to] = fxFrom;
     super.swapProcessorSlots(from, to, notifyBT);
+
+    if (notifyBT && device.communication is NamProCommunication) {
+      (device.communication as NamProCommunication)
+          .sendNfPayload(generateNfPayload());
+    }
   }
 
   @override

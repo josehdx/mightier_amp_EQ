@@ -64,7 +64,7 @@ class NuxMightyNamPro extends NuxMightyPlugPro {
   String get presetClass => "mighty_nam_pro";
 
   @override
-  bool get reorderableFXChain => false;
+  bool get reorderableFXChain => true; // FIXED: Enabled drag-and-drop reordering
 
   @override
   List<String> get productBLENames => ["MIGHTY PLUG PRO", "MIGHTY NAM"];

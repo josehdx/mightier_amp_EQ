@@ -424,10 +424,26 @@ class NuxDeviceControl extends ChangeNotifier {
       preset is PlugProPreset &&
       preset is! NamProPreset;
 
+  // --- Library-apply mitigations (see SyncDebug.reliableWrites / secondPass) ---
+  int _applyGen = 0; // identifies the current library apply
+  bool _secondPassPending = false;
+  Timer? _secondPassTimer;
+
+  /// Plug Pro / Space family only (the amp acknowledges the FX-order SysEx).
+  bool _mitigationSupported(Object? preset) =>
+      isConnected && preset is PlugProPreset && preset is! NamProPreset;
+
   void beginLibraryApply() {
     _libraryApplyTimer?.cancel();
     _libraryApplying = true;
     _cancelResync('library preset apply');
+    _applyGen++;
+    _secondPassPending = false;
+    _secondPassTimer?.cancel();
+    if (SyncDebug.reliableWrites &&
+        _mitigationSupported(device.presets[device.selectedChannel])) {
+      _midiHandler.setReliableWrites(true);
+    }
   }
 
   void endLibraryApply(int channel) {
@@ -437,20 +453,70 @@ class NuxDeviceControl extends ChangeNotifier {
     }
     scheduleLibraryReassert(channel);
 
-    // Keep the guard active until the queue (incl. the 200 ms DSP settle) has
-    // drained plus an echo grace period; the long timer is only a safety net.
-    void closeWindow() {
-      _libraryApplying = false;
-      SyncDebug.log('LIBRARY apply window closed ch=$channel');
-    }
+    final gen = _applyGen;
+    _secondPassPending = SyncDebug.secondPass && _mitigationSupported(preset);
 
+    // The guard stays active until the queue (incl. the DSP settle) has drained
+    // plus an echo grace period; the long timer is only a safety net.
     _libraryApplyTimer?.cancel();
-    _libraryApplyTimer = Timer(const Duration(seconds: 5), closeWindow);
-    _midiHandler.onDataQueueEmpty(() {
+    _libraryApplyTimer =
+        Timer(const Duration(seconds: 10), () => _closeLibraryWindow(channel));
+    _midiHandler.onDataQueueEmpty(() => _onLibraryQueueDrained(gen, channel));
+  }
+
+  void _closeLibraryWindow(int channel) {
+    _libraryApplying = false;
+    _secondPassPending = false;
+    _secondPassTimer?.cancel();
+    _midiHandler.setReliableWrites(false);
+    SyncDebug.log('LIBRARY apply window closed ch=$channel');
+  }
+
+  /// Called every time the send queue has emptied during a library apply.
+  void _onLibraryQueueDrained(int gen, int channel) {
+    if (gen != _applyGen) return; // a newer apply has taken over
+    if (_secondPassPending) {
+      // First pass is on the wire. Wait for the amp's acknowledgement (its
+      // reply to the FX-order SysEx) and then re-send everything once.
+      SyncDebug.log('SECOND PASS armed ch=$channel (waiting for amp ack, '
+          'fallback ${SyncDebug.secondPassFallbackMs}ms)');
+      _secondPassTimer?.cancel();
+      _secondPassTimer = Timer(
+          Duration(milliseconds: SyncDebug.secondPassFallbackMs),
+          () => _runSecondPass(gen, channel, 'timeout'));
       _libraryApplyTimer?.cancel();
-      _libraryApplyTimer =
-          Timer(const Duration(milliseconds: 500), closeWindow);
-    });
+      _libraryApplyTimer = Timer(
+          const Duration(seconds: 10), () => _closeLibraryWindow(channel));
+      return;
+    }
+    // Last pass drained: back to normal writes, close the guard after a grace
+    // period for any late amp traffic.
+    _midiHandler.setReliableWrites(false);
+    _libraryApplyTimer?.cancel();
+    _libraryApplyTimer = Timer(
+        const Duration(milliseconds: 500), () => _closeLibraryWindow(channel));
+  }
+
+  /// Called by the communication layer when the amp's reply to our FX-order
+  /// SysEx arrives: the amp has processed everything queued before it.
+  void onApplyAck() {
+    if (!_secondPassPending) return;
+    SyncDebug.log('AMP ACK (FX-order reply) received');
+    _runSecondPass(_applyGen, device.selectedChannel, 'ack');
+  }
+
+  void _runSecondPass(int gen, int channel, String reason) {
+    _secondPassTimer?.cancel();
+    if (!_secondPassPending || gen != _applyGen) return;
+    _secondPassPending = false;
+    if (!isConnected || device.selectedChannel != channel) {
+      _onLibraryQueueDrained(gen, channel);
+      return;
+    }
+    SyncDebug.log('SECOND PASS ($reason) ch=$channel: re-sending all parameters');
+    _libraryApplying = true;
+    sendFullPresetSettings(clearQueue: false, sendSlotOrder: false);
+    _midiHandler.onDataQueueEmpty(() => _onLibraryQueueDrained(gen, channel));
   }
 
   void scheduleLibraryReassert(int channel) {
@@ -605,12 +671,13 @@ class NuxDeviceControl extends ChangeNotifier {
     }
   }
 
-  void sendFullPresetSettings() {
+  void sendFullPresetSettings(
+      {bool clearQueue = true, bool sendSlotOrder = true}) {
     if (!isConnected) return;
     final dbgPreset = device.presets[device.selectedChannel];
     if (dbgPreset is PlugProPreset) SyncDebug.dumpApp('TX-FULL', dbgPreset);
     // keep a just-queued channel change (see BLEController.clearDataQueue)
-    clearDataQueue(keepChannelChange: true);
+    if (clearQueue) clearDataQueue(keepChannelChange: true);
     if (!device.fakeMasterVolume) {
       device.presets[device.selectedChannel].sendVolume();
     }
@@ -630,7 +697,7 @@ class NuxDeviceControl extends ChangeNotifier {
         sendFullEffectSettings(i, false);
       }
     }
-    if (device.reorderableFXChain) {
+    if (sendSlotOrder && device.reorderableFXChain) {
       device.communication.sendSlotOrder();
     }
   }

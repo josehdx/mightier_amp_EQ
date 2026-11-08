@@ -186,6 +186,11 @@ class BLEMidiHandler {
     bleController.onDataQueueEmpty(onEmpty);
   }
 
+  /// Write PC/CC with response (see BLEController.reliableWrites).
+  void setReliableWrites(bool value) {
+    bleController.reliableWrites = value;
+  }
+
   void sendData(List<int> data) {
     if (!_granted) return;
     bleController.sendData(data);

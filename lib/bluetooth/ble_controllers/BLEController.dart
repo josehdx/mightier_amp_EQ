@@ -3,6 +3,8 @@ import 'dart:collection';
 import 'dart:io';
 import 'package:flutter/foundation.dart';
 
+import 'package:mighty_plug_manager/utilities/SyncDebug.dart';
+
 import '../devices/NuxConstants.dart';
 
 enum MidiSetupStatus {
@@ -165,7 +167,20 @@ abstract class BLEController {
 
   /// Time the amp's DSP needs to load a channel after a Program Change.
   /// Any CC/SysEx that arrives earlier is dropped or overwritten by the amp.
-  static const Duration dspSettleDelay = Duration(milliseconds: 200);
+  /// Raised from 200 ms: with a classic-Bluetooth audio stream running the
+  /// amp's firmware is busier and can take longer to load a channel.
+  static const Duration dspSettleDelay = Duration(milliseconds: 300);
+
+  /// Upper bound for one write-with-response before the queue moves on.
+  static const Duration reliableWriteTimeout = Duration(milliseconds: 1500);
+
+  /// When true, Program Change and Control Change messages are written WITH
+  /// response (acknowledged by the amp's BLE stack). Switched on by
+  /// NuxDeviceControl for the duration of a library-preset apply.
+  bool reliableWrites = false;
+
+  // Latched when a write-with-response fails: stop trying for this session.
+  bool _reliableUnsupported = false;
 
   /// True while a send loop is alive. Guards against a second concurrent loop
   /// (which would bypass the DSP settle delay of the first one).
@@ -205,14 +220,26 @@ abstract class BLEController {
             await Future.delayed(const Duration(milliseconds: 100));
           }
           
-          await writeToCharacteristic(data, noResponse);
+          final bool isChannelOrCc = data.length > 2 &&
+              (data[2] == MidiMessageValues.programChange ||
+                  data[2] == MidiMessageValues.controlChange);
+          final bool reliable = reliableWrites &&
+              !_reliableUnsupported &&
+              isChannelOrCc &&
+              noResponse; // the Module-Link SysEx above is already acknowledged
 
-          // --- NEW: DSP SETTLE DELAY ---
+          await _write(data, noResponse, reliable);
+
+          // --- DSP SETTLE DELAY ---
           if (data.length > 2 && data[2] == MidiMessageValues.programChange) {
             // Give the amp time to load the preset from memory 
             // before blasting it with the new parameter CCs
             await Future.delayed(dspSettleDelay);
           } 
+          // A write-with-response is already paced by the amp's confirmation
+          else if (reliable) {
+            await Future.delayed(const Duration(milliseconds: 2));
+          }
           // Existing dynamic pacing
           else if (Platform.isAndroid || Platform.isIOS) {
             // SysEx payload pacing to save the audio stream
@@ -228,12 +255,47 @@ abstract class BLEController {
         }
       } catch (e) {
         debugPrint("BLE write error: $e");
+        if (SyncDebug.wireLog) {
+          SyncDebug.log('WIRE ERROR $e | ${SyncDebug.hex(data, max: 8)}');
+        }
       } finally {
         if (dataQueue.isNotEmpty && identical(dataQueue.first, data)) {
           dataQueue.removeFirst();
         }
       }
     }
+  }
+
+  /// One BLE write. In reliable mode it is written with response; if that
+  /// fails the message is re-sent without response (and reliable mode is
+  /// switched off for the session) so a message is never lost to the mode.
+  Future<void> _write(List<int> data, bool noResponse, bool reliable) async {
+    final sw = Stopwatch()..start();
+    if (!reliable) {
+      await writeToCharacteristic(data, noResponse);
+      _wireLog(noResponse ? 'noresp' : 'resp', sw, data);
+      return;
+    }
+    try {
+      await writeToCharacteristic(data, false).timeout(reliableWriteTimeout);
+      _wireLog('resp', sw, data);
+    } on TimeoutException {
+      // The message was most likely delivered; only the confirmation is late.
+      _wireLog('resp-TIMEOUT', sw, data);
+    } catch (e) {
+      _reliableUnsupported = true;
+      SyncDebug.log('WIRE write-with-response failed ($e): '
+          'falling back to write-without-response for this session');
+      final sw2 = Stopwatch()..start();
+      await writeToCharacteristic(data, true);
+      _wireLog('noresp-fallback', sw2, data);
+    }
+  }
+
+  void _wireLog(String kind, Stopwatch sw, List<int> data) {
+    if (!SyncDebug.wireLog) return;
+    SyncDebug.log('WIRE $kind ${sw.elapsedMilliseconds}ms '
+        'q=${dataQueue.length} | ${SyncDebug.hex(data, max: 8)}');
   }
 
   @protected

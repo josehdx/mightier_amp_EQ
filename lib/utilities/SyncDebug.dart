@@ -39,6 +39,22 @@ class SyncDebug {
   // LIBRARY switch: wait this long after the preset was applied, then re-send.
   static int libraryReassertMs = 500;
 
+  // --- Mitigations for lost/garbled BLE MIDI while classic A2DP audio streams ---
+  // Log how long every BLE write really took (TX lines are enqueue times only).
+  static bool wireLog = true;
+
+  // During a library apply, write PC/CC with response (the amp's BLE stack
+  // confirms every message, which also throttles the burst).
+  static bool reliableWrites = true;
+
+  // After the amp acknowledges the apply (its reply to our FX-order SysEx),
+  // re-send every parameter once into the now-settled DSP.
+  static bool secondPass = true;
+
+  // If no acknowledgement arrives, run the second pass this long after the
+  // first pass was written.
+  static int secondPassFallbackMs = 900;
+
   // Preset loading determinism
   // false = leave the carried-over value (does not override custom presets)
   // true  = reset missing parameters to factory defaults

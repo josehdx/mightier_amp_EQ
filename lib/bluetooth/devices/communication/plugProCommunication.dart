@@ -606,6 +606,10 @@ class PlugProCommunication extends DeviceCommunication {
   bool _handleEffectsOrderData(List<int> data) {
     var dt = DateTime.now();
     if (dt.difference(_lastEffectReorder).inMilliseconds < 3000) {
+      // The amp answers our FX-order SET with the same payload. Besides being
+      // ignored here, it is the only acknowledgement the amp gives: it means
+      // everything queued before that SysEx has been processed.
+      device.deviceControl.onApplyAck();
       return true;
     }
 

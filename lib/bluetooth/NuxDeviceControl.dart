@@ -383,7 +383,7 @@ class NuxDeviceControl extends ChangeNotifier {
         var preset = device.getPreset(device.selectedChannel);
         if (preset is NamProPreset) {
           (device.communication as NamProCommunication)
-              .sendNfPayload(preset.generateNfPayload());
+              .sendCustomState(preset, param: param);
           return;
         }
       }
@@ -658,7 +658,7 @@ class NuxDeviceControl extends ChangeNotifier {
         if (device.communication is NamProCommunication &&
             preset is NamProPreset) {
           (device.communication as NamProCommunication)
-              .sendNfPayload(preset.generateNfPayload());
+              .sendCustomState(preset, effect: effect);
         }
       } else {
         for (int i = 0; i < effect.parameters.length; i++) {
@@ -681,7 +681,8 @@ class NuxDeviceControl extends ChangeNotifier {
     if (!device.fakeMasterVolume) {
       device.presets[device.selectedChannel].sendVolume();
     }
-    bool sentCustomSysEx = false;
+    bool sentNfSysEx = false; // FX A / FX B ("NF")
+    bool sentToneSysEx = false; // NAM tone ("NG")
     for (var i = 0; i < device.processorList.length; i++) {
       var preset = device.getPreset(device.selectedChannel);
       var effect =
@@ -689,9 +690,15 @@ class NuxDeviceControl extends ChangeNotifier {
       bool isCustomSysEx = effect.parameters.isNotEmpty &&
           effect.parameters.any((p) => p.midiCC < 0);
       if (isCustomSysEx) {
-        if (!sentCustomSysEx) {
+        final bool isTone =
+            preset is NamProPreset && preset.isNamToneEffect(effect);
+        if (isTone ? !sentToneSysEx : !sentNfSysEx) {
           sendFullEffectSettings(i, false);
-          sentCustomSysEx = true;
+          if (isTone) {
+            sentToneSysEx = true;
+          } else {
+            sentNfSysEx = true;
+          }
         }
       } else {
         sendFullEffectSettings(i, false);
@@ -714,7 +721,7 @@ class NuxDeviceControl extends ChangeNotifier {
         var preset = device.getPreset(device.selectedChannel);
         if (preset is NamProPreset) {
           (device.communication as NamProCommunication)
-              .sendNfPayload(preset.generateNfPayload());
+              .sendCustomState(preset, param: param);
         }
       }
       return [];

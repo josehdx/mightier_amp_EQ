@@ -374,6 +374,7 @@ class ProcessorsList {
         NamPhaser(isFxB: isFxB),
         NamTremolo(isFxB: isFxB),
         NamVibrato(isFxB: isFxB),
-        NamDaisyWah(isFxB: isFxB),
+        // Daisy Wah (103) is intentionally NOT listed: the firmware only knows
+        // the 7 effects above and would run Vibrato instead.
       ];
 }

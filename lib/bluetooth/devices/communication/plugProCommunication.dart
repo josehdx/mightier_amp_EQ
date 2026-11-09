@@ -9,6 +9,7 @@ import '../NuxMightySpace.dart';
 import '../effects/plug_pro/Cabinet.dart';
 import '../features/drumsTone.dart';
 import '../features/tuner.dart';
+import '../presets/NamProPreset.dart';
 import '../presets/PlugProPreset.dart';
 
 import '../../../platform/simpleSharedPrefs.dart';
@@ -617,11 +618,19 @@ class PlugProCommunication extends DeviceCommunication {
       var len = data[1];
       var preset = device.getPreset(device.selectedChannel);
 
-      List<NuxFXID> order = (preset as PlugProPreset).processorAtSlot;
-      order.clear();
+      final List<NuxFXID> reported = <NuxFXID>[];
       data.sublist(2, 2 + len).forEach((element) {
-        order.add(NuxFXID.fromInt(element));
+        reported.add(NuxFXID.fromInt(element));
       });
+
+      if (preset is NamProPreset) {
+        // The amp only reports its 9 stock blocks: keep FX A / FX B in place.
+        preset.applyStockOrder(reported);
+      } else {
+        List<NuxFXID> order = (preset as PlugProPreset).processorAtSlot;
+        order.clear();
+        order.addAll(reported);
+      }
       device.deviceControl.forceNotifyListeners();
       return true;
     }

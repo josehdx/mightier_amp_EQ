@@ -3,6 +3,9 @@
 import '../../../devices/effects/MidiControllerHandles.dart';
 import '../../value_formatters/ValueFormatter.dart';
 import '../Processor.dart';
+// Reuse the NAM formatter so scaling (0-24 hardware range) matches NamPitch.
+// NOTE: adjust this path if your folder layout differs.
+import '../mighty_nam/ExtraFX.dart';
 
 class NamPitchLegacy extends Processor {
   @override
@@ -37,23 +40,27 @@ class NamPitchLegacy extends Processor {
   @override
   MidiControllerHandle? get midiControlNext => null;
 
+  // devicePresetIndex MUST be in 3..9 or NamProPreset.generateNfPayload()
+  // silently drops the parameter.
+  //   3 = Pitch (0-24 hardware, 50% UI == 0 semitones)
+  //   4 = Mix   (0-100)
   @override
   List<Parameter> parameters = [
     Parameter(
       name: "Pitch",
       handle: "pitch",
-      value: 0,
-      formatter: ValueFormatters.percentage,
-      devicePresetIndex: 0,
-      midiCC: 0,
+      value: 50,
+      formatter: FxValueFormatter(3),
+      devicePresetIndex: 3,
+      midiCC: -1, // -1 routes changes through sendNfPayload()
     ),
     Parameter(
       name: "Mix",
       handle: "mix",
       value: 50,
-      formatter: ValueFormatters.percentage,
-      devicePresetIndex: 1,
-      midiCC: 0,
+      formatter: FxValueFormatter(4),
+      devicePresetIndex: 4,
+      midiCC: -1,
     ),
   ];
 }

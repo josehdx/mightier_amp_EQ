@@ -23,29 +23,23 @@ class NamProPreset extends PlugProPreset {
     HighLowCut(),
   ];
 
-  final List<Processor> _fxAList =
-      ProcessorsList.buildExtraFxList(isFxB: false);
+  final List<Processor> _fxAList = ProcessorsList.buildExtraFxList(isFxB: false);
   final List<Processor> _fxBList = ProcessorsList.buildExtraFxList(isFxB: true);
-
-  List<Processor> get efxList => getEffectsForFXID(PlugProFXID.efx);
-  List<Processor> get modulationList => getEffectsForFXID(PlugProFXID.mod);
 
   bool fxAEnabled = false;
   bool fxBEnabled = false;
   int selectedFxA = 0;
   int selectedFxB = 1;
 
-  // CRITICAL FIX: Base topology uses standard PlugPro IDs for AMP, CAB, and EQ 
-  // so the EffectChainBar renders the standard icons offline without panicking.
   static const List<NuxFXID> namBaseEffects = [
     PlugProFXID.gate,
     PlugProFXID.comp,
     MightyNamFXID.fxA,
     MightyNamFXID.fxB,
     PlugProFXID.efx,
-    PlugProFXID.amp, // Maps UI perfectly to custom NamAmp
+    PlugProFXID.amp,
     PlugProFXID.cab,
-    PlugProFXID.eq,  // Maps UI perfectly to custom CutEQ
+    PlugProFXID.eq,
     PlugProFXID.mod,
     PlugProFXID.delay,
     PlugProFXID.reverb,
@@ -57,10 +51,11 @@ class NamProPreset extends PlugProPreset {
     required String channelName,
   }) : super(device: device, channel: channel, channelName: channelName) {
     amplifierList.clear();
-    amplifierList.add(NamAmp());
+    amplifierList.add(_namAmpList.first as Amplifier);
 
     processorAtSlot.clear();
     processorAtSlot.addAll(namBaseEffects);
+    _ensureCustomBlocks();
   }
 
   @override
@@ -141,7 +136,7 @@ class NamProPreset extends PlugProPreset {
   void setSelectedEffectForSlot(int slot, int index, bool notifyBT) {
     var proc = getFXIDFromSlot(slot);
     if (proc == MightyNamFXID.fxA) {
-      selectedFxA = index;
+      selectedFxA = index.clamp(0, _fxAList.length - 1);
       if (notifyBT && device.communication is NamProCommunication) {
         (device.communication as NamProCommunication)
             .sendNfPayload(generateNfPayload());
@@ -149,7 +144,7 @@ class NamProPreset extends PlugProPreset {
       return;
     }
     if (proc == MightyNamFXID.fxB) {
-      selectedFxB = index;
+      selectedFxB = index.clamp(0, _fxBList.length - 1);
       if (notifyBT && device.communication is NamProCommunication) {
         (device.communication as NamProCommunication)
             .sendNfPayload(generateNfPayload());
@@ -163,17 +158,16 @@ class NamProPreset extends PlugProPreset {
     if (fxid == MightyNamFXID.fxA) return _fxAList;
     if (fxid == MightyNamFXID.fxB) return _fxBList;
 
-    switch (fxid) {
-      case PlugProFXID.amp:
-        return _namAmpList; // Injects Custom NAM logic securely underneath standard UI identifier
-      case PlugProFXID.eq:
-        return _namEqList;  // Injects Custom EQ logic securely underneath standard UI identifier
-      default:
-        var slot = getSlotFromFXID(fxid);
-        if (slot != null) {
-          return super.getEffectsForSlot(slot);
-        }
-        return <Processor>[];
+    if (fxid == PlugProFXID.amp) {
+      return _namAmpList;
+    } else if (fxid == PlugProFXID.eq) {
+      return _namEqList;
+    } else {
+      var slot = getSlotFromFXID(fxid);
+      if (slot != null) {
+        return super.getEffectsForSlot(slot);
+      }
+      return <Processor>[];
     }
   }
 
@@ -195,6 +189,8 @@ class NamProPreset extends PlugProPreset {
   List<int> generateNfPayload() {
     _ensureCustomBlocks();
     final List<int> config = List<int>.filled(32, 0);
+    selectedFxA = selectedFxA.clamp(0, _fxAList.length - 1);
+    selectedFxB = selectedFxB.clamp(0, _fxBList.length - 1);
 
     for (int slot = 0; slot < 2; slot++) {
       final int offset = slot * 16;
@@ -242,7 +238,10 @@ class NamProPreset extends PlugProPreset {
       config[offset + 0] = config[offset + 0].clamp(1, 7);
       config[offset + 1] = config[offset + 1].clamp(0, 1);
       config[offset + 2] = config[offset + 2].clamp(0, 10);
+      
+      // Offset 3 is the Pitch value: the firmware accepts 0..24 only.
       config[offset + 3] = config[offset + 3].clamp(0, 24);
+      
       for (int i = 4; i < 10; i++) {
         config[offset + i] = config[offset + i].clamp(0, 100);
       }
@@ -254,23 +253,32 @@ class NamProPreset extends PlugProPreset {
     return config;
   }
 
+  /// The six NAM tone controls travel in their own "NG" SysEx message.
+  bool isNamToneParam(Parameter param) => NamAmp.isToneParam(param);
+  bool isNamToneEffect(Processor effect) => effect is NamAmp;
+
+  /// Six raw firmware values: Input, Bass, Middle, Treble, Mix, Output.
+  List<int> generateNamTone() => (_namAmpList.first as NamAmp).toneValues();
+
+  void applyNamTone(List<int> tone) =>
+      (_namAmpList.first as NamAmp).applyTone(tone);
+
   @override
   void setParameterValue(Parameter param, double value, {bool notify = true}) {
-    param.value = value;
-    if (notify) {
-      if (param.midiCC == -1) {
-        if (device.communication is NamProCommunication) {
-          (device.communication as NamProCommunication)
-              .sendNfPayload(generateNfPayload());
-        }
-      } else {
-        device.parameterChanged.add(param);
+    final bool tone = NamAmp.isToneParam(param);
+    // Tone controls are stepped (0.5 dB / 1 dB): keep UI and amp identical.
+    param.value = tone ? value.roundToDouble() : value;
+    if (!notify) return;
+    if (param.midiCC == -1) {
+      final comm = device.communication;
+      if (comm is NamProCommunication) {
+        comm.sendCustomState(this, param: param);
       }
+    } else {
+      device.parameterChanged.add(param);
     }
   }
 
-  // FIXED: Rely on the superclass to perform the array modification safely
-  // and trigger the specific NAM Bluetooth notification directly after.
   @override
   void swapProcessorSlots(int from, int to, notifyBT) {
     super.swapProcessorSlots(from, to, notifyBT);
@@ -344,6 +352,43 @@ class NamProPreset extends PlugProPreset {
             stockOrder.add(defaultFxid);
           }
         }
+      }
+    }
+
+    processorAtSlot.clear();
+    processorAtSlot.addAll(stockOrder);
+    if (posA <= posB) {
+      processorAtSlot.insert(
+          posA.clamp(0, processorAtSlot.length), MightyNamFXID.fxA);
+      processorAtSlot.insert(
+          posB.clamp(0, processorAtSlot.length), MightyNamFXID.fxB);
+    } else {
+      processorAtSlot.insert(
+          posB.clamp(0, processorAtSlot.length), MightyNamFXID.fxB);
+      processorAtSlot.insert(
+          posA.clamp(0, processorAtSlot.length), MightyNamFXID.fxA);
+    }
+  }
+
+  /// Applies the stock (9 block) order reported by the amp while keeping the
+  /// app-side positions of the custom FX A / FX B blocks. The amp's firmware
+  /// only knows the stock blocks, so its module-link reply must never be
+  /// allowed to wipe FX A/B out of [processorAtSlot] (that made them snap back
+  /// to their default slots).
+  void applyStockOrder(List<NuxFXID> reported) {
+    int posA = processorAtSlot.indexOf(MightyNamFXID.fxA);
+    int posB = processorAtSlot.indexOf(MightyNamFXID.fxB);
+    if (posA == -1) posA = 2;
+    if (posB == -1) posB = 3;
+
+    final List<NuxFXID> stockOrder = reported
+        .where((id) => id != MightyNamFXID.fxA && id != MightyNamFXID.fxB)
+        .toList();
+    for (var defaultFxid in namBaseEffects) {
+      if (defaultFxid != MightyNamFXID.fxA &&
+          defaultFxid != MightyNamFXID.fxB &&
+          !stockOrder.contains(defaultFxid)) {
+        stockOrder.add(defaultFxid);
       }
     }
 
